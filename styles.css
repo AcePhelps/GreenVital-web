@@ -199,11 +199,39 @@ h3 {
   border-radius: 999px;
   border: 1px solid transparent;
   text-decoration: none;
+  transition: all 0.25s ease;
 }
 
 .button-primary {
   background: var(--accent);
   color: #fff;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image-reveal {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 1s ease;
+}
+
+.image-reveal.show {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .hero-gallery {
@@ -563,5 +591,15 @@ h3 {
 
   h1 {
     font-size: clamp(2.8rem, 14vw, 4.6rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .image-reveal,
+  .button {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
