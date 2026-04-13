@@ -78,6 +78,28 @@
         transform: translateY(-2px);
       }
 
+      .fade-up {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
+      }
+
+      .fade-up.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .image-reveal {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 1s ease;
+      }
+
+      .image-reveal.show {
+        opacity: 1;
+        transform: scale(1);
+      }
+
       .apps {
         max-width: 1100px;
         margin: auto;
@@ -207,29 +229,40 @@
           height: 360px;
         }
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        .fade-up,
+        .image-reveal,
+        .btn {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
     </style>
   </head>
 
   <body>
     <section class="hero">
-      <div class="logo">GreenVital</div>
-      <h1>Apps built for real life</h1>
-      <p>
+      <div class="logo fade-up">GreenVital</div>
+      <h1 class="fade-up">Apps built for real life</h1>
+      <p class="fade-up">
         Practical apps that help people live with more clarity, control, and balance.
       </p>
-      <a href="#apps" class="btn">Explore Apps</a>
+      <a href="#apps" class="btn fade-up">Explore Apps</a>
     </section>
 
     <section id="apps" class="apps">
-      <h2>Our Apps</h2>
+      <h2 class="fade-up">Our Apps</h2>
 
       <div class="grid">
-        <div class="card">
+        <div class="card fade-up">
           <div class="phone phone-light">
             <div class="screen">
               <img
                 src="./Screenshots/WhatsApp%20Image%202026-04-08%20at%2010.58.11.jpeg"
                 alt="Money Pulse screenshot"
+                class="image-reveal"
               />
             </div>
           </div>
@@ -254,12 +287,13 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card fade-up">
           <div class="phone">
             <div class="screen">
               <img
                 src="./Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png"
                 alt="Back to Life screenshot"
+                class="image-reveal"
               />
             </div>
           </div>
@@ -272,10 +306,14 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card fade-up">
           <div class="phone">
             <div class="screen">
-              <img src="./Screenshots/greenvital.jpeg" alt="GreenVital app screenshot" />
+              <img
+                src="./Screenshots/greenvital.jpeg"
+                alt="GreenVital app screenshot"
+                class="image-reveal"
+              />
             </div>
           </div>
           <h3>GreenVital</h3>
@@ -295,7 +333,7 @@
       </div>
     </section>
 
-    <section class="about">
+    <section class="about fade-up">
       <h2>About GreenVital</h2>
       <p>
         GreenVital builds simple, useful tools designed to help people stay focused,
@@ -307,5 +345,7 @@
       <a href="./privacy-policy.html">Privacy Policy</a>
       <a href="mailto:hello@greenvital.app">Contact</a>
     </footer>
+
+    <script src="./script.js"></script>
   </body>
 </html>
