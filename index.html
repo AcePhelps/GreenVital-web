@@ -3,158 +3,289 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GreenVital Apps</title>
+    <title>GreenVital</title>
     <meta
       name="description"
-      content="GreenVital Apps creates focused digital products including Back to Life and Money Pulse."
+      content="GreenVital builds practical apps that help people live with more clarity, control, and balance."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Outfit:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
+
+    <style>
+      :root {
+        --green: #2e7d32;
+        --light-green: #4caf50;
+        --gray: #666;
+        --border: #eee;
+        --bg: #ffffff;
+        --ink: #111;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+      }
+
+      .hero {
+        text-align: center;
+        padding: 100px 20px 80px;
+      }
+
+      .logo {
+        color: var(--green);
+        font-weight: 600;
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-size: 52px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -0.03em;
+      }
+
+      .hero p {
+        font-size: 18px;
+        color: var(--gray);
+        max-width: 600px;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 14px 28px;
+        border-radius: 999px;
+        background: var(--green);
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.25s;
+      }
+
+      .btn:hover {
+        background: var(--light-green);
+        transform: translateY(-2px);
+      }
+
+      .apps {
+        max-width: 1100px;
+        margin: auto;
+        padding: 60px 20px;
+      }
+
+      .apps h2,
+      .about h2 {
+        text-align: center;
+        margin-bottom: 60px;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+      }
+
+      .card {
+        text-align: center;
+      }
+
+      .phone {
+        width: 220px;
+        height: 440px;
+        margin: 0 auto 20px;
+        border-radius: 36px;
+        background: #000;
+        padding: 10px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .phone-light {
+        background: #111;
+      }
+
+      .screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 28px;
+        overflow: hidden;
+        background: #f0f0f0;
+      }
+
+      .screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .card h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        color: var(--gray);
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .buttons a {
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--green);
+        color: var(--green);
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .buttons a:hover {
+        background: var(--green);
+        color: white;
+      }
+
+      .disabled {
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: #f5f5f5;
+        color: #aaa;
+        font-size: 14px;
+      }
+
+      .about {
+        text-align: center;
+        padding: 80px 20px;
+      }
+
+      .about p {
+        max-width: 600px;
+        margin: auto;
+        color: var(--gray);
+        line-height: 1.7;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        border-top: 1px solid var(--border);
+        color: var(--gray);
+      }
+
+      footer a {
+        color: var(--green);
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 34px;
+        }
+
+        .phone {
+          width: 180px;
+          height: 360px;
+        }
+      }
+    </style>
   </head>
-  <body class="site-body">
-    <div class="site-shell">
-      <header class="site-header">
-        <a class="brand" href="./index.html">
-          <span class="brand-mark"></span>
-          GreenVital Apps
-        </a>
-        <nav class="site-nav">
-          <a href="#apps">Apps</a>
-          <a href="#company">Company</a>
-        </nav>
-      </header>
 
-      <main>
-        <section class="hero">
-          <div class="hero-inner">
-            <p class="eyebrow">Welcome to GreenVital Apps</p>
-            <h1>Products that bring more calm, clarity, and control to everyday life.</h1>
-            <p class="hero-copy">
-              GreenVital builds a growing collection of focused apps with clean
-              interfaces, clear purpose, and room to breathe.
-            </p>
-            <div class="hero-actions">
-              <a class="button button-primary" href="#apps">Explore our apps</a>
-            </div>
-          </div>
-        </section>
+  <body>
+    <section class="hero">
+      <div class="logo">GreenVital</div>
+      <h1>Apps built for real life</h1>
+      <p>
+        Practical apps that help people live with more clarity, control, and balance.
+      </p>
+      <a href="#apps" class="btn">Explore Apps</a>
+    </section>
 
-        <section class="intro-grid" id="company">
-          <article class="intro-card intro-card-copy">
-            <p class="eyebrow">Company</p>
-            <h2>A growing collection, built with intention.</h2>
-            <p>
-              GreenVital is designed as a home for products that feel precise, human, and
-              quietly premium.
-            </p>
-          </article>
-          <article class="intro-card">
-            <span class="intro-label">Today</span>
-            <strong>2 focused apps</strong>
-            <p>Back to Life and Money Pulse are the first products in the collection.</p>
-          </article>
-          <article class="intro-card">
-            <span class="intro-label">Structure</span>
-            <strong>One brand, separate product pages</strong>
-            <p>Each app has its own story, overview, privacy, terms, and support pages.</p>
-          </article>
-        </section>
+    <section id="apps" class="apps">
+      <h2>Our Apps</h2>
 
-        <section class="hero-gallery" aria-label="Featured GreenVital apps">
-          <article class="showcase-card showcase-card-light">
-            <div class="showcase-copy">
-              <p class="showcase-label">Back to Life</p>
-              <h2>Quiet structure for the hours that matter.</h2>
-            </div>
-            <div class="device-frame">
-              <img
-                src="./Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png"
-                alt="Back to Life app screenshot"
-              />
-            </div>
-          </article>
-
-          <article class="showcase-card showcase-card-dark">
-            <div class="showcase-copy">
-              <p class="showcase-label">Money Pulse</p>
-              <h2>Financial clarity without the clutter.</h2>
-            </div>
-            <div class="device-frame device-frame-dark">
+      <div class="grid">
+        <div class="card">
+          <div class="phone phone-light">
+            <div class="screen">
               <img
                 src="./Screenshots/WhatsApp%20Image%202026-04-08%20at%2010.58.11.jpeg"
-                alt="Money Pulse app screenshot"
+                alt="Money Pulse screenshot"
               />
             </div>
-          </article>
-        </section>
-
-        <section class="apps-index" id="apps">
-          <div class="section-heading">
-            <p class="eyebrow">Our Apps</p>
-            <h2>A small collection, designed with intention.</h2>
-            <p>
-              Each app has its own dedicated page with overview, background, privacy,
-              terms, and support, ready to expand as the GreenVital family grows.
-            </p>
           </div>
-
-          <div class="product-grid">
-            <article class="product-card product-card-light">
-              <div class="product-card-copy">
-                <div class="product-meta">
-                  <span class="product-pill">Wellbeing</span>
-                  <span class="product-number">01</span>
-                </div>
-                <h3>Back to Life</h3>
-                <p>
-                  A calm control center for boundaries, focus, and daily protection.
-                </p>
-                <a class="product-link" href="./back-to-life.html">View app page</a>
-              </div>
-              <div class="product-screen">
-                <img
-                  src="./Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png"
-                  alt="Back to Life product preview"
-                />
-              </div>
-            </article>
-
-            <article class="product-card product-card-dark">
-              <div class="product-card-copy">
-                <div class="product-meta">
-                  <span class="product-pill product-pill-dark">Finance</span>
-                  <span class="product-number">02</span>
-                </div>
-                <h3>Money Pulse</h3>
-                <p>
-                  A focused view of spending, income, and monthly momentum.
-                </p>
-                <a class="product-link product-link-dark" href="./money-pulse.html">
-                  View app page
-                </a>
-              </div>
-              <div class="product-screen product-screen-dark">
-                <img
-                  src="./Screenshots/WhatsApp%20Image%202026-04-08%20at%2010.58.11.jpeg"
-                  alt="Money Pulse product preview"
-                />
-              </div>
-            </article>
+          <h3>Money Pulse</h3>
+          <p>Track your real monthly balance.</p>
+          <div class="buttons">
+            <div class="disabled">App Store</div>
+            <div class="disabled">Google Play</div>
+            <a href="./money-pulse.html">Website</a>
           </div>
-        </section>
-      </main>
+        </div>
 
-      <footer class="site-footer">
-        <span>GreenVital Apps</span>
-        <span id="current-year"></span>
-      </footer>
-    </div>
+        <div class="card">
+          <div class="phone">
+            <div class="screen">
+              <img
+                src="./Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png"
+                alt="Back to Life screenshot"
+              />
+            </div>
+          </div>
+          <h3>Back to Life</h3>
+          <p>Protect time, boundaries, and daily focus.</p>
+          <div class="buttons">
+            <div class="disabled">App Store</div>
+            <div class="disabled">Google Play</div>
+            <a href="./back-to-life.html">Website</a>
+          </div>
+        </div>
 
-    <script src="./script.js"></script>
+        <div class="card" style="opacity: 0.6">
+          <div class="phone">
+            <div class="screen"></div>
+          </div>
+          <h3>Time Management App</h3>
+          <p>Coming soon.</p>
+          <div class="buttons">
+            <div class="disabled">App Store</div>
+            <div class="disabled">Google Play</div>
+            <div class="disabled">Website</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>About GreenVital</h2>
+      <p>
+        GreenVital builds simple, useful tools designed to help people stay focused,
+        reduce overwhelm, and make better everyday decisions without distractions.
+      </p>
+    </section>
+
+    <footer>
+      <a href="./privacy-policy.html">Privacy Policy</a>
+      <a href="mailto:hello@greenvital.app">Contact</a>
+    </footer>
   </body>
 </html>
