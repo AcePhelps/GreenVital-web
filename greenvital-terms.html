@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Service - GreenVital</title>
+    <meta
+      name="description"
+      content="Terms of Service for the GreenVital natural remedies app."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f7f7;
+        --surface: rgba(255, 255, 255, 0.88);
+        --surface-solid: #ffffff;
+        --text: #111111;
+        --muted: #626262;
+        --soft: #8a8a8a;
+        --line: rgba(17, 17, 17, 0.08);
+        --accent: #2ecc71;
+        --accent-deep: #27ae60;
+        --shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(46, 204, 113, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 20px 36px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 56px 0 34px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(46, 204, 113, 0.16);
+        background: rgba(46, 204, 113, 0.08);
+        color: var(--accent-deep);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 18px auto 16px;
+        max-width: 760px;
+        font-size: clamp(40px, 6vw, 68px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        max-width: 720px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .hero-meta {
+        margin-top: 18px;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 32px;
+      }
+
+      .sidebar,
+      .content-shell {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 20px;
+        padding: 22px;
+      }
+
+      .sidebar h2 {
+        margin: 0 0 14px;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .sidebar-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .sidebar-links a {
+        padding: 11px 12px;
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(17, 17, 17, 0.02);
+        font-size: 14px;
+      }
+
+      .sidebar-note {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--soft);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .content-shell {
+        padding: 18px;
+      }
+
+      .section {
+        padding: 24px 26px;
+        background: var(--surface-solid);
+        border-radius: 20px;
+        border: 1px solid rgba(17, 17, 17, 0.05);
+      }
+
+      .section + .section {
+        margin-top: 16px;
+      }
+
+      .section h2 {
+        margin: 0 0 14px;
+        font-size: 28px;
+        letter-spacing: -0.03em;
+      }
+
+      .section p,
+      .section li {
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+
+      .section ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .section p + ul,
+      .section ul + p,
+      .section p + p {
+        margin-top: 14px;
+      }
+
+      .bottom-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface-solid);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .pill.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: #ffffff;
+      }
+
+      footer {
+        margin-top: 72px;
+        text-align: center;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      @media (max-width: 920px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav>
+        <a class="brand" href="./index.html">GreenVital Apps</a>
+        <div class="nav-links">
+          <a href="./greenvital-app.html">GreenVital</a>
+          <a href="./greenvital-privacy.html">Privacy</a>
+          <a href="./index.html">Home</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div class="eyebrow">GreenVital Legal</div>
+        <h1>Terms of Service</h1>
+        <p>
+          The terms that govern use of the GreenVital app, including educational use,
+          premium features, and important medical disclaimers.
+        </p>
+        <div class="hero-meta">Last updated: April 13, 2026</div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar">
+          <h2>On this page</h2>
+          <div class="sidebar-links">
+            <a href="#use">Use of the App</a>
+            <a href="#medical">Medical Disclaimer</a>
+            <a href="#purchases">Premium Features</a>
+            <a href="#prohibited">Prohibited Uses</a>
+            <a href="#liability">Liability</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <p class="sidebar-note">
+            These terms apply to the GreenVital app by GreenVital LLC.
+          </p>
+        </aside>
+
+        <div class="content-shell">
+          <section class="section">
+            <p>
+              These Terms of Service ("Terms") govern your use of GreenVital, operated by
+              <strong>GreenVital LLC</strong> ("we", "our", "us"). By downloading,
+              accessing, or using the app, you agree to these Terms.
+            </p>
+          </section>
+
+          <section class="section" id="use">
+            <h2>1. Use of the App</h2>
+            <p>
+              GreenVital is an educational wellness app that helps users explore natural
+              remedies, wellness guidance, and cultural healing practices.
+            </p>
+            <p>
+              You may use the app only for lawful personal use and in compliance with these
+              Terms.
+            </p>
+          </section>
+
+          <section class="section" id="medical">
+            <h2>2. Educational Use and Medical Disclaimer</h2>
+            <p>
+              GreenVital is provided for educational and self-help purposes only. Content in
+              the app is based on traditional knowledge, cultural practices, and wellness
+              guidance.
+            </p>
+            <ul>
+              <li>GreenVital does not provide medical advice, diagnosis, or treatment.</li>
+              <li>It is not a substitute for professional medical care.</li>
+              <li>
+                Always consult a qualified healthcare professional for medical concerns,
+                emergencies, allergies, symptoms, or treatment decisions.
+              </li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>3. Availability and Content</h2>
+            <p>
+              We may update, revise, add, or remove content and features at any time. We do
+              not guarantee that all content will always be available or error-free.
+            </p>
+          </section>
+
+          <section class="section" id="purchases">
+            <h2>4. Premium Features and Purchases</h2>
+            <p>
+              Some content or features may require a premium purchase or subscription.
+              Payments are processed by the platform provider, such as Google Play, and not
+              directly by GreenVital.
+            </p>
+            <p>
+              Billing, subscription management, cancellation, and refunds are governed by the
+              platform provider’s terms and policies.
+            </p>
+          </section>
+
+          <section class="section" id="prohibited">
+            <h2>5. Prohibited Uses</h2>
+            <p>You agree not to:</p>
+            <ul>
+              <li>Use the app for unlawful, fraudulent, or harmful purposes</li>
+              <li>Copy, reverse engineer, or interfere with the app or related systems</li>
+              <li>Misrepresent the app’s content as professional medical advice</li>
+              <li>Use the app in a way that could harm other users or the service</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>6. Intellectual Property</h2>
+            <p>
+              The app’s design, content arrangement, branding, graphics, and original
+              materials are owned by GreenVital LLC or its licensors and are protected by
+              applicable law.
+            </p>
+          </section>
+
+          <section class="section" id="liability">
+            <h2>7. Limitation of Liability</h2>
+            <p>
+              To the fullest extent permitted by law, GreenVital LLC is not liable for
+              indirect, incidental, special, consequential, or punitive damages arising from
+              use of the app or reliance on its content.
+            </p>
+            <p>
+              You are responsible for how you apply information found in the app. Health and
+              treatment decisions should be made with appropriate professional guidance.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>8. Changes to These Terms</h2>
+            <p>
+              We may revise these Terms from time to time. Continued use of GreenVital after
+              an update means you accept the revised Terms.
+            </p>
+          </section>
+
+          <section class="section" id="contact">
+            <h2>9. Contact</h2>
+            <p>If you have questions about these Terms, contact:</p>
+            <p><strong>greenvitalapp@gmail.com</strong></p>
+          </section>
+
+          <div class="bottom-nav">
+            <a class="pill" href="./greenvital-privacy.html">View privacy policy</a>
+            <a class="pill primary" href="./greenvital-app.html">Back to app page</a>
+          </div>
+        </div>
+      </main>
+
+      <footer>GreenVital LLC • GreenVital Terms of Service</footer>
+    </div>
+  </body>
+</html>
