@@ -9,186 +9,469 @@
       content="Terms of Service for MoneyPulse, a GreenVital LLC product."
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
     <style>
+      :root {
+        --bg: #f7f7f7;
+        --surface: rgba(255, 255, 255, 0.88);
+        --surface-solid: #ffffff;
+        --text: #111111;
+        --muted: #626262;
+        --soft: #8a8a8a;
+        --line: rgba(17, 17, 17, 0.08);
+        --accent: #2ecc71;
+        --accent-deep: #27ae60;
+        --shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: "Inter", sans-serif;
-        background: #f7f7f7;
         margin: 0;
-        color: #111;
-      }
-
-      .container {
-        max-width: 840px;
-        margin: auto;
-        padding: 60px 20px;
-      }
-
-      h1,
-      h2 {
-        color: #111;
-        letter-spacing: -0.03em;
-      }
-
-      h1 {
-        font-size: 36px;
-      }
-
-      p,
-      li {
-        color: #555;
-        line-height: 1.7;
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(46, 204, 113, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
       }
 
       a {
-        color: #2ecc71;
+        color: inherit;
         text-decoration: none;
       }
 
-      .meta {
-        color: #777;
+      .page {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 20px 36px;
       }
 
-      .card {
-        background: white;
-        border-radius: 18px;
-        padding: 28px;
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 56px 0 34px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(46, 204, 113, 0.16);
+        background: rgba(46, 204, 113, 0.08);
+        color: var(--accent-deep);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 18px auto 16px;
+        max-width: 760px;
+        font-size: clamp(40px, 6vw, 68px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        max-width: 720px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .hero-meta {
+        margin-top: 18px;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 32px;
+      }
+
+      .sidebar,
+      .content-shell {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 20px;
+        padding: 22px;
+      }
+
+      .sidebar h2 {
+        margin: 0 0 14px;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .sidebar-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .sidebar-links a {
+        padding: 11px 12px;
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(17, 17, 17, 0.02);
+        font-size: 14px;
+      }
+
+      .sidebar-note {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--soft);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .content-shell {
+        padding: 18px;
+      }
+
+      .section {
+        padding: 24px 26px;
+        background: var(--surface-solid);
+        border-radius: 20px;
+        border: 1px solid rgba(17, 17, 17, 0.05);
+      }
+
+      .section + .section {
+        margin-top: 16px;
+      }
+
+      .section h2 {
+        margin: 0 0 14px;
+        font-size: 28px;
+        letter-spacing: -0.03em;
+      }
+
+      .section p,
+      .section li {
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+
+      .section ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .section p + ul,
+      .section ul + p,
+      .section p + p {
+        margin-top: 14px;
+      }
+
+      .section strong {
+        color: var(--text);
+      }
+
+      .accent-link {
+        color: var(--accent-deep);
+      }
+
+      .bottom-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
         margin-top: 24px;
       }
 
-      ul {
-        padding-left: 22px;
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface-solid);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .pill.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: #ffffff;
+      }
+
+      footer {
+        margin-top: 72px;
+        text-align: center;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      @media (max-width: 920px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+      }
+
+      @media (max-width: 700px) {
+        nav {
+          padding: 18px 0;
+        }
+
+        .nav-links {
+          gap: 14px;
+        }
+
+        .hero {
+          padding-top: 34px;
+        }
+
+        .section {
+          padding: 22px 18px;
+        }
+
+        .bottom-nav {
+          flex-direction: column;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Terms of Service</h1>
-      <p class="meta"><strong>Last updated:</strong> March 7, 2026</p>
+    <div class="page">
+      <nav>
+        <a class="brand" href="./index.html">GreenVital</a>
+        <div class="nav-links">
+          <a href="./money-pulse.html">MoneyPulse</a>
+          <a href="./privacy-policy.html">Privacy</a>
+          <a href="./faq-support.html">Support</a>
+        </div>
+      </nav>
 
-      <div class="card">
+      <header class="hero">
+        <div class="eyebrow">MoneyPulse Legal</div>
+        <h1>Terms of Service</h1>
         <p>
-          These Terms of Service ("Terms") govern your use of MoneyPulse, operated by
-          <strong>GreenVital LLC</strong> ("we", "our", "us"). By downloading,
-          accessing, or using MoneyPulse, you agree to these Terms.
+          The terms that govern use of MoneyPulse, including subscriptions, permitted
+          use, connected account access, and product limitations.
         </p>
+        <div class="hero-meta">Last updated: March 7, 2026</div>
+      </header>
 
-        <h2>1. Use of the App</h2>
-        <p>
-          MoneyPulse is a personal finance insights app. It helps you connect supported
-          financial accounts, view transactions and balances, and review monthly
-          summaries.
-        </p>
-        <p>You agree to use the app only in compliance with applicable laws.</p>
+      <main class="layout">
+        <aside class="sidebar">
+          <h2>On this page</h2>
+          <div class="sidebar-links">
+            <a href="#use">Use of the App</a>
+            <a href="#eligibility">Eligibility</a>
+            <a href="#connections">Financial Connections</a>
+            <a href="#read-only">Read-Only Service</a>
+            <a href="#prohibited">Prohibited Activities</a>
+            <a href="#billing">Subscriptions &amp; Billing</a>
+            <a href="#liability">Limitation of Liability</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <p class="sidebar-note">
+            These terms apply to MoneyPulse, operated by GreenVital LLC.
+          </p>
+        </aside>
 
-        <h2>2. Eligibility</h2>
-        <p>By using MoneyPulse, you represent that:</p>
-        <ul>
-          <li>You are legally permitted to enter into this agreement.</li>
-          <li>
-            You will use MoneyPulse for personal, non-commercial use unless otherwise
-            authorized.
-          </li>
-        </ul>
+        <div class="content-shell">
+          <section class="section">
+            <p>
+              These Terms of Service ("Terms") govern your use of MoneyPulse, operated by
+              <strong>GreenVital LLC</strong> ("we", "our", "us"). By downloading,
+              accessing, or using MoneyPulse, you agree to these Terms.
+            </p>
+          </section>
 
-        <h2>3. Financial Account Connections</h2>
-        <p>
-          MoneyPulse uses <strong>Plaid</strong> to connect financial institutions. By
-          using account-linking features, you authorize Plaid to access permitted account
-          information on your behalf.
-        </p>
-        <p>MoneyPulse does not collect or store your bank login credentials.</p>
-        <p>
-          Plaid terms and privacy:
-          <br />
-          <a
-            href="https://plaid.com/legal/#end-user-privacy-policy"
-            target="_blank"
-            rel="noreferrer"
-          >
-            https://plaid.com/legal/#end-user-privacy-policy
-          </a>
-        </p>
+          <section class="section" id="use">
+            <h2>1. Use of the App</h2>
+            <p>
+              MoneyPulse is a personal finance insights app. It helps you connect supported
+              financial accounts, view transactions and balances, and review monthly
+              summaries.
+            </p>
+            <p>You agree to use the app only in compliance with applicable laws.</p>
+          </section>
 
-        <h2>4. Read-Only Service</h2>
-        <p>
-          MoneyPulse is read-only. The app does not initiate transfers, payments,
-          withdrawals, wires, or ACH operations from your bank accounts.
-        </p>
+          <section class="section" id="eligibility">
+            <h2>2. Eligibility</h2>
+            <p>By using MoneyPulse, you represent that:</p>
+            <ul>
+              <li>You are legally permitted to enter into this agreement.</li>
+              <li>
+                You will use MoneyPulse for personal, non-commercial use unless otherwise
+                authorized.
+              </li>
+            </ul>
+          </section>
 
-        <h2>5. Privacy</h2>
-        <p>
-          Your use of MoneyPulse is also governed by our Privacy Policy. By using the app,
-          you consent to the data practices described there.
-        </p>
+          <section class="section" id="connections">
+            <h2>3. Financial Account Connections</h2>
+            <p>
+              MoneyPulse uses <strong>Plaid</strong> to connect financial institutions. By
+              using account-linking features, you authorize Plaid to access permitted account
+              information on your behalf.
+            </p>
+            <p>MoneyPulse does not collect or store your bank login credentials.</p>
+            <p>
+              Plaid terms and privacy:
+              <br />
+              <a
+                class="accent-link"
+                href="https://plaid.com/legal/#end-user-privacy-policy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                https://plaid.com/legal/#end-user-privacy-policy
+              </a>
+            </p>
+          </section>
 
-        <h2>6. Prohibited Activities</h2>
-        <p>You agree not to:</p>
-        <ul>
-          <li>Use the app for unlawful, fraudulent, or abusive activity</li>
-          <li>Attempt to reverse engineer, interfere with, or disrupt app or backend systems</li>
-          <li>Bypass security or access controls</li>
-          <li>Use bots or scrapers to access the service in unauthorized ways</li>
-        </ul>
+          <section class="section" id="read-only">
+            <h2>4. Read-Only Service</h2>
+            <p>
+              MoneyPulse is read-only. The app does not initiate transfers, payments,
+              withdrawals, wires, or ACH operations from your bank accounts.
+            </p>
+          </section>
 
-        <h2>7. Subscriptions and Billing</h2>
-        <p>
-          Some features may require an active subscription. Billing is handled by the
-          platform provider, for example Google Play or Apple App Store, not directly by
-          MoneyPulse.
-        </p>
-        <p>
-          Subscription management, cancellation, trial terms, and refunds are governed by
-          the platform's billing rules and your platform account settings.
-        </p>
+          <section class="section">
+            <h2>5. Privacy</h2>
+            <p>
+              Your use of MoneyPulse is also governed by our Privacy Policy. By using the app,
+              you consent to the data practices described there.
+            </p>
+          </section>
 
-        <h2>8. Availability and Changes</h2>
-        <p>
-          We may update, modify, suspend, or discontinue parts of MoneyPulse at any time.
-          We do not guarantee uninterrupted or error-free availability.
-        </p>
+          <section class="section" id="prohibited">
+            <h2>6. Prohibited Activities</h2>
+            <p>You agree not to:</p>
+            <ul>
+              <li>Use the app for unlawful, fraudulent, or abusive activity</li>
+              <li>Attempt to reverse engineer, interfere with, or disrupt app or backend systems</li>
+              <li>Bypass security or access controls</li>
+              <li>Use bots or scrapers to access the service in unauthorized ways</li>
+            </ul>
+          </section>
 
-        <h2>9. No Financial Advice</h2>
-        <p>MoneyPulse provides informational summaries only and does not provide:</p>
-        <ul>
-          <li>Financial, investment, legal, or tax advice</li>
-          <li>Brokerage or fiduciary services</li>
-        </ul>
+          <section class="section" id="billing">
+            <h2>7. Subscriptions and Billing</h2>
+            <p>
+              Some features may require an active subscription. Billing is handled by the
+              platform provider, for example Google Play or Apple App Store, not directly by
+              MoneyPulse.
+            </p>
+            <p>
+              Subscription management, cancellation, trial terms, and refunds are governed by
+              the platform's billing rules and your platform account settings.
+            </p>
+          </section>
 
-        <h2>10. Limitation of Liability</h2>
-        <p>
-          To the maximum extent permitted by law, GreenVital LLC is not liable for
-          indirect, incidental, special, consequential, or punitive damages, or for
-          losses resulting from:
-        </p>
-        <ul>
-          <li>Bank or institution outages, delays, or data quality issues</li>
-          <li>Incomplete, delayed, or incorrect third-party data</li>
-          <li>Decisions you make based on app information</li>
-          <li>Unauthorized device access outside our reasonable control</li>
-        </ul>
+          <section class="section">
+            <h2>8. Availability and Changes</h2>
+            <p>
+              We may update, modify, suspend, or discontinue parts of MoneyPulse at any time.
+              We do not guarantee uninterrupted or error-free availability.
+            </p>
+          </section>
 
-        <h2>11. Termination</h2>
-        <p>
-          We may suspend or terminate access for violations of these Terms, abuse, fraud
-          risk, or harmful behavior. You may stop using the app at any time and may delete
-          your account from app settings.
-        </p>
+          <section class="section">
+            <h2>9. No Financial Advice</h2>
+            <p>MoneyPulse provides informational summaries only and does not provide:</p>
+            <ul>
+              <li>Financial, investment, legal, or tax advice</li>
+              <li>Brokerage or fiduciary services</li>
+            </ul>
+          </section>
 
-        <h2>12. Changes to These Terms</h2>
-        <p>
-          We may revise these Terms periodically. Continued use after an update means you
-          accept the revised Terms.
-        </p>
+          <section class="section" id="liability">
+            <h2>10. Limitation of Liability</h2>
+            <p>
+              To the maximum extent permitted by law, GreenVital LLC is not liable for
+              indirect, incidental, special, consequential, or punitive damages, or for losses
+              resulting from:
+            </p>
+            <ul>
+              <li>Bank or institution outages, delays, or data quality issues</li>
+              <li>Incomplete, delayed, or incorrect third-party data</li>
+              <li>Decisions you make based on app information</li>
+              <li>Unauthorized device access outside our reasonable control</li>
+            </ul>
+          </section>
 
-        <h2>13. Contact</h2>
-        <p>If you have questions about these Terms:</p>
-        <p><strong>Email:</strong> support@greenvital.app</p>
-      </div>
+          <section class="section">
+            <h2>11. Termination</h2>
+            <p>
+              We may suspend or terminate access for violations of these Terms, abuse, fraud
+              risk, or harmful behavior. You may stop using the app at any time and may delete
+              your account from app settings.
+            </p>
+          </section>
 
-      <p><a href="./index.html">← Back to home</a></p>
+          <section class="section">
+            <h2>12. Changes to These Terms</h2>
+            <p>
+              We may revise these Terms periodically. Continued use after an update means you
+              accept the revised Terms.
+            </p>
+          </section>
+
+          <section class="section" id="contact">
+            <h2>13. Contact</h2>
+            <p>If you have questions about these Terms:</p>
+            <p><strong>Email:</strong> support@greenvital.app</p>
+          </section>
+
+          <div class="bottom-nav">
+            <a class="pill" href="./privacy-policy.html">View privacy policy</a>
+            <a class="pill primary" href="./faq-support.html">Go to support</a>
+          </div>
+        </div>
+      </main>
+
+      <footer>GreenVital LLC • MoneyPulse Terms of Service</footer>
     </div>
   </body>
 </html>
