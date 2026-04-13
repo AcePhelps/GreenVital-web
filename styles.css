@@ -57,9 +57,10 @@ button {
 .site-header,
 .hero,
 .hero-gallery,
-.statement,
+.intro-grid,
 .apps-index,
 .app-hero,
+.section-nav,
 .metrics-row,
 .feature-stage,
 .legal-grid,
@@ -156,7 +157,12 @@ h3 {
 }
 
 .hero {
-  padding: 70px 24px 50px;
+  padding: 78px 24px 58px;
+}
+
+.hero-inner {
+  max-width: 820px;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -271,16 +277,42 @@ h3 {
   border-radius: 28px;
 }
 
-.statement {
-  padding: 28px 24px;
-  border-radius: var(--radius-lg);
-  text-align: center;
+.intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
-.statement p {
-  max-width: 54ch;
-  margin: 0 auto;
-  font-size: 1.2rem;
+.intro-card {
+  padding: 28px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow);
+}
+
+.intro-card-copy p,
+.intro-card p {
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.intro-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.intro-card strong {
+  display: block;
+  margin-bottom: 10px;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: -0.03em;
 }
 
 .apps-index {
@@ -396,6 +428,28 @@ h3 {
   color: rgba(245, 245, 247, 0.74);
 }
 
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
+
+.section-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.section-nav a:hover {
+  color: var(--ink);
+}
+
 .metrics-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -463,6 +517,7 @@ h3 {
 }
 
 @media (max-width: 960px) {
+  .intro-grid,
   .hero-gallery,
   .product-grid,
   .app-hero,
@@ -495,6 +550,10 @@ h3 {
 
   .hero {
     padding-top: 52px;
+  }
+
+  .section-nav {
+    border-radius: 24px;
   }
 
   .showcase-card,
