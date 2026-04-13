@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy - Back to Liife by GreenVital</title>
+    <meta
+      name="description"
+      content="Privacy Policy for Back to Liife by GreenVital, an iPhone app that helps users schedule app and category blocking using Apple Screen Time APIs."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f7f7;
+        --surface: rgba(255, 255, 255, 0.88);
+        --surface-solid: #ffffff;
+        --text: #111111;
+        --muted: #626262;
+        --soft: #8a8a8a;
+        --line: rgba(17, 17, 17, 0.08);
+        --accent: #2ecc71;
+        --accent-deep: #27ae60;
+        --shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(46, 204, 113, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 20px 36px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 56px 0 34px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(46, 204, 113, 0.16);
+        background: rgba(46, 204, 113, 0.08);
+        color: var(--accent-deep);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 18px auto 16px;
+        max-width: 760px;
+        font-size: clamp(40px, 6vw, 68px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        max-width: 760px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .hero-meta {
+        margin-top: 18px;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 32px;
+      }
+
+      .sidebar,
+      .content-shell {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 20px;
+        padding: 22px;
+      }
+
+      .sidebar h2 {
+        margin: 0 0 14px;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .sidebar-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .sidebar-links a {
+        padding: 11px 12px;
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(17, 17, 17, 0.02);
+        font-size: 14px;
+      }
+
+      .sidebar-note {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--soft);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .content-shell {
+        padding: 18px;
+      }
+
+      .section {
+        padding: 24px 26px;
+        background: var(--surface-solid);
+        border-radius: 20px;
+        border: 1px solid rgba(17, 17, 17, 0.05);
+      }
+
+      .section + .section {
+        margin-top: 16px;
+      }
+
+      .section h2,
+      .section h3 {
+        margin: 0 0 14px;
+        letter-spacing: -0.03em;
+      }
+
+      .section h2 {
+        font-size: 28px;
+      }
+
+      .section h3 {
+        margin-top: 24px;
+        font-size: 18px;
+      }
+
+      .section p,
+      .section li {
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+
+      .section ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .section p + ul,
+      .section ul + p,
+      .section p + p {
+        margin-top: 14px;
+      }
+
+      .section strong {
+        color: var(--text);
+      }
+
+      .bottom-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface-solid);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .pill.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: #ffffff;
+      }
+
+      footer {
+        margin-top: 72px;
+        text-align: center;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      @media (max-width: 920px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav>
+        <a class="brand" href="./index.html">GreenVital Apps</a>
+        <div class="nav-links">
+          <a href="./back-to-life.html">Back to Life</a>
+          <a href="./back-to-liife-terms.html">Terms</a>
+          <a href="./index.html">Home</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div class="eyebrow">Back to Liife Legal</div>
+        <h1>Privacy Policy</h1>
+        <p>
+          This Privacy Policy describes how Back to Liife by GreenVital handles
+          information related to app schedules, Screen Time selections, notifications,
+          and subscription status.
+        </p>
+        <div class="hero-meta">Effective date: [EFFECTIVE_DATE]</div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar">
+          <h2>On this page</h2>
+          <div class="sidebar-links">
+            <a href="#overview">Overview</a>
+            <a href="#information">Information We Handle</a>
+            <a href="#screen-time">Screen Time APIs</a>
+            <a href="#notifications">Notifications</a>
+            <a href="#subscriptions">Subscriptions</a>
+            <a href="#children">Children</a>
+            <a href="#choices">Your Choices</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <p class="sidebar-note">
+            Replace the bracketed placeholders before publishing.
+          </p>
+        </aside>
+
+        <div class="content-shell">
+          <section class="section" id="overview">
+            <h2>1. Overview</h2>
+            <p>
+              Back to Liife ("Back to Liife," "we," "our," or "us") is an iPhone app
+              operated by <strong>GreenVital</strong> that helps users block selected apps
+              and categories during scheduled times using Apple Screen Time technologies.
+            </p>
+            <p>
+              This Privacy Policy explains what information the app may handle, how that
+              information is used, and the choices available to users. Back to Liife is a
+              small subscription app business. We aim to keep data use narrow and tied to the
+              app’s core functionality.
+            </p>
+          </section>
+
+          <section class="section" id="information">
+            <h2>2. Information We Handle</h2>
+            <p>
+              Back to Liife is designed primarily around local settings and device-level
+              controls. Depending on how you use the app, the app may handle the following
+              categories of information:
+            </p>
+
+            <h3>2.1 Schedules and Settings</h3>
+            <ul>
+              <li>Protection schedules you create</li>
+              <li>Selected blocking times, recurrence, and related preferences</li>
+              <li>Reminder and notification settings</li>
+              <li>App configuration and localization settings</li>
+            </ul>
+
+            <h3>2.2 App and Category Selections</h3>
+            <p>
+              When you choose apps or categories to block, Back to Liife may handle Apple-
+              provided tokens, identifiers, or selection objects needed to power that
+              feature. These are used for app functionality, not for advertising or social
+              profiling.
+            </p>
+
+            <h3>2.3 Subscription and Purchase Status</h3>
+            <p>
+              Back to Liife may store subscription status locally on your device and may rely
+              on Apple-provided purchase and receipt information to determine whether premium
+              features should be available.
+            </p>
+
+            <h3>2.4 Support Communications</h3>
+            <p>
+              If you contact us, we may receive information you choose to include, such as
+              your email address, device details, screenshots, and a description of the issue.
+            </p>
+          </section>
+
+          <section class="section" id="screen-time">
+            <h2>3. Apple Screen Time / Family Controls APIs</h2>
+            <p>
+              Back to Liife uses Apple frameworks such as
+              <strong>FamilyControls</strong>, <strong>ManagedSettings</strong>, and
+              <strong>DeviceActivity</strong> to let users schedule and apply blocking rules.
+            </p>
+            <ul>
+              <li>
+                <strong>FamilyControls</strong> is used to let the user select apps and
+                categories.
+              </li>
+              <li>
+                <strong>ManagedSettings</strong> is used to apply blocking or shielding rules.
+              </li>
+              <li>
+                <strong>DeviceActivity</strong> is used to support scheduling and activity-
+                based timing features.
+              </li>
+            </ul>
+            <p>
+              We use these APIs only to provide the blocking and schedule-management features
+              of the app. We do not use them to build advertising profiles, serve ads, or run
+              a social platform.
+            </p>
+          </section>
+
+          <section class="section" id="notifications">
+            <h2>4. Notifications</h2>
+            <p>
+              Back to Liife may send local or Apple-delivered notifications for reminders,
+              schedule changes, and protection status. If remote notification services are
+              enabled in the app in a future version, Apple may issue device tokens needed to
+              deliver notifications.
+            </p>
+            <p>
+              You can control notification permissions in iOS settings.
+            </p>
+          </section>
+
+          <section class="section" id="subscriptions">
+            <h2>5. Subscriptions and Billing</h2>
+            <p>Back to Liife offers auto-renewable subscriptions through Apple:</p>
+            <ul>
+              <li><strong>Premium Monthly:</strong> $2.99 per month</li>
+              <li>
+                <strong>Premium Yearly:</strong> $19.99 per year, with a 7-day free trial
+              </li>
+            </ul>
+            <p>
+              Payments are processed by Apple, not by us directly. Apple may provide us with
+              limited subscription-related information necessary to determine entitlement,
+              manage access, and respond to support requests. Refunds and billing management
+              are handled by Apple under Apple’s policies.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>6. How We Use Information</h2>
+            <p>We use the information described above only as reasonably necessary to:</p>
+            <ul>
+              <li>Operate scheduled blocking and protection features</li>
+              <li>Store and apply your selected settings and preferences</li>
+              <li>Show subscription access and premium status</li>
+              <li>Send reminders or protection-status notifications if enabled</li>
+              <li>Provide user support</li>
+              <li>Maintain app integrity and troubleshoot issues</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>7. Data Storage</h2>
+            <p>
+              Back to Liife is designed so that core schedule and configuration data may be
+              stored locally on the device. Some purchase or subscription information may also
+              be maintained through Apple’s systems and related app receipt mechanisms.
+            </p>
+            <p>
+              We do not describe Back to Liife as a cloud-based social or advertising
+              platform, and we do not provide community features or in-app ads.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>8. Sharing</h2>
+            <p>
+              We do not sell personal information. We may rely on Apple and related platform
+              services where necessary to operate subscriptions, notifications, and Screen Time
+              functionality.
+            </p>
+          </section>
+
+          <section class="section" id="children">
+            <h2>9. Children and Age Appropriateness</h2>
+            <p>
+              Back to Liife is not a social app and does not include public community
+              features. Because it uses Screen Time technologies, some usage may involve
+              devices managed by a parent or guardian. If a child’s device is being managed,
+              the parent or guardian is responsible for setup, permissions, and supervision.
+            </p>
+            <p>
+              If you believe information has been provided to us by a child in a way that
+              should be removed, contact us using the details below.
+            </p>
+          </section>
+
+          <section class="section" id="choices">
+            <h2>10. Your Choices</h2>
+            <ul>
+              <li>You can edit or delete schedules and settings in the app.</li>
+              <li>You can disable notifications in your iPhone settings.</li>
+              <li>You can manage or cancel subscriptions in your Apple ID settings.</li>
+              <li>
+                You can uninstall the app to remove locally stored app data from your device,
+                subject to normal iOS behavior and Apple-managed purchase records.
+              </li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>11. Changes to This Policy</h2>
+            <p>
+              We may update this Privacy Policy from time to time. When we do, we will update
+              the effective date at the top of this page.
+            </p>
+          </section>
+
+          <section class="section" id="contact">
+            <h2>12. Contact</h2>
+            <p>If you have questions about this Privacy Policy, contact:</p>
+            <p><strong>[SUPPORT_EMAIL]</strong></p>
+            <p><strong>[COMPANY_ADDRESS]</strong></p>
+          </section>
+
+          <div class="bottom-nav">
+            <a class="pill" href="./back-to-life.html">Back to app page</a>
+            <a class="pill primary" href="./back-to-liife-terms.html">View terms</a>
+          </div>
+        </div>
+      </main>
+
+      <footer>GreenVital • Back to Liife Privacy Policy</footer>
+    </div>
+  </body>
+</html>

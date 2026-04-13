@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Use - Back to Liife by GreenVital</title>
+    <meta
+      name="description"
+      content="Terms of Use for Back to Liife by GreenVital, including subscription terms for auto-renewable iOS plans."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f7f7;
+        --surface: rgba(255, 255, 255, 0.88);
+        --surface-solid: #ffffff;
+        --text: #111111;
+        --muted: #626262;
+        --soft: #8a8a8a;
+        --line: rgba(17, 17, 17, 0.08);
+        --accent: #2ecc71;
+        --accent-deep: #27ae60;
+        --shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(46, 204, 113, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 20px 36px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 56px 0 34px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(46, 204, 113, 0.16);
+        background: rgba(46, 204, 113, 0.08);
+        color: var(--accent-deep);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 18px auto 16px;
+        max-width: 760px;
+        font-size: clamp(40px, 6vw, 68px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        max-width: 760px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .hero-meta {
+        margin-top: 18px;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 32px;
+      }
+
+      .sidebar,
+      .content-shell {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 20px;
+        padding: 22px;
+      }
+
+      .sidebar h2 {
+        margin: 0 0 14px;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .sidebar-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .sidebar-links a {
+        padding: 11px 12px;
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(17, 17, 17, 0.02);
+        font-size: 14px;
+      }
+
+      .sidebar-note {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--soft);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .content-shell {
+        padding: 18px;
+      }
+
+      .section {
+        padding: 24px 26px;
+        background: var(--surface-solid);
+        border-radius: 20px;
+        border: 1px solid rgba(17, 17, 17, 0.05);
+      }
+
+      .section + .section {
+        margin-top: 16px;
+      }
+
+      .section h2 {
+        margin: 0 0 14px;
+        font-size: 28px;
+        letter-spacing: -0.03em;
+      }
+
+      .section p,
+      .section li {
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+
+      .section ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .section p + ul,
+      .section ul + p,
+      .section p + p {
+        margin-top: 14px;
+      }
+
+      .section strong {
+        color: var(--text);
+      }
+
+      .bottom-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface-solid);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .pill.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: #ffffff;
+      }
+
+      footer {
+        margin-top: 72px;
+        text-align: center;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      @media (max-width: 920px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav>
+        <a class="brand" href="./index.html">GreenVital Apps</a>
+        <div class="nav-links">
+          <a href="./back-to-life.html">Back to Life</a>
+          <a href="./back-to-liife-privacy.html">Privacy</a>
+          <a href="./index.html">Home</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div class="eyebrow">Back to Liife Legal</div>
+        <h1>Terms of Use</h1>
+        <p>
+          These Terms of Use govern access to Back to Liife, including its Screen Time
+          blocking features and auto-renewable subscriptions sold through Apple.
+        </p>
+        <div class="hero-meta">Effective date: [EFFECTIVE_DATE]</div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar">
+          <h2>On this page</h2>
+          <div class="sidebar-links">
+            <a href="#use">Use of the App</a>
+            <a href="#subscriptions">Subscriptions</a>
+            <a href="#billing">Billing and Renewal</a>
+            <a href="#refunds">Refunds</a>
+            <a href="#children">Children</a>
+            <a href="#prohibited">Prohibited Uses</a>
+            <a href="#liability">Liability</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <p class="sidebar-note">
+            Replace the bracketed placeholders before publishing.
+          </p>
+        </aside>
+
+        <div class="content-shell">
+          <section class="section">
+            <p>
+              These Terms of Use ("Terms") govern your use of Back to Liife, an iPhone app
+              operated by <strong>GreenVital</strong> ("we," "our," or "us"). By
+              downloading, accessing, or using Back to Liife, you agree to these Terms.
+            </p>
+          </section>
+
+          <section class="section" id="use">
+            <h2>1. Use of the App</h2>
+            <p>
+              Back to Liife is designed to help users create scheduled digital boundaries by
+              blocking selected apps and categories during chosen times. The app relies on
+              Apple Screen Time technologies, including FamilyControls, ManagedSettings, and
+              DeviceActivity.
+            </p>
+            <p>
+              You agree to use the app only in compliance with applicable law, Apple’s
+              platform rules, and these Terms.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>2. Availability of Features</h2>
+            <p>
+              Some features may depend on device compatibility, iOS version, Apple
+              permissions, and the continued availability of Apple APIs. We do not guarantee
+              that all features will always be available on every device or under every system
+              condition.
+            </p>
+          </section>
+
+          <section class="section" id="subscriptions">
+            <h2>3. Subscription Plans</h2>
+            <p>Back to Liife offers auto-renewable subscriptions through Apple:</p>
+            <ul>
+              <li><strong>Premium Monthly:</strong> $2.99 per month</li>
+              <li>
+                <strong>Premium Yearly:</strong> $19.99 per year, including a 7-day free trial
+                where offered
+              </li>
+            </ul>
+            <p>
+              Premium access unlocks paid features as described in the app at the time of
+              purchase.
+            </p>
+          </section>
+
+          <section class="section" id="billing">
+            <h2>4. Billing and Auto-Renewal</h2>
+            <p>
+              Payment is charged to your Apple ID account at confirmation of purchase, or at
+              the end of any applicable free trial period unless canceled earlier.
+            </p>
+            <p>
+              Subscriptions renew automatically unless canceled at least 24 hours before the
+              end of the current period. Your account will be charged for renewal within the
+              24 hours before the end of the current period at the rate in effect for your
+              selected plan.
+            </p>
+            <p>
+              You can manage or cancel subscriptions in your Apple ID account settings after
+              purchase.
+            </p>
+          </section>
+
+          <section class="section" id="refunds">
+            <h2>5. Refunds</h2>
+            <p>
+              Billing and refunds for App Store purchases are handled by Apple, not by us
+              directly. If you are seeking a refund, please use Apple’s support and billing
+              processes.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>6. Trial Offers</h2>
+            <p>
+              If a free trial is offered, eligibility and administration of that trial are
+              determined by Apple and the App Store. Unless canceled before the trial ends,
+              the applicable subscription fee will be charged through Apple.
+            </p>
+          </section>
+
+          <section class="section" id="children">
+            <h2>7. Children and Supervised Use</h2>
+            <p>
+              Back to Liife may be used in connection with parent- or guardian-managed Screen
+              Time setups. If the app is used in a supervised or family context, the parent or
+              guardian is responsible for configuration decisions, permissions, and oversight.
+            </p>
+          </section>
+
+          <section class="section" id="prohibited">
+            <h2>8. Prohibited Uses</h2>
+            <p>You agree not to:</p>
+            <ul>
+              <li>Use the app in violation of law or Apple platform rules</li>
+              <li>Attempt to bypass, disrupt, or interfere with app protections or services</li>
+              <li>Reverse engineer or misuse the app or related systems</li>
+              <li>Use the app for fraudulent, abusive, or harmful purposes</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>9. Intellectual Property</h2>
+            <p>
+              Back to Liife, including its software, branding, design, and content, is owned
+              by GreenVital or its licensors and protected by applicable law.
+            </p>
+          </section>
+
+          <section class="section" id="liability">
+            <h2>10. Disclaimers and Limitation of Liability</h2>
+            <p>
+              Back to Liife is provided on an "as is" and "as available" basis to the extent
+              permitted by law. We do not guarantee uninterrupted operation or that the app
+              will always block every selected app or category in every circumstance.
+            </p>
+            <p>
+              To the fullest extent permitted by law, GreenVital is not liable for indirect,
+              incidental, special, consequential, or punitive damages, or for losses arising
+              from device settings, operating system behavior, Apple service changes, or user
+              configuration choices.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>11. Termination</h2>
+            <p>
+              We may suspend or terminate access to the app for misuse, abuse, fraud risk, or
+              violations of these Terms. You may stop using the app at any time.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>12. Changes to These Terms</h2>
+            <p>
+              We may revise these Terms from time to time. Continued use of Back to Liife
+              after updated Terms become effective means you accept the revised Terms.
+            </p>
+          </section>
+
+          <section class="section" id="contact">
+            <h2>13. Contact</h2>
+            <p>If you have questions about these Terms, contact:</p>
+            <p><strong>[SUPPORT_EMAIL]</strong></p>
+            <p><strong>[COMPANY_ADDRESS]</strong></p>
+          </section>
+
+          <div class="bottom-nav">
+            <a class="pill" href="./back-to-liife-privacy.html">View privacy policy</a>
+            <a class="pill primary" href="./back-to-life.html">Back to app page</a>
+          </div>
+        </div>
+      </main>
+
+      <footer>GreenVital • Back to Liife Terms of Use</footer>
+    </div>
+  </body>
+</html>
