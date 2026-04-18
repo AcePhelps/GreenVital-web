@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ & Support - Back to Liife</title>
+    <meta
+      name="description"
+      content="FAQ and support information for Back to Liife by GreenVital."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f7f7;
+        --surface: rgba(255, 255, 255, 0.88);
+        --surface-solid: #ffffff;
+        --text: #111111;
+        --muted: #626262;
+        --soft: #8a8a8a;
+        --line: rgba(17, 17, 17, 0.08);
+        --accent: #2ecc71;
+        --accent-deep: #27ae60;
+        --shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(46, 204, 113, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 20px 36px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 56px 0 34px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(46, 204, 113, 0.16);
+        background: rgba(46, 204, 113, 0.08);
+        color: var(--accent-deep);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 18px auto 16px;
+        max-width: 760px;
+        font-size: clamp(40px, 6vw, 68px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        max-width: 720px;
+        margin: 0 auto;
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .hero-meta {
+        margin-top: 18px;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .support-banner {
+        margin-top: 28px;
+        padding: 22px 24px;
+        border-radius: 22px;
+        background: #0f1115;
+        color: #ffffff;
+        box-shadow: var(--shadow);
+      }
+
+      .support-banner p {
+        margin: 0;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .support-banner strong {
+        color: #ffffff;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 32px;
+      }
+
+      .sidebar,
+      .content-shell {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 20px;
+        padding: 22px;
+      }
+
+      .sidebar h2 {
+        margin: 0 0 14px;
+        font-size: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .sidebar-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .sidebar-links a {
+        padding: 11px 12px;
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(17, 17, 17, 0.02);
+        font-size: 14px;
+      }
+
+      .sidebar-note {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--soft);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .content-shell {
+        padding: 18px;
+      }
+
+      .section {
+        padding: 24px 26px;
+        background: var(--surface-solid);
+        border-radius: 20px;
+        border: 1px solid rgba(17, 17, 17, 0.05);
+      }
+
+      .section + .section {
+        margin-top: 16px;
+      }
+
+      .section h2 {
+        margin: 0 0 16px;
+        font-size: 28px;
+        letter-spacing: -0.03em;
+      }
+
+      .qa {
+        padding: 18px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .qa:first-of-type {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .q {
+        margin-bottom: 8px;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .qa p,
+      .section p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 15px;
+      }
+
+      .bottom-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--surface-solid);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .pill.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: #ffffff;
+      }
+
+      footer {
+        margin-top: 72px;
+        text-align: center;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      @media (max-width: 920px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav>
+        <a class="brand" href="./index.html">GreenVital Apps</a>
+        <div class="nav-links">
+          <a href="./back-to-life.html">Back to Life</a>
+          <a href="./back-to-liife-privacy.html">Privacy</a>
+          <a href="./back-to-liife-terms.html">Terms</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div class="eyebrow">Back to Liife Support</div>
+        <h1>FAQ &amp; Support</h1>
+        <p>
+          Answers to common questions about schedules, Screen Time permissions,
+          subscriptions, notifications, and getting help with Back to Liife.
+        </p>
+        <div class="hero-meta">Last updated: April 18, 2026</div>
+        <div class="support-banner">
+          <p>
+            <strong>Support email:</strong> greenvitalapp@gmail.com<br />
+            <strong>Typical response time:</strong> 1-3 business days
+          </p>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar">
+          <h2>Jump to</h2>
+          <div class="sidebar-links">
+            <a href="#getting-started">Getting Started</a>
+            <a href="#screen-time">Screen Time &amp; Permissions</a>
+            <a href="#subscriptions">Subscriptions &amp; Billing</a>
+            <a href="#notifications">Notifications</a>
+            <a href="#support">Support Requests</a>
+          </div>
+          <p class="sidebar-note">
+            Include your iPhone model, iOS version, and a screenshot when reporting an issue.
+          </p>
+        </aside>
+
+        <div class="content-shell">
+          <section class="section" id="getting-started">
+            <h2>Getting Started</h2>
+
+            <div class="qa">
+              <div class="q">What is Back to Liife?</div>
+              <p>
+                Back to Liife is an iPhone app that helps you create scheduled digital
+                boundaries by blocking selected apps and categories during times you choose.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">How does it work?</div>
+              <p>
+                The app uses Apple Screen Time technologies to let you select apps or
+                categories, create schedules, and apply protection during those scheduled
+                windows.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">Do I need to create an account?</div>
+              <p>
+                No social or community account is required to use the app’s core features.
+                Most settings are designed around local device configuration.
+              </p>
+            </div>
+          </section>
+
+          <section class="section" id="screen-time">
+            <h2>Screen Time &amp; Permissions</h2>
+
+            <div class="qa">
+              <div class="q">Why does Back to Liife ask for Screen Time permissions?</div>
+              <p>
+                Apple requires Screen Time-related permissions for apps that manage selected
+                apps and categories through FamilyControls, ManagedSettings, and DeviceActivity.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">Why is blocking not working correctly?</div>
+              <p>
+                Blocking can depend on current iOS settings, granted permissions, app
+                selections, schedule timing, and system behavior. If protection is not
+                applying as expected, re-check permissions, selected apps/categories, and the
+                active schedule time.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">Can Back to Liife see everything I do on my phone?</div>
+              <p>
+                No. Back to Liife uses Apple-provided Screen Time frameworks for the app’s
+                blocking features. It is not a social platform and does not include ads or
+                public community features.
+              </p>
+            </div>
+          </section>
+
+          <section class="section" id="subscriptions">
+            <h2>Subscriptions &amp; Billing</h2>
+
+            <div class="qa">
+              <div class="q">What subscriptions are available?</div>
+              <p>
+                Back to Liife offers Premium Monthly at $2.99/month and Premium Yearly at
+                $19.99/year, with a 7-day free trial where offered.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">How do I manage or cancel my subscription?</div>
+              <p>
+                Subscriptions are managed through your Apple ID account settings on iPhone.
+                Apple handles billing and renewal.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">How do refunds work?</div>
+              <p>
+                Refunds for App Store purchases are handled by Apple according to Apple’s
+                billing policies and processes.
+              </p>
+            </div>
+          </section>
+
+          <section class="section" id="notifications">
+            <h2>Notifications</h2>
+
+            <div class="qa">
+              <div class="q">What notifications does the app send?</div>
+              <p>
+                Back to Liife may send reminders and protection-status notifications related to
+                your schedules and app usage settings.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">How do I turn notifications off?</div>
+              <p>
+                You can disable notifications for Back to Liife in your iPhone Settings under
+                Notifications.
+              </p>
+            </div>
+          </section>
+
+          <section class="section" id="support">
+            <h2>Support Requests</h2>
+
+            <div class="qa">
+              <div class="q">How do I contact support?</div>
+              <p>
+                Email <strong>greenvitalapp@gmail.com</strong>. Please include a short
+                description of the issue, your iPhone model, iOS version, and screenshots if
+                possible.
+              </p>
+            </div>
+
+            <div class="qa">
+              <div class="q">What should I not include?</div>
+              <p>
+                Do not send passwords, Apple ID credentials, payment card details, or any
+                other sensitive login information.
+              </p>
+            </div>
+          </section>
+
+          <div class="bottom-nav">
+            <a class="pill" href="./back-to-life.html">Back to app page</a>
+            <a class="pill primary" href="mailto:greenvitalapp@gmail.com">Email support</a>
+          </div>
+        </div>
+      </main>
+
+      <footer>GreenVital • Back to Liife FAQ &amp; Support</footer>
+    </div>
+  </body>
+</html>
