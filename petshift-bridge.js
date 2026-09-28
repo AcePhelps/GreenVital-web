@@ -8,14 +8,17 @@
   const copyTarget = document.querySelector("[data-bridge-copy]");
   const tokenPattern = /^[A-Za-z0-9_-]{43}$/;
 
-  function inviteDeepLink() {
-    const segments = path.split("/").filter(Boolean);
+  function inviteDeepLinkFromSegments(segments) {
+    let inviteType;
+    let token;
 
-    if (segments.length !== 3 || segments[0] !== "invite") {
+    if (segments.length === 3 && segments[0] === "invite") {
+      [, inviteType, token] = segments;
+    } else if (segments.length === 2) {
+      [inviteType, token] = segments;
+    } else {
       return null;
     }
-
-    const [, inviteType, token] = segments;
 
     if (!tokenPattern.test(token)) {
       return null;
@@ -30,6 +33,16 @@
     }
 
     return null;
+  }
+
+  function inviteDeepLink() {
+    const pathSegments = path.split("/").filter(Boolean);
+    const hashSegments = hash.replace(/^#\/?/, "").split("/").filter(Boolean);
+
+    return (
+      inviteDeepLinkFromSegments(pathSegments) ||
+      inviteDeepLinkFromSegments(hashSegments)
+    );
   }
 
   let deepLink = null;
