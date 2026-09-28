@@ -105,7 +105,7 @@ img {
 }
 
 .nav-links .nav-cta {
-  min-height: 34px;
+  min-height: 40px;
   padding: 0 12px;
   border: 1px solid rgba(16, 63, 43, 0.18);
   border-radius: 8px;
@@ -133,7 +133,7 @@ img {
 
 .hero {
   position: relative;
-  min-height: min(760px, calc(100svh - 122px));
+  min-height: min(610px, calc(100svh - 154px));
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -154,7 +154,7 @@ img {
 .hero-inner {
   width: min(100% - 32px, 1160px);
   margin: 0 auto;
-  padding: clamp(56px, 9vh, 96px) 0 clamp(58px, 10vh, 104px);
+  padding: 54px 0 58px;
 }
 
 .hero-inner > * {
@@ -181,9 +181,9 @@ h1 {
   max-width: 820px;
   margin-bottom: 22px;
   color: var(--forest-2);
-  font-size: clamp(46px, 8vw, 92px);
-  line-height: 0.94;
-  letter-spacing: -0.07em;
+  font-size: 72px;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
 }
 
 .hero h1 {
@@ -195,7 +195,7 @@ h1 {
   max-width: 640px;
   margin-bottom: 30px;
   color: var(--muted);
-  font-size: clamp(18px, 2vw, 22px);
+  font-size: 21px;
   line-height: 1.55;
 }
 
@@ -211,7 +211,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
+  min-height: 48px;
   padding: 0 18px;
   border: 1px solid var(--forest);
   border-radius: 8px;
@@ -318,7 +318,7 @@ h1 {
 .preview-heading h2 {
   margin: 0;
   color: var(--forest-2);
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: 40px;
   line-height: 1.08;
   letter-spacing: -0.045em;
 }
@@ -411,7 +411,7 @@ h1 {
 .section-heading h2 {
   margin: 0;
   color: var(--forest-2);
-  font-size: clamp(34px, 5vw, 58px);
+  font-size: 52px;
   line-height: 1;
   letter-spacing: -0.055em;
 }
@@ -491,7 +491,7 @@ h1 {
 .trust-band h2 {
   max-width: 720px;
   margin-bottom: 36px;
-  font-size: clamp(34px, 5vw, 56px);
+  font-size: 52px;
   line-height: 1.04;
   letter-spacing: -0.05em;
 }
@@ -598,7 +598,7 @@ h1 {
 .support-strip h2 {
   margin-bottom: 8px;
   color: var(--forest);
-  font-size: clamp(26px, 4vw, 42px);
+  font-size: 38px;
   letter-spacing: -0.04em;
 }
 
@@ -653,6 +653,20 @@ h1 {
     background-position: 58% center;
   }
 
+  h1 {
+    font-size: 58px;
+  }
+
+  .preview-heading h2,
+  .section-heading h2,
+  .trust-band h2 {
+    font-size: 42px;
+  }
+
+  .support-strip h2 {
+    font-size: 34px;
+  }
+
   .hero-visual {
     justify-items: start;
   }
@@ -679,14 +693,25 @@ h1 {
 
 @media (max-width: 680px) {
   .nav {
-    min-height: auto;
-    padding: 14px 0;
-    align-items: flex-start;
-    flex-direction: column;
+    min-height: 58px;
+    padding: 8px 0;
+    align-items: center;
+    flex-direction: row;
+    gap: 12px;
   }
 
   .nav-links {
-    justify-content: flex-start;
+    margin-left: auto;
+    justify-content: flex-end;
+  }
+
+  .nav-links a:not(.nav-cta) {
+    display: none;
+  }
+
+  .nav-links .nav-cta {
+    min-height: 48px;
+    padding: 0 14px;
   }
 
   .section {
@@ -694,11 +719,13 @@ h1 {
   }
 
   h1 {
-    font-size: clamp(42px, 15vw, 58px);
+    font-size: 40px;
+    line-height: 1.02;
+    letter-spacing: -0.052em;
   }
 
   .hero {
-    min-height: max(500px, calc(100svh - 190px));
+    min-height: max(420px, calc(100svh - 178px));
     background-position: 60% center;
   }
 
@@ -708,7 +735,36 @@ h1 {
 
   .hero-inner {
     width: min(100% - 24px, 1160px);
-    padding: 46px 0 56px;
+    padding: 34px 0 38px;
+  }
+
+  .hero-copy {
+    margin-bottom: 20px;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .preview-band {
+    padding: 34px 0 36px;
+  }
+
+  .preview-heading h2,
+  .section-heading h2,
+  .trust-band h2 {
+    font-size: 32px;
+    line-height: 1.06;
+  }
+
+  .support-strip h2 {
+    font-size: 28px;
   }
 
   .workflow,
@@ -747,6 +803,33 @@ h1 {
 }
 
 @media (max-width: 360px) {
+  .brand {
+    gap: 8px;
+    font-size: 15px;
+  }
+
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav-links .nav-cta {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  .hero-copy {
+    font-size: 16px;
+  }
+
+  .button {
+    font-size: 14px;
+  }
+
   .phone {
     width: min(100%, 252px);
   }
