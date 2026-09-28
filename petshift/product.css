@@ -20,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
 }
 
 body {
@@ -129,6 +130,10 @@ img {
 .section {
   width: min(100% - 32px, 1160px);
   margin: 0 auto;
+}
+
+main > section[id] {
+  scroll-margin-top: 88px;
 }
 
 .hero {
@@ -692,6 +697,14 @@ h1 {
 }
 
 @media (max-width: 680px) {
+  html {
+    scroll-padding-top: 74px;
+  }
+
+  main > section[id] {
+    scroll-margin-top: 74px;
+  }
+
   .nav {
     min-height: 58px;
     padding: 8px 0;
