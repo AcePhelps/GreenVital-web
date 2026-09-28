@@ -175,6 +175,38 @@ strong {
   background: #f1f7ef;
 }
 
+.primary-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: var(--green);
+  color: #ffffff;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.issue-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.issue-grid a {
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  background: #f7fbf6;
+  color: var(--green-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .footer {
   margin-top: 34px;
   padding-top: 20px;
@@ -214,5 +246,9 @@ strong {
 
   .legal-nav {
     display: grid;
+  }
+
+  .issue-grid {
+    grid-template-columns: 1fr;
   }
 }
