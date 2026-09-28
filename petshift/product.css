@@ -287,8 +287,10 @@ h1 {
 .phone-screen img {
   display: block;
   width: 100%;
-  height: auto;
-  transform: translateY(var(--crop-y, -58px));
+  height: calc(100% + var(--crop-top, 58px));
+  object-fit: cover;
+  object-position: top center;
+  transform: translateY(calc(-1 * var(--crop-top, 58px)));
 }
 
 .visual-caption {
