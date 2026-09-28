@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PetShift Link | GreenVital</title>
+    <meta
+      name="description"
+      content="Open a PetShift link and continue in the app."
+    />
+    <link rel="stylesheet" href="/petshift-bridge.css" />
+    <script>
+      if (!window.location.pathname.startsWith("/invite/")) {
+        window.location.replace("/");
+      }
+    </script>
+  </head>
+  <body>
+    <main class="bridge-shell">
+      <section class="bridge-panel">
+        <div class="brand"><span class="brand-mark"></span>PetShift by GreenVital</div>
+        <h1>Open your invite</h1>
+        <p>
+          We are opening PetShift so you can accept this invite. If the app does not
+          open automatically, use the button below.
+        </p>
+        <div class="bridge-actions">
+          <a class="button button-primary" href="#" data-open-app>Open PetShift</a>
+          <a class="button" href="/">Back to GreenVital</a>
+        </div>
+        <p class="bridge-note" data-current-url></p>
+      </section>
+    </main>
+    <script src="/petshift-bridge.js"></script>
+  </body>
+</html>
