@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.petshift.app",
+      "sha256_cert_fingerprints": [
+        "6B:34:6B:70:8F:AD:0E:46:6E:3E:0C:AF:9C:52:7C:77:ED:53:4A:29:90:59:C1:A1:6E:50:5E:CA:FE:91:94:EB"
+      ]
+    }
+  }
+]

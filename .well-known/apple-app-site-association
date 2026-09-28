@@ -1,9 +1,20 @@
 {
   "applinks": {
     "apps": [],
-    "details": []
+    "details": [
+      {
+        "appID": "LU7KD3F268.com.greenvital.petshift.dev",
+        "paths": [
+          "/auth/confirm/*",
+          "/auth/reset/*",
+          "/invite/*"
+        ]
+      }
+    ]
   },
   "webcredentials": {
-    "apps": []
+    "apps": [
+      "LU7KD3F268.com.greenvital.petshift.dev"
+    ]
   }
 }
