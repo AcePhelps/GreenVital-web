@@ -8,23 +8,25 @@
       name="description"
       content="Reset your PetShift password and continue in the app."
     />
-    <link rel="stylesheet" href="/petshift-bridge.css" />
+    <link rel="stylesheet" href="/petshift-bridge.css?v=auth-handoff-1" />
   </head>
   <body>
     <main class="bridge-shell">
       <section class="bridge-panel">
-        <div class="brand"><span class="brand-mark"></span>PetShift by GreenVital</div>
-        <h1 data-bridge-title>Reset your password</h1>
+        <div class="brand"><span class="brand-mark"></span>PetShift</div>
+        <p class="bridge-kicker">Password reset</p>
+        <h1 data-bridge-title>Continue in PetShift</h1>
         <p data-bridge-copy>
-          We are opening PetShift so you can finish resetting your password. If the app
-          does not open automatically, use the button below.
+          Open PetShift to choose your new password. Your password is never entered on
+          this website.
         </p>
         <div class="bridge-actions">
-          <a class="button button-primary" href="#" data-open-app>Open PetShift</a>
-          <a class="button" href="/">Back to GreenVital</a>
+          <a class="button button-primary" href="#" data-open-app>Reset password in PetShift</a>
+          <a class="button" href="/petshift/">PetShift home</a>
         </div>
+        <p class="bridge-note">PetShift opens only after you choose Reset password.</p>
       </section>
     </main>
-    <script src="/petshift-bridge.js"></script>
+    <script src="/petshift-bridge.js?v=auth-handoff-1"></script>
   </body>
 </html>

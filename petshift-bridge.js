@@ -93,7 +93,12 @@
     openButton.setAttribute("href", deepLink);
   }
 
-  window.setTimeout(() => {
-    window.location.href = deepLink;
-  }, 650);
+  // Auth links stop on the branded handoff page so an app-open prompt never
+  // appears over a blank redirect page. Invitations retain their established
+  // automatic handoff behavior.
+  if (path.startsWith("/invite/")) {
+    window.setTimeout(() => {
+      window.location.href = deepLink;
+    }, 650);
+  }
 })();
