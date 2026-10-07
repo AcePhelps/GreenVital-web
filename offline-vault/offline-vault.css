@@ -1194,7 +1194,7 @@ h3 {
   }
 
   .nav-status {
-    padding: 0 8px;
+    display: none;
   }
 
   .hero {

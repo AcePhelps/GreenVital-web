@@ -10,8 +10,8 @@
     />
     <meta name="theme-color" content="#071112" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=4" />
-    <script src="/offline-vault/releases.js?v=4" defer></script>
+    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=5" />
+    <script src="/offline-vault/releases.js?v=5" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -26,7 +26,7 @@
           <a href="/offline-vault/">Offline Vault</a>
           <a href="/">All apps</a>
         </div>
-        <span class="nav-status" aria-label="Windows sideload hosting is not ready">Hosting required</span>
+        <span class="nav-status" aria-label="Windows sideload is available">Windows available</span>
       </nav>
     </header>
 
@@ -36,8 +36,8 @@
           <p class="eyebrow">Official GreenVital software</p>
           <h1>Install from the source.</h1>
           <p>
-            Offline Vault Companion 1.0.0 is prepared as a self-signed Windows sideload.
-            Downloads stay disabled until every file is hosted and independently verified.
+            Offline Vault Companion 1.0.0 is available as a self-signed Windows sideload.
+            Every published file is hosted over HTTPS and independently verified before release.
           </p>
           <a class="downloads-product-link" href="/offline-vault/">Explore Offline Vault</a>
         </div>
@@ -45,7 +45,7 @@
         <article class="release-card downloads-release" data-release-platform="windows">
           <div class="release-card-header">
             <span class="platform-label">Windows 10 / 11</span>
-            <span class="release-status" data-release-field="status">Hosting required</span>
+            <span class="release-status" data-release-field="status">Self-signed sideload</span>
           </div>
           <h2>Offline Vault Companion</h2>
           <p>
@@ -72,6 +72,7 @@
             <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64</dd></div>
             <div><dt>File size</dt><dd data-release-field="fileSize">125.8 MB</dd></div>
             <div><dt>Certificate SHA-1</dt><dd>FC677345547ACF903AC8ABBEEEBD79A30318889C</dd></div>
+            <div><dt>Certificate SHA-256</dt><dd data-release-field="certificateSha256">E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484</dd></div>
             <div><dt>Installer SHA-256</dt><dd data-release-field="sha256">81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e</dd></div>
           </dl>
           <div class="release-actions three-up">
@@ -95,6 +96,9 @@
             >MSIX bundle unavailable</a>
           </div>
           <p class="security-note">Only the public <code>.cer</code> is provided. Never install or share a private key, PFX, or certificate password.</p>
+          <p class="downloads-help">
+            Release details: <a data-release-link="releaseManifestUrl" data-ready-label="View release manifest">View release manifest</a>.
+          </p>
           <p class="downloads-help">
             Questions? <a href="mailto:support@greenvital.app?subject=Offline%20Vault%20Windows%20Download">Email support</a>.
           </p>

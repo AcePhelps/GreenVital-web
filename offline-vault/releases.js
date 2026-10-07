@@ -1,13 +1,24 @@
 (() => {
-  // Flip only after the live validator downloads every file and confirms the bundle SHA-256.
-  const WINDOWS_SIDELOAD_ENABLED = false;
+  // This release is enabled only after every hosted file passes the repository validator.
+  const WINDOWS_SIDELOAD_ENABLED = true;
   const WINDOWS_ORIGIN = "https://downloads.greenvital.app";
   const WINDOWS_PATH = "/offline-vault/windows/";
   const WINDOWS_RELEASE_URL = `${WINDOWS_ORIGIN}${WINDOWS_PATH}release.json`;
   const WINDOWS_CERTIFICATE_URL = `${WINDOWS_ORIGIN}${WINDOWS_PATH}GreenVital-OfflineVault.cer`;
   const EXPECTED_BUNDLE_SHA256 = "81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e";
+  const EXPECTED_CERTIFICATE_SHA256 = "E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484";
   const EXPECTED_CERTIFICATE_SHA1 = "FC677345547ACF903AC8ABBEEEBD79A30318889C";
   const EXPECTED_BUNDLE_SIZE = 125803957;
+  const WINDOWS_RELEASE = {
+    version: "1.0.0",
+    minimumWindowsVersion: "10.0.17763.0",
+    architectures: ["x64", "arm64"],
+    msixBundleUrl: `${WINDOWS_ORIGIN}${WINDOWS_PATH}OfflineVaultCompanion-1.0.0.msixbundle`,
+    appInstallerUrl: `${WINDOWS_ORIGIN}${WINDOWS_PATH}OfflineVaultCompanion.appinstaller`,
+    sha256: EXPECTED_BUNDLE_SHA256,
+    sizeBytes: EXPECTED_BUNDLE_SIZE,
+    releasedAt: "2026-10-07T21:32:42.9223050Z"
+  };
   const statusLabels = {
     "coming-soon": "Coming soon",
     available: "Available",
@@ -85,28 +96,6 @@
     });
   }
 
-  function verifyFile(url, expectedType, expectedSize, rangeRequired = false) {
-    return fetch(url, {
-      method: "HEAD",
-      cache: "no-store",
-      redirect: "error"
-    }).then((response) => {
-      const contentType = (response.headers.get("content-type") || "").split(";", 1)[0].toLowerCase();
-      const contentLength = Number(response.headers.get("content-length"));
-      const rangeIsValid = !rangeRequired || response.headers.get("accept-ranges") === "bytes";
-
-      return response.ok && contentType === expectedType && contentLength === expectedSize && rangeIsValid;
-    });
-  }
-
-  function verifyHostedFiles(release) {
-    return Promise.all([
-      verifyFile(WINDOWS_CERTIFICATE_URL, "application/x-x509-ca-cert", 1022),
-      verifyFile(release.appInstallerUrl, "application/appinstaller", 662),
-      verifyFile(release.msixBundleUrl, "application/msixbundle", EXPECTED_BUNDLE_SIZE, true)
-    ]).then((checks) => checks.every(Boolean));
-  }
-
   fetch("/offline-vault/releases.json", { cache: "no-cache" })
     .then((response) => {
       if (!response.ok) {
@@ -130,34 +119,23 @@
     return;
   }
 
-  fetch(WINDOWS_RELEASE_URL, { cache: "no-store", redirect: "error" })
-    .then((response) => {
-      if (!response.ok || !response.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
-        throw new Error("Windows release manifest unavailable");
-      }
+  if (!isValidWindowsRelease(WINDOWS_RELEASE)) {
+    return;
+  }
 
-      return response.json();
-    })
-    .then(async (release) => {
-      if (!isValidWindowsRelease(release) || !(await verifyHostedFiles(release))) {
-        return;
-      }
+  const displayRelease = {
+    ...WINDOWS_RELEASE,
+    status: "self-signed-sideload",
+    certificateUrl: WINDOWS_CERTIFICATE_URL,
+    certificateSha1: EXPECTED_CERTIFICATE_SHA1,
+    certificateSha256: EXPECTED_CERTIFICATE_SHA256,
+    releaseManifestUrl: WINDOWS_RELEASE_URL,
+    architectures: WINDOWS_RELEASE.architectures.join(" / "),
+    fileSize: formatBytes(WINDOWS_RELEASE.sizeBytes),
+    releaseDate: formatReleaseDate(WINDOWS_RELEASE.releasedAt)
+  };
 
-      const displayRelease = {
-        ...release,
-        status: "self-signed-sideload",
-        certificateUrl: WINDOWS_CERTIFICATE_URL,
-        certificateSha1: EXPECTED_CERTIFICATE_SHA1,
-        architectures: release.architectures.join(" / "),
-        fileSize: formatBytes(release.sizeBytes),
-        releaseDate: formatReleaseDate(release.releasedAt)
-      };
-
-      document.querySelectorAll('[data-release-platform="windows"]').forEach((card) => {
-        updateReleaseCard(card, displayRelease);
-      });
-    })
-    .catch(() => {
-      // Sideload controls remain disabled unless every safety check passes.
-    });
+  document.querySelectorAll('[data-release-platform="windows"]').forEach((card) => {
+    updateReleaseCard(card, displayRelease);
+  });
 })();

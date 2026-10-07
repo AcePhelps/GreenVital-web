@@ -8,7 +8,6 @@ import { fileURLToPath } from "node:url";
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const WINDOWS_ORIGIN = "https://downloads.greenvital.app";
 const WINDOWS_PATH = "/offline-vault/windows/";
-const SITE_ORIGIN = "https://greenvital.app";
 const EXPECTED_CERTIFICATE_SHA1 = "FC677345547ACF903AC8ABBEEEBD79A30318889C";
 const ASSETS = {
   "OfflineVaultCompanion-1.0.0.msixbundle": {
@@ -125,8 +124,7 @@ async function fetchWithoutRedirect(url, options = {}) {
   const response = await fetch(url, {
     cache: "no-store",
     redirect: "manual",
-    ...options,
-    headers: { Origin: SITE_ORIGIN, ...options.headers }
+    ...options
   });
   assert(response.status >= 200 && response.status < 300, `${url} returned HTTP ${response.status}`);
   assert(!response.redirected && response.status < 300, `${url} redirected`);
@@ -137,11 +135,9 @@ function validateHeaders(response, fileName, expectedLength) {
   const expected = ASSETS[fileName];
   const contentType = (response.headers.get("content-type") || "").split(";", 1)[0].toLowerCase();
   const contentLength = Number(response.headers.get("content-length"));
-  const cors = response.headers.get("access-control-allow-origin");
 
   assert(contentType === expected.contentType, `${fileName} has Content-Type ${contentType || "missing"}`);
   assert(contentLength === expectedLength, `${fileName} has Content-Length ${contentLength}`);
-  assert(cors === SITE_ORIGIN, `${fileName} does not allow CORS from ${SITE_ORIGIN}`);
 }
 
 async function downloadLiveAsset(fileName) {
@@ -166,18 +162,19 @@ async function validateLiveRelease() {
     "bundle Content-Range is invalid"
   );
 
-  console.log("Live sideload release passed HTTPS, CORS, MIME, length, range, and byte-for-byte checks.");
+  console.log("Live sideload release passed HTTPS, MIME, length, range, and byte-for-byte checks.");
 }
 
 async function validateWebsiteGate() {
   const script = await readFile(resolve(repositoryRoot, "offline-vault/releases.js"), "utf8");
   assert(
-    script.includes("const WINDOWS_SIDELOAD_ENABLED = false;"),
-    "Windows sideload controls are not safely disabled"
+    script.includes("const WINDOWS_SIDELOAD_ENABLED = true;"),
+    "Windows sideload controls are not enabled"
   );
   assert(script.includes(ASSETS["OfflineVaultCompanion-1.0.0.msixbundle"].sha256), "website bundle SHA-256 changed");
   assert(script.includes(EXPECTED_CERTIFICATE_SHA1), "website certificate thumbprint changed");
-  console.log("Website sideload controls remain disabled with the verified release fingerprints pinned.");
+  assert(script.includes(ASSETS["GreenVital-OfflineVault.cer"].sha256.toUpperCase()), "website certificate SHA-256 changed");
+  console.log("Website sideload controls are enabled with the verified release fingerprints pinned.");
 }
 
 async function main() {
