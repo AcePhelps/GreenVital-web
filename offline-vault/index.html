@@ -17,7 +17,7 @@
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
     <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=2" />
-    <script src="/offline-vault/releases.js?v=1" defer></script>
+    <script src="/offline-vault/releases.js?v=2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -259,11 +259,13 @@
               </div>
               <h3>Offline Vault Companion for Windows</h3>
               <p>
-                The official production-signed MSIX will be distributed directly from greenvital.app.
-                Updates will be delivered through a signed App Installer feed.
+                A dedicated GreenVital download service will distribute the production-signed MSIX bundle.
+                Updates will use a signed App Installer feed once the Windows release is available.
               </p>
               <dl class="release-meta">
                 <div><dt>Version</dt><dd data-release-field="version">Not released</dd></div>
+                <div><dt>Minimum Windows</dt><dd data-release-field="minimumWindowsVersion">Windows 10</dd></div>
+                <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64 planned</dd></div>
                 <div><dt>File size</dt><dd data-release-field="fileSize">Not released</dd></div>
                 <div><dt>Release date</dt><dd data-release-field="releaseDate">Not announced</dd></div>
                 <div><dt>SHA-256</dt><dd data-release-field="sha256">Available at release</dd></div>
@@ -271,10 +273,10 @@
               <div class="release-actions two-up">
                 <a
                   class="button button-disabled release-link"
-                  data-release-link="msixUrl"
-                  data-ready-label="Download MSIX"
+                  data-release-link="msixBundleUrl"
+                  data-ready-label="Download MSIX bundle"
                   aria-disabled="true"
-                >MSIX coming soon</a>
+                >MSIX bundle coming soon</a>
                 <a
                   class="button button-disabled release-link"
                   data-release-link="appInstallerUrl"

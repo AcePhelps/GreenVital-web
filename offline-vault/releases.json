@@ -7,14 +7,5 @@
     "sha256": null,
     "fileSize": null,
     "releaseDate": null
-  },
-  "windows": {
-    "status": "coming-soon",
-    "version": null,
-    "msixUrl": null,
-    "appInstallerUrl": null,
-    "sha256": null,
-    "fileSize": null,
-    "releaseDate": null
   }
 }
