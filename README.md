@@ -21,3 +21,9 @@ Then open `http://127.0.0.1:4173`.
 This site is ready for GitHub Pages hosting as a static website.
 
 If you use the custom domain `greenvital.app`, keep the `CNAME` file in the repo.
+
+## Release operations
+
+- [Offline Vault Windows release infrastructure handoff](docs/offline-vault-windows-release-handoff.md)
+- Validate a future candidate manifest with `node scripts/validate-offline-vault-windows-release.mjs /path/to/release.json`.
+- Run the live check only after publishing the signed artifacts and `release.json` in the documented order.
