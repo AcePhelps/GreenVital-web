@@ -252,6 +252,13 @@ h3 {
   color: var(--cyan-soft);
 }
 
+.button-active {
+  border: 1px solid var(--cyan);
+  background: var(--cyan);
+  color: var(--ink);
+  text-decoration: none;
+}
+
 .hero-product {
   min-height: 510px;
   position: relative;
@@ -347,6 +354,7 @@ h3 {
 .control-band,
 .offline-band,
 .privacy-band,
+.companion-band,
 .details-band,
 .faq-band {
   padding: 92px 0;
@@ -367,7 +375,7 @@ h3 {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-top: 1px solid var(--line-dark);
   list-style: none;
 }
@@ -397,6 +405,12 @@ h3 {
   color: var(--muted-dark);
 }
 
+.workflow-band .section-heading > p:last-child {
+  color: var(--muted-dark);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
 .privacy-points p {
   margin-bottom: 0;
   color: var(--muted);
@@ -406,6 +420,10 @@ h3 {
 .privacy-band,
 .faq-band {
   background: var(--black);
+}
+
+.companion-band {
+  background: var(--panel);
 }
 
 .control-grid {
@@ -516,6 +534,118 @@ h3 {
   color: var(--cyan);
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
+}
+
+.companion-heading > p:last-child {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.companion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.release-card {
+  min-width: 0;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--black);
+}
+
+.release-card-header {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.platform-label {
+  color: var(--cyan-soft);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.release-status {
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.release-card > p {
+  min-height: 78px;
+  margin-bottom: 24px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.release-meta {
+  margin: 0 0 26px;
+  border-top: 1px solid var(--line);
+}
+
+.release-meta div {
+  min-height: 48px;
+  padding: 10px 0;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.release-meta dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.release-meta dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  text-align: right;
+}
+
+.release-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.release-actions.two-up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.release-link {
+  width: 100%;
+  font-size: 14px;
+  text-align: center;
+}
+
+.release-link[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+.companion-support {
+  margin: 24px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.companion-support a {
+  color: var(--cyan-soft);
+  font-weight: 700;
 }
 
 .details-layout {
@@ -683,6 +813,10 @@ h3 {
     border-top: 1px solid var(--line-dark);
   }
 
+  .workflow li:last-child {
+    grid-column: 1 / -1;
+  }
+
   .control-grid,
   .offline-layout,
   .details-layout,
@@ -703,6 +837,14 @@ h3 {
 
   .privacy-points article > span {
     margin-bottom: 24px;
+  }
+
+  .companion-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .release-card > p {
+    min-height: 0;
   }
 
   .price-lockup {
@@ -839,6 +981,7 @@ h3 {
   .control-band,
   .offline-band,
   .privacy-band,
+  .companion-band,
   .details-band,
   .faq-band {
     padding: 68px 0;
@@ -868,14 +1011,32 @@ h3 {
     border-top: 0;
   }
 
+  .workflow li:last-child {
+    grid-column: auto;
+  }
+
   .step-number {
     margin-bottom: 24px;
   }
 
   .control-copy > p:last-child,
   .offline-copy > p,
-  .section-heading.compact > p:last-child {
+  .section-heading.compact > p:last-child,
+  .workflow-band .section-heading > p:last-child,
+  .companion-heading > p:last-child {
     font-size: 16px;
+  }
+
+  .release-card {
+    padding: 22px 18px;
+  }
+
+  .release-card-header {
+    margin-bottom: 22px;
+  }
+
+  .release-actions.two-up {
+    grid-template-columns: 1fr;
   }
 
   .widget-visual {

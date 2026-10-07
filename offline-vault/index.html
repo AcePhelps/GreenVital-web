@@ -6,17 +6,18 @@
     <title>Offline Vault by GreenVital | Your private media library</title>
     <meta
       name="description"
-      content="Offline Vault is a private, self-hosted media library for iPhone, with an included Mac server, offline playback, background sync, playlists, and private folders."
+      content="Offline Vault is a private, self-hosted media library for iPhone, with an included computer companion for macOS and Windows, offline playback, background sync, playlists, and private folders."
     />
     <meta name="theme-color" content="#071112" />
     <meta property="og:title" content="Offline Vault by GreenVital" />
     <meta
       property="og:description"
-      content="Keep your own media organized, available offline, and under your control. $19.99 once, with the Mac server included."
+      content="Keep your own media organized, available offline, and under your control. $19.99 once, with the macOS and Windows companion included."
     />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=1" />
+    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=2" />
+    <script src="/offline-vault/releases.js?v=1" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -31,7 +32,7 @@
           <a href="#workflow">How it works</a>
           <a href="#offline">Offline playback</a>
           <a href="#privacy">Private folders</a>
-          <a href="#details">Details</a>
+          <a href="#companion">Computer companion</a>
         </div>
         <span class="nav-status" aria-label="Offline Vault is coming soon">Coming soon</span>
       </nav>
@@ -41,10 +42,10 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <p class="eyebrow">Private media, without a subscription</p>
-          <h1 id="hero-title">Your media. Your Mac. Always with you.</h1>
+          <h1 id="hero-title">Your media. Your computer. Always with you.</h1>
           <p class="hero-intro">
-            Offline Vault pairs your iPhone with your personal Mac server, so the media
-            you own can stay organized, sync in the background, and play anywhere.
+            Offline Vault pairs your iPhone with your own computer over the same local
+            network, so your media can stay organized, transfer in the background, and play anywhere.
           </p>
           <div class="purchase-line" aria-label="Pricing and availability">
             <div>
@@ -54,7 +55,7 @@
             <span class="divider" aria-hidden="true"></span>
             <div>
               <strong>Included</strong>
-              <span>Offline Vault Server for Mac</span>
+              <span>Computer companion for macOS and Windows</span>
             </div>
           </div>
           <span class="button button-disabled" aria-disabled="true">
@@ -90,29 +91,35 @@
       <section class="workflow-band" id="workflow" aria-labelledby="workflow-title">
         <div class="section">
           <div class="section-heading">
-            <p class="eyebrow">One private route from Mac to iPhone</p>
-            <h2 id="workflow-title">Your Mac is the source. Your iPhone is the player.</h2>
+            <p class="eyebrow">A direct route from computer to iPhone</p>
+            <h2 id="workflow-title">Set it up once. Take selected media with you.</h2>
+            <p>Keep your iPhone and computer on the same Wi-Fi while pairing and transferring files.</p>
           </div>
           <ol class="workflow">
             <li>
               <span class="step-number">01</span>
-              <h3>Choose your media folder</h3>
-              <p>Point Offline Vault Server at the music and video you keep on your Mac.</p>
+              <h3>Install the companion</h3>
+              <p>Open Offline Vault Companion on your Mac or Windows computer.</p>
             </li>
             <li>
               <span class="step-number">02</span>
-              <h3>Connect your iPhone</h3>
-              <p>Pair the app with your personal server instead of uploading a second library.</p>
+              <h3>Select your folder</h3>
+              <p>Choose the folder containing the audio and video files you own.</p>
             </li>
             <li>
               <span class="step-number">03</span>
-              <h3>Keep favorites offline</h3>
-              <p>Choose what stays on your phone while background transfers do the work.</p>
+              <h3>Start sharing</h3>
+              <p>Make that folder available to Offline Vault on your local network.</p>
             </li>
             <li>
               <span class="step-number">04</span>
-              <h3>Play anywhere</h3>
-              <p>Listen or watch from the local library, even when your Mac or internet is unavailable.</p>
+              <h3>Scan the QR code</h3>
+              <p>Use Offline Vault on iPhone to pair with your computer on the same Wi-Fi.</p>
+            </li>
+            <li>
+              <span class="step-number">05</span>
+              <h3>Choose what stays offline</h3>
+              <p>Transfer selected files to iPhone, then play them without a connection.</p>
             </li>
           </ol>
         </div>
@@ -124,7 +131,7 @@
             <p class="eyebrow">Designed around ownership</p>
             <h2 id="control-title">A media library that answers to you.</h2>
             <p>
-              Import compatible files directly from Files or connect your personal Mac.
+              Import compatible files directly from Files or connect your own computer.
               Offline Vault keeps playback, organization, and storage controls together on iPhone.
             </p>
           </div>
@@ -134,8 +141,8 @@
               <dd>$19.99 once</dd>
             </div>
             <div>
-              <dt>Mac server</dt>
-              <dd>Included</dd>
+              <dt>Computer companion</dt>
+              <dd>macOS + Windows</dd>
             </div>
             <div>
               <dt>Subscription</dt>
@@ -200,10 +207,88 @@
             </article>
             <article>
               <span aria-hidden="true">03</span>
-              <h3>Your server, your folder</h3>
-              <p>The included Mac server lets your own computer remain the source of your library.</p>
+              <h3>Your computer, your folder</h3>
+              <p>The included companion lets your own computer remain the source of your library.</p>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section class="companion-band" id="companion" aria-labelledby="companion-title">
+        <div class="section">
+          <div class="section-heading companion-heading">
+            <p class="eyebrow">Offline Vault Companion</p>
+            <h2 id="companion-title">Your library starts on your computer.</h2>
+            <p>
+              The companion is included with Offline Vault. Select a folder, start sharing,
+              and pair your iPhone by scanning the QR code while both devices are on the same Wi-Fi.
+            </p>
+          </div>
+
+          <div class="companion-grid">
+            <article class="release-card" data-release-platform="macos">
+              <div class="release-card-header">
+                <span class="platform-label">macOS</span>
+                <span class="release-status" data-release-field="status">Coming soon</span>
+              </div>
+              <h3>Offline Vault Companion for Mac</h3>
+              <p>
+                Choose a folder containing your files, start sharing, and pair with your iPhone
+                on the same local network.
+              </p>
+              <dl class="release-meta">
+                <div><dt>Version</dt><dd data-release-field="version">Not released</dd></div>
+                <div><dt>File size</dt><dd data-release-field="fileSize">Not released</dd></div>
+                <div><dt>Release date</dt><dd data-release-field="releaseDate">Not announced</dd></div>
+                <div><dt>SHA-256</dt><dd data-release-field="sha256">Available at release</dd></div>
+              </dl>
+              <div class="release-actions">
+                <a
+                  class="button button-disabled release-link"
+                  data-release-link="downloadUrl"
+                  data-ready-label="Download for Mac"
+                  aria-disabled="true"
+                >Mac download coming soon</a>
+              </div>
+            </article>
+
+            <article class="release-card" data-release-platform="windows">
+              <div class="release-card-header">
+                <span class="platform-label">Windows 10 / 11</span>
+                <span class="release-status" data-release-field="status">Coming soon</span>
+              </div>
+              <h3>Offline Vault Companion for Windows</h3>
+              <p>
+                The official production-signed MSIX will be distributed directly from greenvital.app.
+                Updates will be delivered through a signed App Installer feed.
+              </p>
+              <dl class="release-meta">
+                <div><dt>Version</dt><dd data-release-field="version">Not released</dd></div>
+                <div><dt>File size</dt><dd data-release-field="fileSize">Not released</dd></div>
+                <div><dt>Release date</dt><dd data-release-field="releaseDate">Not announced</dd></div>
+                <div><dt>SHA-256</dt><dd data-release-field="sha256">Available at release</dd></div>
+              </dl>
+              <div class="release-actions two-up">
+                <a
+                  class="button button-disabled release-link"
+                  data-release-link="msixUrl"
+                  data-ready-label="Download MSIX"
+                  aria-disabled="true"
+                >MSIX coming soon</a>
+                <a
+                  class="button button-disabled release-link"
+                  data-release-link="appInstallerUrl"
+                  data-ready-label="Get App Installer"
+                  aria-disabled="true"
+                >App Installer coming soon</a>
+              </div>
+            </article>
+          </div>
+
+          <p class="companion-support">
+            Need help with pairing or transfers?
+            <a href="mailto:support@greenvital.app?subject=Offline%20Vault%20Companion%20Support">Email Offline Vault support</a>.
+          </p>
         </div>
       </section>
 
@@ -211,11 +296,11 @@
         <div class="section details-layout">
           <div>
             <p class="eyebrow">The complete package</p>
-            <h2 id="details-title">One price for iPhone and Mac.</h2>
+            <h2 id="details-title">One price for iPhone and your computer.</h2>
           </div>
           <div class="price-lockup">
             <strong>$19.99</strong>
-            <p>One-time iPhone app purchase. Offline Vault Server for Mac is included at no extra cost.</p>
+            <p>One-time iPhone app purchase. The macOS and Windows companion is included at no extra cost.</p>
             <span class="button button-disabled light" aria-disabled="true">Coming soon</span>
           </div>
         </div>
@@ -230,11 +315,19 @@
               <p>No. The planned price is $19.99 as a one-time purchase.</p>
             </details>
             <details>
-              <summary>Is the Mac server included?</summary>
-              <p>Yes. Offline Vault Server for Mac is included at no extra cost.</p>
+              <summary>Is the computer companion included?</summary>
+              <p>Yes. The Offline Vault Companion for macOS and Windows is included at no extra cost.</p>
             </details>
             <details>
-              <summary>Can I import files without a server?</summary>
+              <summary>What does the Windows companion require?</summary>
+              <p>It is planned for Windows 10 and Windows 11. A signed production build is not available yet.</p>
+            </details>
+            <details>
+              <summary>Do my iPhone and computer need the same Wi-Fi?</summary>
+              <p>Yes. Keep both devices on the same local network while pairing and transferring selected files.</p>
+            </details>
+            <details>
+              <summary>Can I import files without the companion?</summary>
               <p>Yes. Compatible audio and video files can also be imported from Files on iPhone.</p>
             </details>
             <details>
