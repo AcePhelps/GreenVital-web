@@ -648,6 +648,57 @@ h3 {
   font-weight: 700;
 }
 
+.downloads-main {
+  min-height: calc(100svh - 68px);
+  padding: 88px 0 96px;
+  background: var(--panel);
+}
+
+.downloads-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(440px, 1.18fr);
+  gap: 76px;
+  align-items: start;
+}
+
+.downloads-intro {
+  position: sticky;
+  top: 136px;
+}
+
+.downloads-intro > p:not(.eyebrow) {
+  max-width: 48ch;
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.downloads-product-link {
+  color: var(--cyan-soft);
+  font-weight: 750;
+  text-underline-offset: 4px;
+}
+
+.downloads-release h2 {
+  font-size: 34px;
+}
+
+.downloads-release > p {
+  min-height: 0;
+}
+
+.downloads-help {
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.downloads-help a {
+  color: var(--cyan-soft);
+  font-weight: 700;
+}
+
 .details-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -843,6 +894,15 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .downloads-layout {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .downloads-intro {
+    position: static;
+  }
+
   .release-card > p {
     min-height: 0;
   }
@@ -985,6 +1045,19 @@ h3 {
   .details-band,
   .faq-band {
     padding: 68px 0;
+  }
+
+  .downloads-main {
+    min-height: calc(100svh - 62px);
+    padding: 54px 0 68px;
+  }
+
+  .downloads-intro h1 {
+    font-size: 42px;
+  }
+
+  .downloads-intro > p:not(.eyebrow) {
+    font-size: 16px;
   }
 
   .workflow-band {

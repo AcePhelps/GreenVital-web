@@ -24,6 +24,6 @@ If you use the custom domain `greenvital.app`, keep the `CNAME` file in the repo
 
 ## Release operations
 
-- [Offline Vault Windows release infrastructure handoff](docs/offline-vault-windows-release-handoff.md)
-- Validate a future candidate manifest with `node scripts/validate-offline-vault-windows-release.mjs /path/to/release.json`.
-- Run the live check only after publishing the signed artifacts and `release.json` in the documented order.
+- [Offline Vault Windows manual release handoff](docs/offline-vault-windows-release-handoff.md)
+- Validate the gated or future manual release with `node scripts/validate-offline-vault-windows-release.mjs`.
+- Publish only a trusted, timestamped ZIP and matching manifest values in the documented order.

@@ -1,29 +1,20 @@
 (() => {
-  // Signed Windows artifacts stay off GitHub Pages so their required headers can be controlled.
-  const WINDOWS_RELEASE_ORIGIN = "https://downloads.greenvital.app";
-  const WINDOWS_RELEASE_URL = `${WINDOWS_RELEASE_ORIGIN}/offline-vault/windows/release.json`;
+  const WINDOWS_DOWNLOAD_PREFIX = "/downloads/offline-vault/windows/";
   const statusLabels = {
     "coming-soon": "Coming soon",
     available: "Available"
   };
 
-  function isExpectedDownloadUrl(value, fileName) {
+  function isExpectedWindowsUrl(value, version) {
     if (typeof value !== "string") {
       return false;
     }
 
-    try {
-      const url = new URL(value);
-      const actualFileName = decodeURIComponent(url.pathname.split("/").pop());
-
-      return url.origin === WINDOWS_RELEASE_ORIGIN && actualFileName === fileName;
-    } catch {
-      return false;
-    }
+    return value === `${WINDOWS_DOWNLOAD_PREFIX}OfflineVaultCompanion-${version}.zip`;
   }
 
   function isValidWindowsRelease(release) {
-    if (!release || typeof release !== "object") {
+    if (!release || typeof release !== "object" || release.status !== "available") {
       return false;
     }
 
@@ -39,12 +30,9 @@
     const checksumIsValid = typeof release.sha256 === "string" && /^[a-f0-9]{64}$/.test(release.sha256);
     const sizeIsValid = Number.isSafeInteger(release.sizeBytes) && release.sizeBytes > 0;
     const releaseDateIsValid =
-      typeof release.releasedAt === "string" &&
-      release.releasedAt.endsWith("Z") &&
-      !Number.isNaN(Date.parse(release.releasedAt));
-    const bundleName = versionIsValid
-      ? `OfflineVaultCompanion-${release.version}.msixbundle`
-      : "";
+      typeof release.releaseDate === "string" &&
+      /^\d{4}-\d{2}-\d{2}$/.test(release.releaseDate) &&
+      !Number.isNaN(Date.parse(`${release.releaseDate}T00:00:00Z`));
 
     return (
       versionIsValid &&
@@ -53,8 +41,7 @@
       checksumIsValid &&
       sizeIsValid &&
       releaseDateIsValid &&
-      isExpectedDownloadUrl(release.msixBundleUrl, bundleName) &&
-      isExpectedDownloadUrl(release.appInstallerUrl, "OfflineVaultCompanion.appinstaller")
+      isExpectedWindowsUrl(release.downloadUrl, release.version)
     );
   }
 
@@ -78,7 +65,7 @@
       month: "short",
       day: "numeric",
       timeZone: "UTC"
-    }).format(new Date(value));
+    }).format(new Date(`${value}T00:00:00Z`));
   }
 
   function updateReleaseCard(card, release) {
@@ -99,11 +86,21 @@
       }
 
       link.href = url;
+      link.download = "";
       link.textContent = link.dataset.readyLabel;
       link.removeAttribute("aria-disabled");
       link.classList.remove("button-disabled");
       link.classList.add("button-active");
     });
+  }
+
+  function releaseFileIsLive(release) {
+    return fetch(release.downloadUrl, { method: "HEAD", cache: "no-store" })
+      .then((response) => {
+        const contentLength = Number(response.headers.get("content-length"));
+        return response.ok && !response.redirected && contentLength === release.sizeBytes;
+      })
+      .catch(() => false);
   }
 
   fetch("/offline-vault/releases.json", { cache: "no-cache" })
@@ -114,49 +111,35 @@
 
       return response.json();
     })
-    .then((manifest) => {
-      const card = document.querySelector('[data-release-platform="macos"]');
+    .then(async (manifest) => {
+      const macCard = document.querySelector('[data-release-platform="macos"]');
 
-      if (card && manifest.macos) {
-        updateReleaseCard(card, manifest.macos);
-      }
-    })
-    .catch(() => {
-      // The static fallback remains accurate if the release manifest cannot load.
-    });
-
-  fetch(WINDOWS_RELEASE_URL, { cache: "no-cache" })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Windows release unavailable");
+      if (macCard && manifest.macos) {
+        updateReleaseCard(macCard, manifest.macos);
       }
 
-      return response.json();
-    })
-    .then((release) => {
-      if (!isValidWindowsRelease(release)) {
+      if (!isValidWindowsRelease(manifest.windows)) {
         return;
       }
 
-      const card = document.querySelector('[data-release-platform="windows"]');
-
-      if (!card) {
+      if (!(await releaseFileIsLive(manifest.windows))) {
         return;
       }
 
-      updateReleaseCard(card, {
-        status: "available",
-        version: release.version,
-        minimumWindowsVersion: release.minimumWindowsVersion,
-        architectures: release.architectures.join(" / "),
-        msixBundleUrl: release.msixBundleUrl,
-        appInstallerUrl: release.appInstallerUrl,
-        sha256: release.sha256,
-        fileSize: formatBytes(release.sizeBytes),
-        releaseDate: formatReleaseDate(release.releasedAt)
+      const windowsCard = document.querySelector('[data-release-platform="windows"]');
+
+      if (!windowsCard) {
+        return;
+      }
+
+      updateReleaseCard(windowsCard, {
+        ...manifest.windows,
+        architectures: manifest.windows.architectures.join(" / "),
+        fileSize: formatBytes(manifest.windows.sizeBytes),
+        releaseDate: formatReleaseDate(manifest.windows.releaseDate)
       });
     })
     .catch(() => {
-      // Windows downloads stay disabled until a complete signed release is published.
+      // Static fallbacks remain accurate until a complete signed release is present.
     });
 })();
