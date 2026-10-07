@@ -1,18 +1,38 @@
 #!/usr/bin/env node
 
-import { createHash } from "node:crypto";
-import { execFile } from "node:child_process";
-import { createReadStream } from "node:fs";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { createHash, X509Certificate } from "node:crypto";
+import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
 
-const execFileAsync = promisify(execFile);
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const manifestPath = resolve(repositoryRoot, "offline-vault/releases.json");
-const downloadDirectory = resolve(repositoryRoot, "downloads/offline-vault/windows");
-const MAX_GITHUB_FILE_SIZE = 100 * 1024 * 1024;
+const WINDOWS_ORIGIN = "https://downloads.greenvital.app";
+const WINDOWS_PATH = "/offline-vault/windows/";
+const SITE_ORIGIN = "https://greenvital.app";
+const EXPECTED_CERTIFICATE_SHA1 = "FC677345547ACF903AC8ABBEEEBD79A30318889C";
+const ASSETS = {
+  "OfflineVaultCompanion-1.0.0.msixbundle": {
+    contentType: "application/msixbundle",
+    sha256: "81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e",
+    size: 125803957,
+    rangeRequired: true
+  },
+  "OfflineVaultCompanion.appinstaller": {
+    contentType: "application/appinstaller",
+    sha256: "3049f0a4c85bd83d186ddcf3f011fb13c44a38ef6bb18a0c5ea7cb688c986dfa",
+    size: 662
+  },
+  "GreenVital-OfflineVault.cer": {
+    contentType: "application/x-x509-ca-cert",
+    sha256: "e452a048c253ee0d1f6ac45b8b0dc1350e9a3dccf946a240bf237f27dcb68484",
+    size: 1022
+  },
+  "release.json": {
+    contentType: "application/json",
+    sha256: "57f89a583f88f050b7da1f14b74c7a68e2fb281b434ff40b3d8e959f8f8552b5",
+    size: 514
+  }
+};
 
 function fail(message) {
   throw new Error(message);
@@ -24,114 +44,166 @@ function assert(condition, message) {
   }
 }
 
-function validateComingSoon(release) {
-  assert(release.status === "coming-soon", "windows status must be coming-soon or available");
-  assert(release.version === null, "coming-soon version must be null");
-  assert(release.minimumWindowsVersion === null, "coming-soon minimumWindowsVersion must be null");
-  assert(Array.isArray(release.architectures) && release.architectures.length === 0, "coming-soon architectures must be empty");
-  assert(release.downloadUrl === null, "coming-soon downloadUrl must be null");
-  assert(release.sha256 === null, "coming-soon sha256 must be null");
-  assert(release.sizeBytes === null, "coming-soon sizeBytes must be null");
-  assert(release.releaseDate === null, "coming-soon releaseDate must be null");
+function sha256(buffer) {
+  return createHash("sha256").update(buffer).digest("hex");
 }
 
-function validateAvailable(release) {
-  assert(
-    typeof release.version === "string" && /^[0-9A-Za-z][0-9A-Za-z.+-]*$/.test(release.version),
-    "version must be a non-empty filename-safe string"
-  );
-  assert(
-    typeof release.minimumWindowsVersion === "string" && release.minimumWindowsVersion.trim().length > 0,
-    "minimumWindowsVersion must be a non-empty string"
-  );
+function assetUrl(fileName) {
+  return `${WINDOWS_ORIGIN}${WINDOWS_PATH}${fileName}`;
+}
+
+function validateReleaseJson(buffer) {
+  const release = JSON.parse(buffer.toString("utf8"));
+
+  assert(release.version === "1.0.0", "release version must be 1.0.0");
+  assert(release.minimumWindowsVersion === "10.0.17763.0", "minimum Windows version changed");
   assert(
     Array.isArray(release.architectures) &&
-      release.architectures.length > 0 &&
-      new Set(release.architectures).size === release.architectures.length &&
-      release.architectures.every((value) => value === "x64" || value === "arm64"),
-    "architectures must contain unique x64 and/or arm64 values"
+      release.architectures.length === 2 &&
+      release.architectures.includes("x64") &&
+      release.architectures.includes("arm64"),
+    "release architectures must be x64 and arm64"
+  );
+  assert(release.sha256 === ASSETS["OfflineVaultCompanion-1.0.0.msixbundle"].sha256, "bundle SHA-256 changed");
+  assert(release.sizeBytes === ASSETS["OfflineVaultCompanion-1.0.0.msixbundle"].size, "bundle size changed");
+  assert(
+    release.msixBundleUrl === assetUrl("OfflineVaultCompanion-1.0.0.msixbundle"),
+    "bundle URL changed"
   );
   assert(
-    typeof release.sha256 === "string" && /^[a-f0-9]{64}$/.test(release.sha256),
-    "sha256 must be 64 lowercase hexadecimal characters"
+    release.appInstallerUrl === assetUrl("OfflineVaultCompanion.appinstaller"),
+    "App Installer URL changed"
   );
-  assert(Number.isSafeInteger(release.sizeBytes) && release.sizeBytes > 0, "sizeBytes must be a positive integer");
   assert(
-    typeof release.releaseDate === "string" &&
-      /^\d{4}-\d{2}-\d{2}$/.test(release.releaseDate) &&
-      !Number.isNaN(Date.parse(`${release.releaseDate}T00:00:00Z`)),
-    "releaseDate must use YYYY-MM-DD"
+    typeof release.releasedAt === "string" &&
+      release.releasedAt.endsWith("Z") &&
+      !Number.isNaN(Date.parse(release.releasedAt)),
+    "release timestamp is invalid"
   );
-
-  const expectedUrl = `/downloads/offline-vault/windows/OfflineVaultCompanion-${release.version}.zip`;
-  assert(release.downloadUrl === expectedUrl, `downloadUrl must be ${expectedUrl}`);
 }
 
-function calculateSha256(filePath) {
-  return new Promise((resolveHash, reject) => {
-    const hash = createHash("sha256");
-    const stream = createReadStream(filePath);
-
-    stream.on("error", reject);
-    stream.on("data", (chunk) => hash.update(chunk));
-    stream.on("end", () => resolveHash(hash.digest("hex")));
-  });
+function validateAppInstaller(buffer) {
+  const value = buffer.toString("utf8");
+  assert(value.includes('Publisher="CN=GreenVital"'), "App Installer publisher changed");
+  assert(value.includes('Version="1.0.0.0"'), "App Installer version changed");
+  assert(value.includes(assetUrl("OfflineVaultCompanion.appinstaller")), "App Installer self URL changed");
+  assert(value.includes(assetUrl("OfflineVaultCompanion-1.0.0.msixbundle")), "App Installer bundle URL changed");
 }
 
-async function validateZip(release) {
-  const filePath = resolve(repositoryRoot, `.${release.downloadUrl}`);
-  assert(filePath.startsWith(`${downloadDirectory}/`), "downloadUrl escapes the Windows download directory");
-
-  const file = await stat(filePath);
-  assert(file.isFile(), "downloadUrl does not reference a file");
-  assert(file.size === release.sizeBytes, `ZIP size ${file.size} does not match sizeBytes ${release.sizeBytes}`);
-  assert(file.size <= MAX_GITHUB_FILE_SIZE, "ZIP exceeds GitHub's 100 MiB file limit");
-
-  const checksum = await calculateSha256(filePath);
-  assert(checksum === release.sha256, `ZIP SHA-256 ${checksum} does not match the manifest`);
-
-  const { stdout } = await execFileAsync("unzip", ["-Z1", filePath], { maxBuffer: 1024 * 1024 });
-  const entries = stdout.split(/\r?\n/).filter(Boolean);
-  const bundles = entries.filter((entry) => entry.toLowerCase().endsWith(".msixbundle"));
-  const forbidden = entries.filter((entry) => /(?:^|\/)[^/]+\.(?:pfx|p12|pem|key|appinstaller)$/i.test(entry));
-
-  assert(entries.length > 0, "ZIP is empty");
-  assert(entries.every((entry) => !entry.startsWith("/") && !entry.split("/").includes("..")), "ZIP contains an unsafe path");
-  assert(bundles.length === 1, "ZIP must contain exactly one MSIX bundle");
-  assert(forbidden.length === 0, `ZIP contains forbidden release files: ${forbidden.join(", ")}`);
+function validateCertificate(buffer) {
+  const certificate = new X509Certificate(buffer);
+  const fingerprint = certificate.fingerprint.replaceAll(":", "").toUpperCase();
+  assert(certificate.subject === "CN=GreenVital", "certificate subject changed");
+  assert(certificate.issuer === "CN=GreenVital", "certificate is no longer the expected self-signed certificate");
+  assert(fingerprint === EXPECTED_CERTIFICATE_SHA1, `certificate SHA-1 changed to ${fingerprint}`);
 }
 
-async function ensureNoUnpublishedZip() {
-  try {
-    const entries = await readdir(downloadDirectory);
-    const archives = entries.filter((entry) => entry.toLowerCase().endsWith(".zip"));
-    assert(archives.length === 0, `coming-soon release must not publish ZIP files: ${archives.join(", ")}`);
-  } catch (error) {
-    if (error.code !== "ENOENT") {
-      throw error;
-    }
+function validateAsset(fileName, buffer) {
+  const expected = ASSETS[fileName];
+  assert(buffer.byteLength === expected.size, `${fileName} size changed to ${buffer.byteLength}`);
+  assert(sha256(buffer) === expected.sha256, `${fileName} SHA-256 changed`);
+
+  if (fileName === "release.json") {
+    validateReleaseJson(buffer);
+  } else if (fileName === "OfflineVaultCompanion.appinstaller") {
+    validateAppInstaller(buffer);
+  } else if (fileName === "GreenVital-OfflineVault.cer") {
+    validateCertificate(buffer);
   }
+}
+
+async function validateLocalAssets(directory) {
+  for (const fileName of Object.keys(ASSETS)) {
+    const buffer = await readFile(resolve(directory, fileName));
+    validateAsset(fileName, buffer);
+  }
+
+  console.log("All four Offline Vault sideload assets match the verified draft release byte-for-byte.");
+}
+
+async function fetchWithoutRedirect(url, options = {}) {
+  const response = await fetch(url, {
+    cache: "no-store",
+    redirect: "manual",
+    ...options,
+    headers: { Origin: SITE_ORIGIN, ...options.headers }
+  });
+  assert(response.status >= 200 && response.status < 300, `${url} returned HTTP ${response.status}`);
+  assert(!response.redirected && response.status < 300, `${url} redirected`);
+  return response;
+}
+
+function validateHeaders(response, fileName, expectedLength) {
+  const expected = ASSETS[fileName];
+  const contentType = (response.headers.get("content-type") || "").split(";", 1)[0].toLowerCase();
+  const contentLength = Number(response.headers.get("content-length"));
+  const cors = response.headers.get("access-control-allow-origin");
+
+  assert(contentType === expected.contentType, `${fileName} has Content-Type ${contentType || "missing"}`);
+  assert(contentLength === expectedLength, `${fileName} has Content-Length ${contentLength}`);
+  assert(cors === SITE_ORIGIN, `${fileName} does not allow CORS from ${SITE_ORIGIN}`);
+}
+
+async function downloadLiveAsset(fileName) {
+  const response = await fetchWithoutRedirect(assetUrl(fileName));
+  validateHeaders(response, fileName, ASSETS[fileName].size);
+  const buffer = Buffer.from(await response.arrayBuffer());
+  validateAsset(fileName, buffer);
+}
+
+async function validateLiveRelease() {
+  for (const fileName of Object.keys(ASSETS)) {
+    await downloadLiveAsset(fileName);
+  }
+
+  const rangeResponse = await fetchWithoutRedirect(assetUrl("OfflineVaultCompanion-1.0.0.msixbundle"), {
+    headers: { Range: "bytes=0-0" }
+  });
+  assert(rangeResponse.status === 206, `bundle range request returned HTTP ${rangeResponse.status}`);
+  validateHeaders(rangeResponse, "OfflineVaultCompanion-1.0.0.msixbundle", 1);
+  assert(
+    rangeResponse.headers.get("content-range") === "bytes 0-0/125803957",
+    "bundle Content-Range is invalid"
+  );
+
+  console.log("Live sideload release passed HTTPS, CORS, MIME, length, range, and byte-for-byte checks.");
+}
+
+async function validateWebsiteGate() {
+  const script = await readFile(resolve(repositoryRoot, "offline-vault/releases.js"), "utf8");
+  assert(
+    script.includes("const WINDOWS_SIDELOAD_ENABLED = false;"),
+    "Windows sideload controls are not safely disabled"
+  );
+  assert(script.includes(ASSETS["OfflineVaultCompanion-1.0.0.msixbundle"].sha256), "website bundle SHA-256 changed");
+  assert(script.includes(EXPECTED_CERTIFICATE_SHA1), "website certificate thumbprint changed");
+  console.log("Website sideload controls remain disabled with the verified release fingerprints pinned.");
 }
 
 async function main() {
-  const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
-  const release = manifest.windows;
+  const args = process.argv.slice(2);
 
-  assert(release && typeof release === "object" && !Array.isArray(release), "windows release entry is required");
-
-  if (release.status === "available") {
-    validateAvailable(release);
-    await validateZip(release);
-    console.log(`Offline Vault Windows ${release.version} manual download is valid.`);
+  if (args.length === 0) {
+    await validateWebsiteGate();
     return;
   }
 
-  validateComingSoon(release);
-  await ensureNoUnpublishedZip();
-  console.log("Offline Vault Windows manual download remains safely gated as coming soon.");
+  if (args.length === 2 && args[0] === "--assets") {
+    await validateLocalAssets(resolve(args[1]));
+    return;
+  }
+
+  if (args.length === 1 && args[0] === "--live") {
+    await validateLiveRelease();
+    return;
+  }
+
+  fail("usage: validate-offline-vault-windows-release.mjs [--assets DIRECTORY | --live]");
 }
 
 main().catch((error) => {
-  console.error(`Offline Vault Windows release validation failed: ${error.message}`);
+  const causeCode = error.cause && typeof error.cause === "object" ? error.cause.code : null;
+  const detail = causeCode ? `${error.message} (${causeCode})` : error.message;
+  console.error(`Offline Vault Windows release validation failed: ${detail}`);
   process.exitCode = 1;
 });

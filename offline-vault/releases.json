@@ -7,15 +7,5 @@
     "sha256": null,
     "fileSize": null,
     "releaseDate": null
-  },
-  "windows": {
-    "status": "coming-soon",
-    "version": null,
-    "minimumWindowsVersion": null,
-    "architectures": [],
-    "downloadUrl": null,
-    "sha256": null,
-    "sizeBytes": null,
-    "releaseDate": null
   }
 }

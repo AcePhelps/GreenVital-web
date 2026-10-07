@@ -16,8 +16,8 @@
     />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=3" />
-    <script src="/offline-vault/releases.js?v=3" defer></script>
+    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=4" />
+    <script src="/offline-vault/releases.js?v=4" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -255,29 +255,41 @@
             <article class="release-card" data-release-platform="windows">
               <div class="release-card-header">
                 <span class="platform-label">Windows 10 / 11</span>
-                <span class="release-status" data-release-field="status">Coming soon</span>
+                <span class="release-status" data-release-field="status">Hosting required</span>
               </div>
               <h3>Offline Vault Companion for Windows</h3>
               <p>
-                Download the official GreenVital ZIP, extract it, and open the production-signed
-                MSIX bundle. Updates will be installed manually from this website.
+                This is a self-signed sideload release, not a Microsoft Store or generally trusted
+                installer. Install the GreenVital public certificate first, then open App Installer.
               </p>
               <dl class="release-meta">
-                <div><dt>Version</dt><dd data-release-field="version">Not released</dd></div>
-                <div><dt>Minimum Windows</dt><dd data-release-field="minimumWindowsVersion">Windows 10</dd></div>
-                <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64 planned</dd></div>
-                <div><dt>File size</dt><dd data-release-field="fileSize">Not released</dd></div>
-                <div><dt>Release date</dt><dd data-release-field="releaseDate">Not announced</dd></div>
-                <div><dt>SHA-256</dt><dd data-release-field="sha256">Available at release</dd></div>
+                <div><dt>Version</dt><dd data-release-field="version">1.0.0</dd></div>
+                <div><dt>Release type</dt><dd>Self-signed sideload</dd></div>
+                <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64</dd></div>
+                <div><dt>Certificate SHA-1</dt><dd>FC677345547ACF903AC8ABBEEEBD79A30318889C</dd></div>
+                <div><dt>Installer SHA-256</dt><dd data-release-field="sha256">81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e</dd></div>
               </dl>
-              <div class="release-actions">
+              <div class="release-actions three-up">
                 <a
                   class="button button-disabled release-link"
-                  data-release-link="downloadUrl"
-                  data-ready-label="Download Windows ZIP"
+                  data-release-link="certificateUrl"
+                  data-ready-label="1. Public certificate"
                   aria-disabled="true"
-                >Windows ZIP coming soon</a>
+                >Certificate unavailable</a>
+                <a
+                  class="button button-disabled release-link"
+                  data-release-link="appInstallerUrl"
+                  data-ready-label="2. Open App Installer"
+                  aria-disabled="true"
+                >App Installer unavailable</a>
+                <a
+                  class="button button-disabled release-link"
+                  data-release-link="msixBundleUrl"
+                  data-ready-label="Direct MSIX bundle"
+                  aria-disabled="true"
+                >MSIX bundle unavailable</a>
               </div>
+              <p class="security-note">The certificate download is the public <code>.cer</code> only. GreenVital will never ask for a private key or PFX.</p>
             </article>
           </div>
 
@@ -317,7 +329,7 @@
             </details>
             <details>
               <summary>What does the Windows companion require?</summary>
-              <p>It is planned for Windows 10 and Windows 11. A signed production build is not available yet.</p>
+              <p>The prepared release supports Windows 10 version 1809 or newer and Windows 11. It is self-signed, so users must verify and install the GreenVital public certificate before opening App Installer.</p>
             </details>
             <details>
               <summary>Do my iPhone and computer need the same Wi-Fi?</summary>

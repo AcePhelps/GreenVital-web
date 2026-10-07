@@ -10,8 +10,8 @@
     />
     <meta name="theme-color" content="#071112" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=3" />
-    <script src="/offline-vault/releases.js?v=3" defer></script>
+    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=4" />
+    <script src="/offline-vault/releases.js?v=4" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -26,7 +26,7 @@
           <a href="/offline-vault/">Offline Vault</a>
           <a href="/">All apps</a>
         </div>
-        <span class="nav-status" aria-label="Windows download is coming soon">Coming soon</span>
+        <span class="nav-status" aria-label="Windows sideload hosting is not ready">Hosting required</span>
       </nav>
     </header>
 
@@ -34,10 +34,10 @@
       <div class="section downloads-layout">
         <div class="downloads-intro">
           <p class="eyebrow">Official GreenVital software</p>
-          <h1>Download from the source.</h1>
+          <h1>Install from the source.</h1>
           <p>
-            This page will provide the production-signed Offline Vault Companion for Windows.
-            The download remains unavailable until trusted signing and final release checks pass.
+            Offline Vault Companion 1.0.0 is prepared as a self-signed Windows sideload.
+            Downloads stay disabled until every file is hosted and independently verified.
           </p>
           <a class="downloads-product-link" href="/offline-vault/">Explore Offline Vault</a>
         </div>
@@ -45,29 +45,56 @@
         <article class="release-card downloads-release" data-release-platform="windows">
           <div class="release-card-header">
             <span class="platform-label">Windows 10 / 11</span>
-            <span class="release-status" data-release-field="status">Coming soon</span>
+            <span class="release-status" data-release-field="status">Hosting required</span>
           </div>
           <h2>Offline Vault Companion</h2>
           <p>
-            When released, download the ZIP, extract it, and open the signed MSIX bundle.
-            Future versions will be downloaded manually from this page.
+            This is not a Microsoft Store or generally trusted installer. Windows must trust the
+            GreenVital public certificate before App Installer can install the bundle.
           </p>
+          <ol class="sideload-steps">
+            <li>
+              <strong>Install the public certificate.</strong>
+              Open the <code>.cer</code>, choose Local Machine, and place it in Trusted People.
+            </li>
+            <li>
+              <strong>Verify the certificate.</strong>
+              Confirm SHA-1 thumbprint <code>FC677345547ACF903AC8ABBEEEBD79A30318889C</code>.
+            </li>
+            <li>
+              <strong>Open App Installer.</strong>
+              Download the <code>.appinstaller</code> only after the certificate is trusted.
+            </li>
+          </ol>
           <dl class="release-meta">
-            <div><dt>Version</dt><dd data-release-field="version">Not released</dd></div>
-            <div><dt>Minimum Windows</dt><dd data-release-field="minimumWindowsVersion">Windows 10</dd></div>
-            <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64 planned</dd></div>
-            <div><dt>File size</dt><dd data-release-field="fileSize">Not released</dd></div>
-            <div><dt>Release date</dt><dd data-release-field="releaseDate">Not announced</dd></div>
-            <div><dt>SHA-256</dt><dd data-release-field="sha256">Available at release</dd></div>
+            <div><dt>Version</dt><dd data-release-field="version">1.0.0</dd></div>
+            <div><dt>Minimum Windows</dt><dd data-release-field="minimumWindowsVersion">10.0.17763.0</dd></div>
+            <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64</dd></div>
+            <div><dt>File size</dt><dd data-release-field="fileSize">125.8 MB</dd></div>
+            <div><dt>Certificate SHA-1</dt><dd>FC677345547ACF903AC8ABBEEEBD79A30318889C</dd></div>
+            <div><dt>Installer SHA-256</dt><dd data-release-field="sha256">81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e</dd></div>
           </dl>
-          <div class="release-actions">
+          <div class="release-actions three-up">
             <a
               class="button button-disabled release-link"
-              data-release-link="downloadUrl"
-              data-ready-label="Download Windows ZIP"
+              data-release-link="certificateUrl"
+              data-ready-label="1. Public certificate"
               aria-disabled="true"
-            >Windows ZIP coming soon</a>
+            >Certificate unavailable</a>
+            <a
+              class="button button-disabled release-link"
+              data-release-link="appInstallerUrl"
+              data-ready-label="2. Open App Installer"
+              aria-disabled="true"
+            >App Installer unavailable</a>
+            <a
+              class="button button-disabled release-link"
+              data-release-link="msixBundleUrl"
+              data-ready-label="Direct MSIX bundle"
+              aria-disabled="true"
+            >MSIX bundle unavailable</a>
           </div>
+          <p class="security-note">Only the public <code>.cer</code> is provided. Never install or share a private key, PFX, or certificate password.</p>
           <p class="downloads-help">
             Questions? <a href="mailto:support@greenvital.app?subject=Offline%20Vault%20Windows%20Download">Email support</a>.
           </p>
@@ -88,7 +115,7 @@
         <a href="/">All GreenVital apps</a>
         <a href="mailto:support@greenvital.app?subject=GreenVital%20Downloads">Contact</a>
       </div>
-      <p>Only production-signed GreenVital software is published here.</p>
+      <p>Only release files verified by GreenVital are published here.</p>
     </footer>
   </body>
 </html>

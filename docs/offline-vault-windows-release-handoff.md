@@ -1,82 +1,97 @@
-# Offline Vault Windows Manual Release Handoff
+# Offline Vault Windows Sideload Release Handoff
 
-Status: **blocked and unpublished**
+Status: **verified draft, hosting blocked, controls disabled**
 
-Offline Vault Companion for Windows will be distributed as a manual ZIP download from the existing GreenVital GitHub Pages website. The public page must remain `Coming soon` until a trusted production-signed and timestamped package passes every gate below.
+Offline Vault Companion 1.0.0 is prepared as a self-signed Windows sideload release. It is not a Microsoft Store package and is not signed by a generally trusted certificate authority. Users must verify and install the GreenVital public certificate into Local Machine Trusted People before opening App Installer.
 
-## Public URLs
+## Verified draft
 
-- Download center: `https://greenvital.app/downloads/`
-- Future ZIP: `https://greenvital.app/downloads/offline-vault/windows/OfflineVaultCompanion-{version}.zip`
-- Product page: `https://greenvital.app/offline-vault/`
+- Private repository: `AcePhelps/offline-vault`
+- Draft tag: `windows-v1.0.0-sideload`
+- Draft release remains unpublished.
+- Certificate subject and issuer: `CN=GreenVital`
+- Certificate SHA-1: `FC677345547ACF903AC8ABBEEEBD79A30318889C`
+- Bundle SHA-256: `81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e`
+- Bundle size: `125803957` bytes
+- Architectures: x64 and ARM64
+- Minimum Windows version: `10.0.17763.0`
 
-No App Installer feed, automatic updater, download subdomain, DNS change, S3 bucket, or CDN is required for this manual release plan.
+The four draft assets were downloaded with GitHub CLI and independently verified byte-for-byte. The public `.cer` is safe to distribute. Never publish or request a private key, PFX, or certificate password.
 
-## Current gate
-
-- `/offline-vault/releases.json` contains a truthful `windows.status` value of `coming-soon`.
-- No Windows ZIP is present under `/downloads/offline-vault/windows/`.
-- Both the product page and download center keep the Windows button disabled.
-- The page enables the button only when the manifest is complete and a same-origin `HEAD` request confirms the ZIP exists with the exact declared byte size.
-- The existing self-signed test certificate is not release eligible.
-
-## ZIP layout
-
-The release archive must use this filename:
+## Exact public URLs
 
 ```text
-OfflineVaultCompanion-{version}.zip
+https://downloads.greenvital.app/offline-vault/windows/OfflineVaultCompanion-1.0.0.msixbundle
+https://downloads.greenvital.app/offline-vault/windows/OfflineVaultCompanion.appinstaller
+https://downloads.greenvital.app/offline-vault/windows/GreenVital-OfflineVault.cer
+https://downloads.greenvital.app/offline-vault/windows/release.json
 ```
 
-The ZIP must contain exactly one production-signed `.msixbundle`. It may also include a short installation text file. It must not contain signing keys, `.pfx`, `.p12`, `.pem`, `.key`, or `.appinstaller` files.
+These URLs are already encoded in `release.json` and `OfflineVaultCompanion.appinstaller`. The files must be uploaded byte-for-byte without renaming, reformatting, or regenerating them.
 
-Keep the ZIP at or below GitHub's 100 MiB per-file limit. If a future package exceeds that limit or download traffic outgrows GitHub Pages, move artifacts to dedicated storage before publishing rather than splitting or disguising the package.
+## Why publication is blocked
 
-## Manifest contract
+- `downloads.greenvital.app` has no DNS record.
+- No object-storage or CDN credentials are configured on this host.
+- The 125,803,957-byte bundle exceeds GitHub's 100 MiB repository-file limit, so it cannot be committed to the existing GitHub Pages repository.
+- The draft release is private and must remain a draft, so its authenticated asset URLs cannot be used as public installer endpoints.
 
-When the final ZIP is ready, update the `windows` object in `/offline-vault/releases.json`:
+The GreenVital product and download pages therefore pin the verified fingerprints but keep every download control disabled with `WINDOWS_SIDELOAD_ENABLED = false`.
 
-| Field | Required value |
-| --- | --- |
-| `status` | `available` |
-| `version` | release version used in the ZIP filename |
-| `minimumWindowsVersion` | approved minimum Windows version |
-| `architectures` | unique array containing `x64`, `arm64`, or both |
-| `downloadUrl` | `/downloads/offline-vault/windows/OfflineVaultCompanion-{version}.zip` |
-| `sha256` | lowercase SHA-256 of the final ZIP |
-| `sizeBytes` | exact byte size of the final ZIP |
-| `releaseDate` | release date in `YYYY-MM-DD` format |
+## Required hosting configuration
 
-Do not insert estimated or placeholder values. Generate the checksum and size from the exact ZIP committed to the website.
+Use object storage behind an HTTPS CDN that supports a custom subdomain. A private Amazon S3 bucket behind CloudFront works with the existing Porkbun DNS without moving the main website.
 
-## Release order
+| File | Content-Type | Content-Length | Cache-Control |
+| --- | --- | ---: | --- |
+| `OfflineVaultCompanion-1.0.0.msixbundle` | `application/msixbundle` | `125803957` | `public, max-age=31536000, immutable` |
+| `OfflineVaultCompanion.appinstaller` | `application/appinstaller` | `662` | `public, max-age=300, must-revalidate` |
+| `GreenVital-OfflineVault.cer` | `application/x-x509-ca-cert` | `1022` | `public, max-age=31536000, immutable` |
+| `release.json` | `application/json` | `514` | `public, max-age=60, must-revalidate` |
 
-1. Obtain a trusted production code-signing certificate or managed signing service.
-2. Sign the final x64 and ARM64 MSIX bundle with the production publisher identity and a trusted RFC 3161 timestamp.
-3. On Windows, run `signtool verify /pa /all /v` against the final bundle and confirm the trusted timestamp, publisher, identity, version, and architectures.
-4. Install the bundle on a clean supported Windows machine and repeat the same-Wi-Fi iPhone pairing and transfer flow.
-5. Create `OfflineVaultCompanion-{version}.zip` containing exactly that verified bundle.
-6. Place the ZIP in `/downloads/offline-vault/windows/`.
-7. Compute the ZIP SHA-256 and byte size, then update `/offline-vault/releases.json` from `coming-soon` to `available`.
-8. Run `node scripts/validate-offline-vault-windows-release.mjs` from the website repository.
-9. Review the diff to confirm no certificate, private key, test package, or unrelated file is included.
-10. Commit and push the ZIP and manifest together, then wait for the GitHub Pages deployment to succeed.
-11. Verify the live ZIP returns HTTP 200 with the expected `Content-Length` and checksum.
-12. Verify the buttons on `/offline-vault/` and `/downloads/` activate and download the same ZIP.
+Requirements:
 
-## Rollback
+- HTTPS with a valid certificate for `downloads.greenvital.app`.
+- No redirects on any of the four URLs.
+- `Access-Control-Allow-Origin: https://greenvital.app` on GET and HEAD responses.
+- `Access-Control-Expose-Headers: Content-Length, Accept-Ranges, Content-Range` so the website can verify hosted files before enabling controls.
+- Accurate `Content-Length` on GET and HEAD.
+- Byte-range support for the bundle. `Range: bytes=0-0` must return HTTP 206 and `Content-Range: bytes 0-0/125803957`.
+- No content transformation or compression for the bundle.
 
-To withdraw a release, change the Windows manifest entry back to the fully empty `coming-soon` state and remove the ZIP in the same commit. The static disabled button remains the fallback if the manifest or ZIP is unavailable.
+## DNS
 
-## HTTPS note
+After the storage/CDN distribution is configured and its HTTPS certificate is ready, add this Porkbun record:
 
-GitHub Pages has an approved certificate for `greenvital.app`, but its `Enforce HTTPS` setting is currently off. Enable it before publishing the first Windows ZIP so HTTP requests redirect to HTTPS.
+| Type | Host | Answer / value | TTL |
+| --- | --- | --- | --- |
+| CNAME | `downloads` | provider-assigned CDN hostname | 600 |
 
-## Remaining owner inputs
+If the CDN uses DNS validation for its certificate, first add the provider-generated validation CNAME exactly as supplied. Do not create A or AAAA records for the download subdomain unless the selected provider explicitly requires fixed addresses.
 
-- Trusted production code-signing certificate or managed signing account.
-- Final publisher identity and approved minimum Windows build.
-- Confirmation that the final ZIP is below 100 MiB.
-- Authorization to enable GitHub Pages `Enforce HTTPS` before release.
+## Publication order
 
-Never commit or send the signing private key through chat.
+1. Provision the storage bucket, CDN, certificate, CORS, MIME, cache, and range settings.
+2. Upload the bundle, App Installer file, and public certificate byte-for-byte.
+3. Verify those three public URLs and headers.
+4. Upload `release.json` last.
+5. Run `node scripts/validate-offline-vault-windows-release.mjs --live`. This downloads all four public files, checks their exact hashes and sizes, validates the certificate and encoded URLs, and tests CORS and byte ranges.
+6. Only after the live validator passes, change `WINDOWS_SIDELOAD_ENABLED` to `true` in `/offline-vault/releases.js`.
+7. Deploy the website and verify both `/offline-vault/` and `/downloads/` activate all links.
+
+## User installation flow
+
+1. Download `GreenVital-OfflineVault.cer` only from `downloads.greenvital.app`.
+2. Confirm SHA-1 thumbprint `FC677345547ACF903AC8ABBEEEBD79A30318889C`.
+3. Open the certificate, choose Install Certificate, select Local Machine, and place it in Trusted People.
+4. Download and open `OfflineVaultCompanion.appinstaller`.
+5. If using the direct bundle, confirm SHA-256 `81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e` before installation.
+
+Installing a certificate in Local Machine Trusted People affects the computer's trust configuration and normally requires administrator approval. Users should remove the certificate if they no longer want to trust GreenVital sideload packages.
+
+## Owner input required
+
+- An object-storage/CDN provider account or credentials with permission to create the origin and upload these four files.
+- Porkbun DNS access when the provider supplies the CDN and certificate-validation targets.
+
+Do not provide private signing material. This release uses only the already-verified public certificate asset.

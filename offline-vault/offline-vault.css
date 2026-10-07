@@ -627,6 +627,10 @@ h3 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.release-actions.three-up {
+  grid-template-columns: 1fr;
+}
+
 .release-link {
   width: 100%;
   font-size: 14px;
@@ -635,6 +639,56 @@ h3 {
 
 .release-link[aria-disabled="true"] {
   cursor: not-allowed;
+}
+
+.security-note {
+  min-height: 0 !important;
+  margin: 18px 0 0 !important;
+  color: var(--muted) !important;
+  font-size: 13px;
+  line-height: 1.55 !important;
+}
+
+.security-note code,
+.sideload-steps code {
+  color: var(--cyan-soft);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  overflow-wrap: anywhere;
+}
+
+.sideload-steps {
+  margin: 26px 0;
+  padding: 0;
+  counter-reset: sideload-step;
+  list-style: none;
+}
+
+.sideload-steps li {
+  padding: 16px 0 16px 42px;
+  position: relative;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  line-height: 1.55;
+  counter-increment: sideload-step;
+}
+
+.sideload-steps li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.sideload-steps li::before {
+  content: counter(sideload-step, decimal-leading-zero);
+  position: absolute;
+  top: 17px;
+  left: 0;
+  color: var(--cyan);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+}
+
+.sideload-steps strong {
+  display: block;
+  color: var(--white);
 }
 
 .companion-support {
