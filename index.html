@@ -158,6 +158,20 @@
         transform: translateY(-28px);
       }
 
+      .screen.app-icon-screen {
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        background: #071112;
+      }
+
+      .screen.app-icon-screen img {
+        width: 100%;
+        height: auto;
+        border-radius: 24px;
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
+      }
+
       .card h3 {
         font-size: 20px;
         margin-bottom: 10px;
@@ -358,6 +372,25 @@
             <div class="disabled">App Store soon</div>
             <div class="disabled">Google Play soon</div>
             <a href="./petshift/">Website</a>
+          </div>
+        </div>
+
+        <div class="card fade-up">
+          <div class="phone phone-light">
+            <div class="screen app-icon-screen">
+              <img
+                src="./offline-vault/assets/offline-vault-icon.png"
+                alt="Offline Vault app icon"
+                class="image-reveal"
+              />
+            </div>
+          </div>
+          <h3>Offline Vault</h3>
+          <p>Your private, self-hosted media library for iPhone and Mac.</p>
+          <div class="buttons">
+            <div class="disabled">App Store soon</div>
+            <div class="disabled">Mac server included</div>
+            <a href="./offline-vault/">Website</a>
           </div>
         </div>
       </div>
