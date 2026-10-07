@@ -3,27 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GreenVital</title>
+    <title>GreenVital | Focused apps for everyday clarity</title>
     <meta
       name="description"
-      content="GreenVital builds practical apps that help people live with more clarity, control, and balance."
+      content="GreenVital builds focused apps for money, time, care, wellness, private media, and device storage."
     />
+    <meta name="theme-color" content="#0c1713" />
+    <meta property="og:title" content="GreenVital" />
+    <meta
+      property="og:description"
+      content="A focused app studio building useful, calm software for everyday decisions."
+    />
+    <meta property="og:type" content="website" />
 
     <style>
       :root {
-        --green: #2e7d32;
-        --light-green: #4caf50;
-        --gray: #666;
-        --border: #eee;
-        --bg: #ffffff;
-        --ink: #111;
+        --ink: #0b1110;
+        --ink-soft: #32403b;
+        --muted: #6b7772;
+        --line: #dfe8e3;
+        --paper: #fbfcfa;
+        --mist: #eef5f0;
+        --forest: #0c3f2f;
+        --green: #2f8f5b;
+        --fresh: #70c48a;
+        --white: #ffffff;
+        --shadow: 0 18px 48px rgba(12, 23, 19, 0.14);
       }
 
       * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
       html {
@@ -31,401 +40,980 @@
       }
 
       body {
-        background: var(--bg);
+        margin: 0;
+        background: var(--paper);
         color: var(--ink);
+        font-family:
+          ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
       }
 
-      .hero {
-        text-align: center;
-        padding: 100px 20px 80px;
-      }
-
-      .logo {
-        color: var(--green);
-        font-weight: 600;
-        font-size: 22px;
-        margin-bottom: 20px;
-      }
-
-      .hero h1 {
-        font-size: 52px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        letter-spacing: -0.03em;
-      }
-
-      .hero p {
-        font-size: 18px;
-        color: var(--gray);
-        max-width: 600px;
-        margin: 0 auto 30px;
-        line-height: 1.6;
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 14px 28px;
-        border-radius: 999px;
-        background: var(--green);
-        color: white;
-        text-decoration: none;
-        font-weight: 500;
-        transition: 0.25s;
-      }
-
-      .btn:hover {
-        background: var(--light-green);
-        transform: translateY(-2px);
-      }
-
-      .fade-up {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: all 0.8s ease;
-      }
-
-      .fade-up.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .image-reveal {
-        opacity: 0;
-        transform: scale(0.95);
-        transition: all 1s ease;
-      }
-
-      .image-reveal.show {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      .apps {
-        max-width: 1100px;
-        margin: auto;
-        padding: 60px 20px;
-      }
-
-      .apps h2,
-      .about h2 {
-        text-align: center;
-        margin-bottom: 60px;
-        font-size: 28px;
-        letter-spacing: -0.02em;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 40px;
-      }
-
-      .card {
-        text-align: center;
-      }
-
-      .phone {
-        width: 220px;
-        height: 440px;
-        margin: 0 auto 20px;
-        border-radius: 36px;
-        background: #000;
-        padding: 10px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      }
-
-      .phone-light {
-        background: #111;
-      }
-
-      .screen {
-        width: 100%;
-        height: 100%;
-        border-radius: 28px;
-        overflow: hidden;
-        background: #f0f0f0;
-      }
-
-      .screen img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      img {
+        max-width: 100%;
         display: block;
       }
 
-      .screen.screen-crop-top img {
-        height: auto;
-        transform: translateY(-28px);
+      a {
+        color: inherit;
       }
 
-      .screen.app-icon-screen {
+      .skip-link {
+        position: absolute;
+        left: 18px;
+        top: 12px;
+        z-index: 20;
+        transform: translateY(-140%);
+        background: var(--white);
+        color: var(--ink);
+        padding: 10px 14px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid rgba(223, 232, 227, 0.78);
+        background: rgba(251, 252, 250, 0.88);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        width: min(1160px, calc(100% - 32px));
+        min-height: 72px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        font-weight: 760;
+      }
+
+      .brand-mark {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background:
+          linear-gradient(135deg, rgba(112, 196, 138, 0.92), rgba(47, 143, 91, 0.95)),
+          var(--green);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.34);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-links a {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 12px;
+        border-radius: 6px;
+        color: var(--ink-soft);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        color: var(--ink);
+        background: var(--mist);
+        outline: none;
+      }
+
+      .nav-links .nav-cta {
+        color: var(--white);
+        background: var(--forest);
+      }
+
+      .nav-links .nav-cta:hover,
+      .nav-links .nav-cta:focus-visible {
+        color: var(--white);
+        background: #082d22;
+      }
+
+      .hero {
+        min-height: min(720px, calc(86svh - 72px));
         display: grid;
-        place-items: center;
-        padding: 28px;
-        background: #071112;
+        align-items: end;
+        background:
+          linear-gradient(90deg, rgba(8, 18, 15, 0.95) 0%, rgba(8, 18, 15, 0.82) 45%, rgba(8, 18, 15, 0.42) 100%),
+          image-set(url("./petshift/assets/petshift-care-handoff-hero.png") 1x);
+        background-size: cover;
+        background-position: center;
+        color: var(--white);
       }
 
-      .screen.app-icon-screen img {
-        width: 100%;
-        height: auto;
-        border-radius: 24px;
-        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
+      .hero-inner {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 76px 0 28px;
       }
 
-      .card h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
+      .hero-copy {
+        width: min(680px, 100%);
       }
 
-      .card p {
-        color: var(--gray);
-        margin-bottom: 15px;
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--fresh);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 22px;
+        font-size: 64px;
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .hero-copy > p:not(.eyebrow) {
+        max-width: 610px;
+        margin-bottom: 28px;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 19px;
+        line-height: 1.65;
+      }
+
+      .hero-actions,
+      .app-actions,
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        padding: 0 18px;
+        background: var(--green);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 760;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          background 180ms ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(3, 18, 12, 0.16);
+        outline: none;
+      }
+
+      .button.secondary {
+        border-color: rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .button.secondary:hover,
+      .button.secondary:focus-visible {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .hero-proof {
+        margin-top: 54px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .proof-item {
+        padding: 18px 22px 0 0;
+      }
+
+      .proof-item strong {
+        display: block;
+        margin-bottom: 7px;
+        color: var(--white);
+        font-size: 15px;
+      }
+
+      .proof-item span {
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 14px;
         line-height: 1.5;
       }
 
-      .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
+      .section {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 94px 0;
       }
 
-      .buttons a {
-        padding: 8px 14px;
-        border-radius: 999px;
-        border: 1px solid var(--green);
-        color: var(--green);
-        text-decoration: none;
-        font-size: 14px;
-        transition: 0.2s;
+      .section-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.62fr);
+        gap: 40px;
+        align-items: end;
+        margin-bottom: 34px;
       }
 
-      .buttons a:hover {
-        background: var(--green);
-        color: white;
+      .section-heading h2 {
+        margin-bottom: 0;
+        font-size: 42px;
+        line-height: 1.1;
+        letter-spacing: 0;
       }
 
-      .disabled {
-        padding: 8px 14px;
-        border-radius: 999px;
-        background: #f5f5f5;
-        color: #aaa;
-        font-size: 14px;
-      }
-
-      .about {
-        text-align: center;
-        padding: 80px 20px;
-      }
-
-      .about p {
-        max-width: 600px;
-        margin: auto;
-        color: var(--gray);
+      .section-heading p:not(.eyebrow) {
+        margin-bottom: 0;
+        color: var(--muted);
         line-height: 1.7;
+        font-size: 16px;
       }
 
-      footer {
-        text-align: center;
-        padding: 20px;
-        border-top: 1px solid var(--border);
-        color: var(--gray);
+      .portfolio-band {
+        background: var(--paper);
       }
 
-      footer a {
+      .portfolio-band .section {
+        padding-top: 64px;
+      }
+
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .app-card {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--white);
+        box-shadow: 0 1px 0 rgba(12, 23, 19, 0.04);
+      }
+
+      .visual {
+        height: 260px;
+        display: grid;
+        place-items: end center;
+        overflow: hidden;
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(12, 23, 19, 0.05)),
+          var(--mist);
+      }
+
+      .visual.dark {
+        background: #071112;
+      }
+
+      .phone {
+        width: 138px;
+        height: 300px;
+        margin-bottom: -62px;
+        border: 8px solid #0a0d0c;
+        border-radius: 32px;
+        overflow: hidden;
+        background: #101514;
+        box-shadow: var(--shadow);
+      }
+
+      .phone img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .phone.crop-top img {
+        height: auto;
+        transform: translateY(-20px);
+      }
+
+      .icon-display {
+        width: 148px;
+        height: 148px;
+        margin-bottom: 48px;
+        border-radius: 32px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .icon-display img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .app-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+      }
+
+      .app-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .app-kicker {
         color: var(--green);
-        text-decoration: none;
-        margin: 0 10px;
+        font-size: 12px;
+        font-weight: 820;
+        text-transform: uppercase;
       }
 
-      @media (max-width: 600px) {
-        .hero h1 {
-          font-size: 34px;
+      .status {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 9px;
+        border-radius: 999px;
+        background: var(--mist);
+        color: var(--ink-soft);
+        font-size: 12px;
+        font-weight: 720;
+        white-space: nowrap;
+      }
+
+      .status.live {
+        background: rgba(112, 196, 138, 0.22);
+        color: #126c3d;
+      }
+
+      .app-card h3 {
+        margin-bottom: 10px;
+        font-size: 25px;
+        line-height: 1.18;
+      }
+
+      .app-card p {
+        color: var(--muted);
+        line-height: 1.62;
+      }
+
+      .app-actions {
+        margin-top: auto;
+        padding-top: 12px;
+      }
+
+      .text-link {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        border-bottom: 1px solid currentColor;
+        color: var(--forest);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 760;
+      }
+
+      .text-link:hover,
+      .text-link:focus-visible {
+        color: var(--green);
+        outline: none;
+      }
+
+      .principles-band {
+        background: #0b1512;
+        color: var(--white);
+      }
+
+      .principles {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 50px;
+        align-items: start;
+      }
+
+      .principles h2 {
+        margin-bottom: 18px;
+        font-size: 42px;
+        line-height: 1.1;
+      }
+
+      .principles p {
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.72;
+      }
+
+      .principle-list {
+        display: grid;
+        gap: 1px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .principle {
+        padding: 22px;
+        background: #0f1d19;
+      }
+
+      .principle strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--white);
+      }
+
+      .principle span {
+        color: rgba(255, 255, 255, 0.68);
+        line-height: 1.6;
+      }
+
+      .contact-band {
+        background: var(--mist);
+      }
+
+      .contact-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 28px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 30px;
+        background: var(--white);
+      }
+
+      .contact-panel h2 {
+        margin-bottom: 10px;
+        font-size: 32px;
+      }
+
+      .contact-panel p {
+        margin-bottom: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .footer-inner {
+        width: min(1160px, calc(100% - 32px));
+        min-height: 96px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer-links a {
+        color: var(--ink-soft);
+        text-decoration: none;
+        font-weight: 650;
+      }
+
+      .footer-links a:hover,
+      .footer-links a:focus-visible {
+        color: var(--green);
+        outline: none;
+      }
+
+      .fade-up,
+      .image-reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 620ms ease,
+          transform 620ms ease;
+      }
+
+      .image-reveal {
+        transform: translateY(16px) scale(0.98);
+      }
+
+      .fade-up.show,
+      .image-reveal.show {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (max-width: 980px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 16px 0;
         }
 
-        .phone {
-          width: 180px;
-          height: 360px;
+        .nav-links {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 2px;
+        }
+
+        .hero {
+          min-height: min(680px, calc(86svh - 126px));
+          background:
+            linear-gradient(180deg, rgba(8, 18, 15, 0.94) 0%, rgba(8, 18, 15, 0.72) 74%, rgba(8, 18, 15, 0.44) 100%),
+            image-set(url("./petshift/assets/petshift-care-handoff-hero.png") 1x);
+          background-size: cover;
+          background-position: center;
+        }
+
+        h1 {
+          font-size: 48px;
+        }
+
+        .section-heading,
+        .principles,
+        .contact-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .app-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .nav {
+          min-height: 64px;
+          flex-direction: row;
+          align-items: center;
+          padding: 0;
+        }
+
+        .nav-links a:not(.nav-cta) {
+          display: none;
+        }
+
+        .nav-links {
+          width: auto;
+          overflow: visible;
+        }
+
+        .hero {
+          min-height: auto;
+          align-items: end;
+        }
+
+        .hero-inner {
+          padding: 46px 0 28px;
+        }
+
+        h1 {
+          font-size: 38px;
+          line-height: 1.05;
+        }
+
+        .hero-copy > p:not(.eyebrow) {
+          font-size: 16px;
+          line-height: 1.58;
+        }
+
+        .hero-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .hero-proof {
+          display: none;
+        }
+
+        .section {
+          padding: 64px 0;
+        }
+
+        .portfolio-band .section {
+          padding-top: 44px;
+        }
+
+        .section-heading {
+          gap: 18px;
+          margin-bottom: 22px;
+        }
+
+        .section-heading h2,
+        .principles h2 {
+          font-size: 32px;
+        }
+
+        .app-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .visual {
+          height: 232px;
+        }
+
+        .contact-panel {
+          padding: 22px;
+        }
+
+        .footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          justify-content: center;
+          padding: 26px 0;
+        }
+      }
+
+      @media (max-width: 390px) {
+        .nav {
+          width: min(100% - 24px, 1160px);
+        }
+
+        .brand span:last-child {
+          font-size: 15px;
+        }
+
+        .nav-links .nav-cta {
+          padding: 0 10px;
+        }
+
+        h1 {
+          font-size: 32px;
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+
         .fade-up,
-        .image-reveal,
-        .btn {
+        .image-reveal {
           opacity: 1;
           transform: none;
-          transition: none;
         }
       }
     </style>
   </head>
 
   <body>
-    <section class="hero">
-      <div class="logo fade-up">GreenVital</div>
-      <h1 class="fade-up">Apps built for real life</h1>
-      <p class="fade-up">
-        Practical apps that help people live with more clarity, control, and balance.
-      </p>
-      <a href="#apps" class="btn fade-up">Explore Apps</a>
-    </section>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <section id="apps" class="apps">
-      <h2 class="fade-up">Our Apps</h2>
+    <header class="site-header">
+      <nav class="nav" aria-label="GreenVital navigation">
+        <a class="brand" href="/" aria-label="GreenVital home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>GreenVital</span>
+        </a>
+        <div class="nav-links">
+          <a href="#apps">Apps</a>
+          <a href="#principles">Principles</a>
+          <a href="#contact">Contact</a>
+          <a class="nav-cta" href="#apps">View apps</a>
+        </div>
+      </nav>
+    </header>
 
-      <div class="grid">
-        <div class="card fade-up">
-          <div class="phone phone-light">
-            <div class="screen">
-              <img
-                src="./Screenshots/moneypulse-may-2026.png"
-                alt="Money Pulse screenshot"
-                class="image-reveal"
-              />
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow fade-up">Independent app studio</p>
+            <h1 id="hero-title" class="fade-up">GreenVital builds focused software for real life.</h1>
+            <p class="fade-up">
+              A small portfolio of practical apps for money, time, care, wellness,
+              private media, and device storage. Clear tools, calm design, and honest product pages.
+            </p>
+            <div class="hero-actions fade-up">
+              <a class="button" href="#apps">Explore the apps</a>
+              <a class="button secondary" href="mailto:support@greenvital.app?subject=GreenVital%20Support">Contact support</a>
             </div>
           </div>
-          <h3>Money Pulse</h3>
-          <p>Track your real monthly balance.</p>
-          <div class="buttons">
-            <a
-              href="https://apps.apple.com/us/app/moneypulse-by-greenvital/id6759937760"
-              target="_blank"
-              rel="noreferrer"
-            >
-              App Store
-            </a>
-            <a
-              href="https://play.google.com/store/apps/details?id=com.greenvital.moneypulse&pcampaignid=web_share"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Google Play
-            </a>
-            <a href="./money-pulse.html">Website</a>
+
+          <div class="hero-proof fade-up" aria-label="GreenVital company focus">
+            <div class="proof-item">
+              <strong>Useful first</strong>
+              <span>Each app solves a specific daily problem without extra noise.</span>
+            </div>
+            <div class="proof-item">
+              <strong>Privacy aware</strong>
+              <span>Product pages explain what is local, shared, or still coming soon.</span>
+            </div>
+            <div class="proof-item">
+              <strong>Built carefully</strong>
+              <span>Launch pages, support, and policies stay public and easy to understand.</span>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="card fade-up">
-          <div class="phone">
-            <div class="screen">
-              <img
-                src="./Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png"
-                alt="Back to Life screenshot"
-                class="image-reveal"
-              />
+      <section class="portfolio-band" id="apps" aria-labelledby="apps-title">
+        <div class="section">
+          <div class="section-heading fade-up">
+            <div>
+              <p class="eyebrow">App portfolio</p>
+              <h2 id="apps-title">A focused set of products, each with a clear job.</h2>
             </div>
+            <p>
+              GreenVital is not trying to make one giant app. We build small,
+              high-quality products that help people make better everyday decisions.
+            </p>
           </div>
-          <h3>Back to Life</h3>
-          <p>Protect time, boundaries, and daily focus.</p>
-          <div class="buttons">
-            <a
-              href="https://apps.apple.com/us/app/back-to-life-by-greenvital/id6762013552"
-              target="_blank"
-              rel="noreferrer"
-            >
-              App Store
-            </a>
-            <div class="disabled">Google Play</div>
-            <a href="./back-to-life.html">Website</a>
+
+          <div class="app-grid">
+            <article class="app-card fade-up">
+              <div class="visual">
+                <div class="phone">
+                  <img
+                    class="image-reveal"
+                    src="./Screenshots/moneypulse-may-2026.png"
+                    alt="Money Pulse monthly balance dashboard"
+                    width="1206"
+                    height="2622"
+                  />
+                </div>
+              </div>
+              <div class="app-body">
+                <div class="app-meta">
+                  <span class="app-kicker">Finance</span>
+                  <span class="status live">Live</span>
+                </div>
+                <h3>Money Pulse</h3>
+                <p>Track your real monthly balance, spending, subscriptions, and cash flow with a cleaner monthly view.</p>
+                <div class="app-actions">
+                  <a class="text-link" href="./money-pulse.html">Product page</a>
+                  <a class="text-link" href="https://apps.apple.com/us/app/moneypulse-by-greenvital/id6759937760" target="_blank" rel="noreferrer">App Store</a>
+                  <a class="text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.moneypulse&pcampaignid=web_share" target="_blank" rel="noreferrer">Google Play</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="app-card fade-up">
+              <div class="visual">
+                <div class="phone">
+                  <img
+                    class="image-reveal"
+                    src="./Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png"
+                    alt="Back to Life app schedule protection screen"
+                    width="1206"
+                    height="2622"
+                  />
+                </div>
+              </div>
+              <div class="app-body">
+                <div class="app-meta">
+                  <span class="app-kicker">Focus</span>
+                  <span class="status live">iOS</span>
+                </div>
+                <h3>Back to Life</h3>
+                <p>Protect attention with scheduled boundaries, reminders, and Screen Time based focus controls.</p>
+                <div class="app-actions">
+                  <a class="text-link" href="./back-to-life.html">Product page</a>
+                  <a class="text-link" href="https://apps.apple.com/us/app/back-to-life-by-greenvital/id6762013552" target="_blank" rel="noreferrer">App Store</a>
+                  <a class="text-link" href="./back-to-liife-support.html">Support</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="app-card fade-up">
+              <div class="visual">
+                <div class="phone">
+                  <img
+                    class="image-reveal"
+                    src="./Screenshots/greenvital.jpeg"
+                    alt="GreenVital wellness app natural healing screen"
+                    width="970"
+                    height="2048"
+                  />
+                </div>
+              </div>
+              <div class="app-body">
+                <div class="app-meta">
+                  <span class="app-kicker">Wellness</span>
+                  <span class="status live">Android</span>
+                </div>
+                <h3>GreenVital Wellness</h3>
+                <p>Natural remedies, wellness guidance, and cultural healing content organized into one Android app.</p>
+                <div class="app-actions">
+                  <a class="text-link" href="./greenvital-app.html">Product page</a>
+                  <a class="text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp&pcampaignid=web_share" target="_blank" rel="noreferrer">Google Play</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="app-card fade-up">
+              <div class="visual">
+                <div class="phone crop-top">
+                  <img
+                    class="image-reveal"
+                    src="./petshift/assets/petshift-owner-live-schedule.png"
+                    alt="PetShift live pet care schedule"
+                    width="1206"
+                    height="2622"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="app-body">
+                <div class="app-meta">
+                  <span class="app-kicker">Pet care</span>
+                  <span class="status">Private beta</span>
+                </div>
+                <h3>PetShift</h3>
+                <p>Private pet-care coordination for trusted owners and sitters, with schedules, photos, and recaps.</p>
+                <div class="app-actions">
+                  <a class="text-link" href="./petshift/">Product page</a>
+                  <a class="text-link" href="mailto:support@greenvital.app?subject=PetShift%20Private%20Beta">Join beta</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="app-card fade-up">
+              <div class="visual dark">
+                <div class="icon-display">
+                  <img
+                    class="image-reveal"
+                    src="./offline-vault/assets/offline-vault-icon.png"
+                    alt="Offline Vault app icon"
+                    width="1024"
+                    height="1024"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="app-body">
+                <div class="app-meta">
+                  <span class="app-kicker">Private media</span>
+                  <span class="status">Coming soon</span>
+                </div>
+                <h3>Offline Vault</h3>
+                <p>A private, self-hosted media vault for iPhone and your computer, priced as a one-time purchase.</p>
+                <div class="app-actions">
+                  <a class="text-link" href="./offline-vault/">Product page</a>
+                  <a class="text-link" href="./downloads/">Downloads</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="app-card fade-up">
+              <div class="visual">
+                <div class="phone">
+                  <img
+                    class="image-reveal"
+                    src="./storagepilot/assets/storagepilot-dashboard.png"
+                    alt="StoragePilot storage dashboard"
+                    width="1080"
+                    height="2400"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="app-body">
+                <div class="app-meta">
+                  <span class="app-kicker">Android storage</span>
+                  <span class="status">Google Play soon</span>
+                </div>
+                <h3>StoragePilot</h3>
+                <p>Review storage, compress carefully, and make cleanup decisions while keeping files on-device.</p>
+                <div class="app-actions">
+                  <a class="text-link" href="./storagepilot/">Product page</a>
+                  <a class="text-link" href="./storagepilot/privacy/">Privacy</a>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
+      </section>
 
-        <div class="card fade-up">
-          <div class="phone">
-            <div class="screen">
-              <img
-                src="./Screenshots/greenvital.jpeg"
-                alt="GreenVital app screenshot"
-                class="image-reveal"
-              />
-            </div>
+      <section class="principles-band" id="principles" aria-labelledby="principles-title">
+        <div class="section principles">
+          <div class="fade-up">
+            <p class="eyebrow">How we build</p>
+            <h2 id="principles-title">Small apps can still feel serious.</h2>
+            <p>
+              GreenVital products are built to be direct, readable, and practical.
+              The goal is not to impress people with complexity. The goal is to make
+              one real-life workflow feel easier.
+            </p>
           </div>
-          <h3>GreenVital</h3>
-          <p>Natural remedies, wellness guidance, and cultural healing in one app.</p>
-          <div class="buttons">
-            <div class="disabled">App Store</div>
-            <a
-              href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp&pcampaignid=web_share"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Google Play
-            </a>
-            <a href="./greenvital-app.html">Website</a>
+          <div class="principle-list fade-up">
+            <div class="principle">
+              <strong>Plain-language products</strong>
+              <span>Every page should tell users what the app does, what is live, and what is still being prepared.</span>
+            </div>
+            <div class="principle">
+              <strong>Visible support and policies</strong>
+              <span>Privacy, support, and terms stay easy to find from the main website and individual app pages.</span>
+            </div>
+            <div class="principle">
+              <strong>Design that respects attention</strong>
+              <span>Minimal screens, clear choices, and no fake launch claims just to make a page look busier.</span>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="card fade-up">
-          <div class="phone">
-            <div class="screen screen-crop-top">
-              <img
-                src="./petshift/assets/petshift-owner-live-schedule.png"
-                alt="PetShift live schedule screenshot"
-                class="image-reveal"
-              />
+      <section class="contact-band" id="contact" aria-labelledby="contact-title">
+        <div class="section">
+          <div class="contact-panel fade-up">
+            <div>
+              <h2 id="contact-title">Need help with a GreenVital app?</h2>
+              <p>
+                Send a clear note with the app name, device, and what happened.
+                We will route it through the public support address.
+              </p>
             </div>
-          </div>
-          <h3>PetShift</h3>
-          <p>Private pet-care coordination for trusted owners and sitters.</p>
-          <div class="buttons">
-            <div class="disabled">App Store soon</div>
-            <div class="disabled">Google Play soon</div>
-            <a href="./petshift/">Website</a>
+            <a class="button" href="mailto:support@greenvital.app?subject=GreenVital%20Support">Email support</a>
           </div>
         </div>
+      </section>
+    </main>
 
-        <div class="card fade-up">
-          <div class="phone phone-light">
-            <div class="screen app-icon-screen">
-              <img
-                src="./offline-vault/assets/offline-vault-icon.png"
-                alt="Offline Vault app icon"
-                class="image-reveal"
-              />
-            </div>
-          </div>
-          <h3>Offline Vault</h3>
-          <p>Your private, self-hosted media library for iPhone and your computer.</p>
-          <div class="buttons">
-            <div class="disabled">App Store soon</div>
-            <div class="disabled">Computer companion included</div>
-            <a href="./offline-vault/">Website</a>
-          </div>
-        </div>
-
-        <div class="card fade-up">
-          <div class="phone phone-light">
-            <div class="screen">
-              <img
-                src="./storagepilot/assets/storagepilot-dashboard.png"
-                alt="StoragePilot Android storage dashboard"
-                class="image-reveal"
-              />
-            </div>
-          </div>
-          <h3>StoragePilot</h3>
-          <p>Understand what uses space and make careful cleanup decisions on Android.</p>
-          <div class="buttons">
-            <div class="disabled">Google Play soon</div>
-            <a href="./storagepilot/privacy/">Privacy</a>
-            <a href="./storagepilot/">Website</a>
-          </div>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>GreenVital LLC</span>
+        <div class="footer-links">
+          <a href="./privacy-policy.html">Privacy</a>
+          <a href="./greenvital-terms.html">Terms</a>
+          <a href="./petshift/support/">PetShift support</a>
+          <a href="mailto:support@greenvital.app">Contact</a>
         </div>
       </div>
-    </section>
-
-    <section class="about fade-up">
-      <h2>About GreenVital</h2>
-      <p>
-        GreenVital builds simple, useful tools designed to help people stay focused,
-        reduce overwhelm, and make better everyday decisions without distractions.
-      </p>
-    </section>
-
-    <footer>
-      <a href="./privacy-policy.html">Privacy Policy</a>
-      <a href="mailto:hello@greenvital.app">Contact</a>
     </footer>
 
     <script src="./script.js"></script>
