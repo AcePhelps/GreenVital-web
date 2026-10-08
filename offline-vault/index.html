@@ -16,7 +16,7 @@
     />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=5" />
+    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=6" />
     <script src="/offline-vault/releases.js?v=5" defer></script>
   </head>
   <body>
@@ -92,36 +92,79 @@
         <div class="section">
           <div class="section-heading">
             <p class="eyebrow">A direct route from computer to iPhone</p>
-            <h2 id="workflow-title">Set it up once. Take selected media with you.</h2>
-            <p>Keep your iPhone and computer on the same Wi-Fi while pairing and transferring files.</p>
+            <h2 id="workflow-title">From your computer to your pocket.</h2>
+            <p>Follow these steps once, then transfer supported media whenever your iPhone and computer are on the same local Wi-Fi network.</p>
           </div>
           <ol class="workflow">
             <li>
               <span class="step-number">01</span>
-              <h3>Install the companion</h3>
-              <p>Open Offline Vault Companion on your Mac or Windows computer.</p>
+              <h3>Install Offline Vault</h3>
+              <p>Install Offline Vault on your iPhone when it becomes available, then open the app.</p>
             </li>
             <li>
               <span class="step-number">02</span>
-              <h3>Select your folder</h3>
-              <p>Choose the folder containing the audio and video files you own.</p>
+              <h3>Install the companion</h3>
+              <p>Install Offline Vault Companion on your Mac or Windows computer. See the platform notes below.</p>
             </li>
             <li>
               <span class="step-number">03</span>
-              <h3>Start sharing</h3>
-              <p>Make that folder available to Offline Vault on your local network.</p>
+              <h3>Use the same Wi-Fi</h3>
+              <p>Connect the computer and iPhone to the same local Wi-Fi network before pairing.</p>
             </li>
             <li>
               <span class="step-number">04</span>
-              <h3>Scan the QR code</h3>
-              <p>Use Offline Vault on iPhone to pair with your computer on the same Wi-Fi.</p>
+              <h3>Choose what to share</h3>
+              <p>On the computer, choose the folder containing your supported media and select Start Sharing.</p>
             </li>
             <li>
               <span class="step-number">05</span>
-              <h3>Choose what stays offline</h3>
-              <p>Transfer selected files to iPhone, then play them without a connection.</p>
+              <h3>Connect from Transfers</h3>
+              <p>On iPhone, open Transfers, scan the QR code shown by the companion, then approve the connection.</p>
+            </li>
+            <li>
+              <span class="step-number">06</span>
+              <h3>Choose your media</h3>
+              <p>Browse the supported media available from the shared folder and transfer selected files to your phone.</p>
+            </li>
+            <li>
+              <span class="step-number">07</span>
+              <h3>Play it anywhere</h3>
+              <p>Open transferred files from your Offline Vault library, even when your computer is no longer connected.</p>
             </li>
           </ol>
+
+          <div class="install-notes" aria-label="Computer installation notes">
+            <article>
+              <p class="platform-label">Mac</p>
+              <h3>Install the Mac companion</h3>
+              <p>Download and open Offline Vault Companion for Mac when it becomes available, then allow local-network access if macOS asks.</p>
+            </article>
+            <article>
+              <p class="platform-label">Windows 10 / 11</p>
+              <h3>Install the Windows companion</h3>
+              <p>This is a self-signed sideload, not a Microsoft Store or generally trusted installer. Install the GreenVital public certificate into Local Machine Trusted People before opening App Installer.</p>
+              <a href="/downloads/">Open verified Windows downloads</a>
+            </article>
+          </div>
+
+          <div class="setup-details">
+            <section aria-labelledby="shared-folder-title">
+              <p class="eyebrow">While sharing</p>
+              <h3 id="shared-folder-title">The phone follows the companion.</h3>
+              <p>Choose a different shared folder on the computer and the available media refreshes automatically on iPhone. Stop sharing or close the companion, and the phone disconnects. Files already transferred to iPhone remain available offline.</p>
+            </section>
+            <section aria-labelledby="connection-help-title">
+              <p class="eyebrow">No connection?</p>
+              <h3 id="connection-help-title">Check these five things.</h3>
+              <ol class="troubleshooting-list">
+                <li>Confirm the computer and iPhone are on the same Wi-Fi.</li>
+                <li>Make sure sharing is running in the companion.</li>
+                <li>Enable Local Network permission for Offline Vault in iPhone Settings.</li>
+                <li>Temporarily disable any VPN or guest-network isolation.</li>
+                <li>Show a fresh QR code and scan it again from Transfers.</li>
+              </ol>
+            </section>
+          </div>
         </div>
       </section>
 
