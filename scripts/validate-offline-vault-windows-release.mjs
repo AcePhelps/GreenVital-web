@@ -10,16 +10,22 @@ const WINDOWS_ORIGIN = "https://downloads.greenvital.app";
 const WINDOWS_PATH = "/offline-vault/windows/";
 const EXPECTED_CERTIFICATE_SHA1 = "FC677345547ACF903AC8ABBEEEBD79A30318889C";
 const ASSETS = {
-  "OfflineVaultCompanion-1.0.0.msixbundle": {
+  "OfflineVaultCompanion-Setup-1.0.1.exe": {
+    contentType: "application/vnd.microsoft.portable-executable",
+    sha256: "c18f80eb39e73d8f2be305fa6982fc5c402a738746b081e8a49d31f212a64563",
+    size: 160738000,
+    rangeRequired: true
+  },
+  "OfflineVaultCompanion-1.0.1.msixbundle": {
     contentType: "application/msixbundle",
-    sha256: "81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e",
-    size: 125803957,
+    sha256: "0d6cd33c40f9e837e2fa23ef3f81dd03c31c032a1e0b379f0d2e10ae9699080b",
+    size: 125803977,
     rangeRequired: true
   },
   "OfflineVaultCompanion.appinstaller": {
     contentType: "application/appinstaller",
-    sha256: "3049f0a4c85bd83d186ddcf3f011fb13c44a38ef6bb18a0c5ea7cb688c986dfa",
-    size: 662
+    sha256: "911baea91c711d7557036f5eb2e97d238dae6c6f18ca8c1300087cb4575a28af",
+    size: 660
   },
   "GreenVital-OfflineVault.cer": {
     contentType: "application/x-x509-ca-cert",
@@ -28,8 +34,8 @@ const ASSETS = {
   },
   "release.json": {
     contentType: "application/json",
-    sha256: "57f89a583f88f050b7da1f14b74c7a68e2fb281b434ff40b3d8e959f8f8552b5",
-    size: 514
+    sha256: "050525a400053f1768c135ff3499c52ca933cb7f95984a6daa2ac36fba1fe615",
+    size: 1118
   }
 };
 
@@ -54,7 +60,7 @@ function assetUrl(fileName) {
 function validateReleaseJson(buffer) {
   const release = JSON.parse(buffer.toString("utf8"));
 
-  assert(release.version === "1.0.0", "release version must be 1.0.0");
+  assert(release.version === "1.0.1", "release version must be 1.0.1");
   assert(release.minimumWindowsVersion === "10.0.17763.0", "minimum Windows version changed");
   assert(
     Array.isArray(release.architectures) &&
@@ -63,16 +69,25 @@ function validateReleaseJson(buffer) {
       release.architectures.includes("arm64"),
     "release architectures must be x64 and arm64"
   );
-  assert(release.sha256 === ASSETS["OfflineVaultCompanion-1.0.0.msixbundle"].sha256, "bundle SHA-256 changed");
-  assert(release.sizeBytes === ASSETS["OfflineVaultCompanion-1.0.0.msixbundle"].size, "bundle size changed");
+  assert(release.setupSha256 === ASSETS["OfflineVaultCompanion-Setup-1.0.1.exe"].sha256, "setup SHA-256 changed");
+  assert(release.setupSizeBytes === ASSETS["OfflineVaultCompanion-Setup-1.0.1.exe"].size, "setup size changed");
+  assert(release.sha256 === ASSETS["OfflineVaultCompanion-1.0.1.msixbundle"].sha256, "bundle SHA-256 changed");
+  assert(release.sizeBytes === ASSETS["OfflineVaultCompanion-1.0.1.msixbundle"].size, "bundle size changed");
   assert(
-    release.msixBundleUrl === assetUrl("OfflineVaultCompanion-1.0.0.msixbundle"),
+    release.setupUrl === assetUrl("OfflineVaultCompanion-Setup-1.0.1.exe"),
+    "setup URL changed"
+  );
+  assert(
+    release.msixBundleUrl === assetUrl("OfflineVaultCompanion-1.0.1.msixbundle"),
     "bundle URL changed"
   );
   assert(
     release.appInstallerUrl === assetUrl("OfflineVaultCompanion.appinstaller"),
     "App Installer URL changed"
   );
+  assert(release.certificateUrl === assetUrl("GreenVital-OfflineVault.cer"), "certificate URL changed");
+  assert(release.certificateSha256 === ASSETS["GreenVital-OfflineVault.cer"].sha256, "certificate SHA-256 changed");
+  assert(release.certificateThumbprint === EXPECTED_CERTIFICATE_SHA1, "certificate thumbprint changed");
   assert(
     typeof release.releasedAt === "string" &&
       release.releasedAt.endsWith("Z") &&
@@ -84,9 +99,9 @@ function validateReleaseJson(buffer) {
 function validateAppInstaller(buffer) {
   const value = buffer.toString("utf8");
   assert(value.includes('Publisher="CN=GreenVital"'), "App Installer publisher changed");
-  assert(value.includes('Version="1.0.0.0"'), "App Installer version changed");
+  assert(value.includes('Version="1.0.1.0"'), "App Installer version changed");
   assert(value.includes(assetUrl("OfflineVaultCompanion.appinstaller")), "App Installer self URL changed");
-  assert(value.includes(assetUrl("OfflineVaultCompanion-1.0.0.msixbundle")), "App Installer bundle URL changed");
+  assert(value.includes(assetUrl("OfflineVaultCompanion-1.0.1.msixbundle")), "App Installer bundle URL changed");
 }
 
 function validateCertificate(buffer) {
@@ -117,7 +132,7 @@ async function validateLocalAssets(directory) {
     validateAsset(fileName, buffer);
   }
 
-  console.log("All four Offline Vault sideload assets match the verified draft release byte-for-byte.");
+  console.log("All five Offline Vault Windows assets match the verified release byte-for-byte.");
 }
 
 async function fetchWithoutRedirect(url, options = {}) {
@@ -134,10 +149,15 @@ async function fetchWithoutRedirect(url, options = {}) {
 function validateHeaders(response, fileName, expectedLength) {
   const expected = ASSETS[fileName];
   const contentType = (response.headers.get("content-type") || "").split(";", 1)[0].toLowerCase();
-  const contentLength = Number(response.headers.get("content-length"));
+  const contentLengthHeader = response.headers.get("content-length");
+  const contentEncoding = response.headers.get("content-encoding");
 
   assert(contentType === expected.contentType, `${fileName} has Content-Type ${contentType || "missing"}`);
-  assert(contentLength === expectedLength, `${fileName} has Content-Length ${contentLength}`);
+  if (contentLengthHeader === null) {
+    assert(contentEncoding, `${fileName} is missing Content-Length without content encoding`);
+  } else {
+    assert(Number(contentLengthHeader) === expectedLength, `${fileName} has Content-Length ${contentLengthHeader}`);
+  }
 }
 
 async function downloadLiveAsset(fileName) {
@@ -152,15 +172,21 @@ async function validateLiveRelease() {
     await downloadLiveAsset(fileName);
   }
 
-  const rangeResponse = await fetchWithoutRedirect(assetUrl("OfflineVaultCompanion-1.0.0.msixbundle"), {
-    headers: { Range: "bytes=0-0" }
-  });
-  assert(rangeResponse.status === 206, `bundle range request returned HTTP ${rangeResponse.status}`);
-  validateHeaders(rangeResponse, "OfflineVaultCompanion-1.0.0.msixbundle", 1);
-  assert(
-    rangeResponse.headers.get("content-range") === "bytes 0-0/125803957",
-    "bundle Content-Range is invalid"
-  );
+  for (const [fileName, expected] of Object.entries(ASSETS)) {
+    if (!expected.rangeRequired) {
+      continue;
+    }
+
+    const rangeResponse = await fetchWithoutRedirect(assetUrl(fileName), {
+      headers: { Range: "bytes=0-0" }
+    });
+    assert(rangeResponse.status === 206, `${fileName} range request returned HTTP ${rangeResponse.status}`);
+    validateHeaders(rangeResponse, fileName, 1);
+    assert(
+      rangeResponse.headers.get("content-range") === `bytes 0-0/${expected.size}`,
+      `${fileName} Content-Range is invalid`
+    );
+  }
 
   console.log("Live sideload release passed HTTPS, MIME, length, range, and byte-for-byte checks.");
 }
@@ -171,7 +197,8 @@ async function validateWebsiteGate() {
     script.includes("const WINDOWS_SIDELOAD_ENABLED = true;"),
     "Windows sideload controls are not enabled"
   );
-  assert(script.includes(ASSETS["OfflineVaultCompanion-1.0.0.msixbundle"].sha256), "website bundle SHA-256 changed");
+  assert(script.includes(ASSETS["OfflineVaultCompanion-Setup-1.0.1.exe"].sha256), "website setup SHA-256 changed");
+  assert(script.includes(ASSETS["OfflineVaultCompanion-1.0.1.msixbundle"].sha256), "website bundle SHA-256 changed");
   assert(script.includes(EXPECTED_CERTIFICATE_SHA1), "website certificate thumbprint changed");
   assert(script.includes(ASSETS["GreenVital-OfflineVault.cer"].sha256.toUpperCase()), "website certificate SHA-256 changed");
   console.log("Website sideload controls are enabled with the verified release fingerprints pinned.");

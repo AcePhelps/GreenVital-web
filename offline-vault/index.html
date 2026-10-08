@@ -16,8 +16,8 @@
     />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=6" />
-    <script src="/offline-vault/releases.js?v=5" defer></script>
+    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=7" />
+    <script src="/offline-vault/releases.js?v=6" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -142,7 +142,7 @@
             <article>
               <p class="platform-label">Windows 10 / 11</p>
               <h3>Install the Windows companion</h3>
-              <p>This is a self-signed sideload, not a Microsoft Store or generally trusted installer. Install the GreenVital public certificate into Local Machine Trusted People before opening App Installer.</p>
+              <p>Download and run the one-file EXE. Because this build is self-signed and untimestamped, Windows may show SmartScreen; choose More info, Run anyway, then approve UAC. Manual package files remain available for advanced installation.</p>
               <a href="/downloads/">Open verified Windows downloads</a>
             </article>
           </div>
@@ -302,38 +302,45 @@
               </div>
               <h3>Offline Vault Companion for Windows</h3>
               <p>
-                This is a self-signed sideload release, not a Microsoft Store or generally trusted
-                installer. Install the GreenVital public certificate first, then open App Installer.
+                Version 1.0.1 uses a one-file installer. This build is self-signed and untimestamped,
+                so Windows may show SmartScreen. It is not a Microsoft Store or generally trusted installer.
               </p>
+              <ol class="compact-install-steps">
+                <li>Download and run the EXE.</li>
+                <li>If SmartScreen appears, choose More info, then Run anyway.</li>
+                <li>Approve UAC; setup installs the embedded public certificate and app, then launches it.</li>
+              </ol>
               <dl class="release-meta">
-                <div><dt>Version</dt><dd data-release-field="version">1.0.0</dd></div>
-                <div><dt>Release type</dt><dd>Self-signed sideload</dd></div>
-                <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64</dd></div>
-                <div><dt>Certificate SHA-1</dt><dd>FC677345547ACF903AC8ABBEEEBD79A30318889C</dd></div>
-                <div><dt>Certificate SHA-256</dt><dd data-release-field="certificateSha256">E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484</dd></div>
-                <div><dt>Installer SHA-256</dt><dd data-release-field="sha256">81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e</dd></div>
+                <div><dt>Version</dt><dd data-release-field="version">1.0.1</dd></div>
+                <div><dt>Release type</dt><dd>Self-signed, untimestamped</dd></div>
+                <div><dt>Installer size</dt><dd data-release-field="setupFileSize">160,738,000 bytes (153.3 MiB)</dd></div>
+                <div><dt>Installer SHA-256</dt><dd data-release-field="setupSha256">c18f80eb39e73d8f2be305fa6982fc5c402a738746b081e8a49d31f212a64563</dd></div>
               </dl>
-              <div class="release-actions three-up">
+              <div class="release-actions primary-download-action">
                 <a
                   class="button button-disabled release-link"
-                  data-release-link="certificateUrl"
-                  data-ready-label="1. Public certificate"
+                  data-release-link="setupUrl"
+                  data-ready-label="Download for Windows"
                   aria-disabled="true"
-                >Certificate unavailable</a>
-                <a
-                  class="button button-disabled release-link"
-                  data-release-link="appInstallerUrl"
-                  data-ready-label="2. Open App Installer"
-                  aria-disabled="true"
-                >App Installer unavailable</a>
-                <a
-                  class="button button-disabled release-link"
-                  data-release-link="msixBundleUrl"
-                  data-ready-label="Direct MSIX bundle"
-                  aria-disabled="true"
-                >MSIX bundle unavailable</a>
+                >Installer unavailable</a>
               </div>
-              <p class="security-note">The certificate download is the public <code>.cer</code> only. GreenVital will never ask for a private key or PFX.</p>
+              <details class="advanced-install compact">
+                <summary>Advanced / manual installation</summary>
+                <div class="advanced-install-content">
+                  <dl class="release-meta">
+                    <div><dt>Bundle SHA-256</dt><dd data-release-field="bundleSha256">0d6cd33c40f9e837e2fa23ef3f81dd03c31c032a1e0b379f0d2e10ae9699080b</dd></div>
+                    <div><dt>Certificate SHA-1</dt><dd>FC677345547ACF903AC8ABBEEEBD79A30318889C</dd></div>
+                    <div><dt>Certificate SHA-256</dt><dd data-release-field="certificateSha256">E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484</dd></div>
+                  </dl>
+                  <div class="release-actions three-up">
+                    <a class="button button-disabled release-link" data-release-link="certificateUrl" data-ready-label="Public certificate" aria-disabled="true">Certificate unavailable</a>
+                    <a class="button button-disabled release-link" data-release-link="appInstallerUrl" data-ready-label="Open App Installer" aria-disabled="true">App Installer unavailable</a>
+                    <a class="button button-disabled release-link" data-release-link="msixBundleUrl" data-ready-label="Direct MSIX bundle" aria-disabled="true">MSIX bundle unavailable</a>
+                  </div>
+                  <p class="security-note">The certificate download is the public <code>.cer</code> only. GreenVital will never ask for a private key or PFX.</p>
+                  <p class="downloads-help"><a data-release-link="releaseManifestUrl" data-ready-label="View release manifest">View release manifest</a></p>
+                </div>
+              </details>
             </article>
           </div>
 
@@ -373,7 +380,7 @@
             </details>
             <details>
               <summary>What does the Windows companion require?</summary>
-              <p>The prepared release supports Windows 10 version 1809 or newer and Windows 11. It is self-signed, so users must verify and install the GreenVital public certificate before opening App Installer.</p>
+              <p>Version 1.0.1 supports Windows 10 version 1809 or newer and Windows 11. The recommended EXE installs the embedded public certificate and app. Because the build is self-signed and untimestamped, Windows may show SmartScreen before installation.</p>
             </details>
             <details>
               <summary>Do my iPhone and computer need the same Wi-Fi?</summary>

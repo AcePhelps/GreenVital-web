@@ -693,6 +693,15 @@ h3 {
   grid-template-columns: 1fr;
 }
 
+.primary-download-action {
+  margin-top: 4px;
+}
+
+.primary-download-action .button {
+  min-height: 56px;
+  font-size: 16px;
+}
+
 .release-link {
   width: 100%;
   font-size: 14px;
@@ -701,6 +710,71 @@ h3 {
 
 .release-link[aria-disabled="true"] {
   cursor: not-allowed;
+}
+
+.compact-install-steps {
+  margin: -4px 0 24px;
+  padding: 18px 0 18px 22px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.compact-install-steps li + li {
+  margin-top: 8px;
+}
+
+.advanced-install {
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.advanced-install summary {
+  padding: 18px 34px 18px 0;
+  position: relative;
+  cursor: pointer;
+  color: var(--cyan-soft);
+  font-size: 15px;
+  font-weight: 750;
+  list-style: none;
+}
+
+.advanced-install summary::-webkit-details-marker {
+  display: none;
+}
+
+.advanced-install summary::after {
+  content: "+";
+  position: absolute;
+  top: 12px;
+  right: 4px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 24px;
+}
+
+.advanced-install[open] summary::after {
+  content: "−";
+}
+
+.advanced-install-content {
+  padding: 4px 0 24px;
+}
+
+.advanced-install-content > p:first-child {
+  margin-bottom: 4px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.advanced-install.compact .advanced-install-content {
+  padding-top: 12px;
+}
+
+.advanced-install.compact .release-meta {
+  margin-bottom: 20px;
 }
 
 .security-note {
@@ -751,6 +825,11 @@ h3 {
 .sideload-steps strong {
   display: block;
   color: var(--white);
+}
+
+.ui-label {
+  color: var(--white);
+  font-weight: 750;
 }
 
 .companion-support {

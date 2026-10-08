@@ -10,8 +10,8 @@
     />
     <meta name="theme-color" content="#071112" />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=6" />
-    <script src="/offline-vault/releases.js?v=5" defer></script>
+    <link rel="stylesheet" href="/offline-vault/offline-vault.css?v=7" />
+    <script src="/offline-vault/releases.js?v=6" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -36,7 +36,7 @@
           <p class="eyebrow">Official GreenVital software</p>
           <h1>Install from the source.</h1>
           <p>
-            Offline Vault Companion 1.0.0 is available as a self-signed Windows sideload.
+            Offline Vault Companion 1.0.1 is available as a one-file Windows installer.
             Every published file is hosted over HTTPS and independently verified before release.
           </p>
           <a class="downloads-product-link" href="/offline-vault/">Explore Offline Vault</a>
@@ -47,58 +47,79 @@
             <span class="platform-label">Windows 10 / 11</span>
             <span class="release-status" data-release-field="status">Self-signed sideload</span>
           </div>
-          <h2>Offline Vault Companion</h2>
+          <h2>Offline Vault Companion 1.0.1</h2>
           <p>
-            This is not a Microsoft Store or generally trusted installer. Windows must trust the
-            GreenVital public certificate before App Installer can install the bundle.
+            Download one file and run it. This build is self-signed and untimestamped, so Windows
+            may show a SmartScreen warning. It is not a Microsoft Store or generally trusted installer.
           </p>
-          <ol class="sideload-steps">
+          <ol class="sideload-steps setup-steps">
             <li>
-              <strong>Install the public certificate.</strong>
-              Open the <code>.cer</code>, choose Local Machine, and place it in Trusted People.
+              <strong>Download and run the EXE.</strong>
+              Open <code>OfflineVaultCompanion-Setup-1.0.1.exe</code> after it finishes downloading.
             </li>
             <li>
-              <strong>Verify the certificate.</strong>
-              Confirm SHA-1 thumbprint <code>FC677345547ACF903AC8ABBEEEBD79A30318889C</code>.
+              <strong>Continue through SmartScreen.</strong>
+              If Windows shows a warning, choose <span class="ui-label">More info</span>, then <span class="ui-label">Run anyway</span>.
             </li>
             <li>
-              <strong>Open App Installer.</strong>
-              Download the <code>.appinstaller</code> only after the certificate is trusted.
+              <strong>Approve the Windows prompt.</strong>
+              Choose Yes when User Account Control asks for permission.
+            </li>
+            <li>
+              <strong>Let setup finish.</strong>
+              The installer securely installs the embedded GreenVital public certificate and app, then launches Offline Vault Companion.
             </li>
           </ol>
           <dl class="release-meta">
-            <div><dt>Version</dt><dd data-release-field="version">1.0.0</dd></div>
+            <div><dt>Version</dt><dd data-release-field="version">1.0.1</dd></div>
             <div><dt>Minimum Windows</dt><dd data-release-field="minimumWindowsVersion">10.0.17763.0</dd></div>
             <div><dt>Architectures</dt><dd data-release-field="architectures">x64 / arm64</dd></div>
-            <div><dt>File size</dt><dd data-release-field="fileSize">125.8 MB</dd></div>
-            <div><dt>Certificate SHA-1</dt><dd>FC677345547ACF903AC8ABBEEEBD79A30318889C</dd></div>
-            <div><dt>Certificate SHA-256</dt><dd data-release-field="certificateSha256">E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484</dd></div>
-            <div><dt>Installer SHA-256</dt><dd data-release-field="sha256">81b1dc004993fffe56ab9ba75cd26991df1468a9d97fa1965a6af03921540a5e</dd></div>
+            <div><dt>Installer size</dt><dd data-release-field="setupFileSize">160,738,000 bytes (153.3 MiB)</dd></div>
+            <div><dt>Installer SHA-256</dt><dd data-release-field="setupSha256">c18f80eb39e73d8f2be305fa6982fc5c402a738746b081e8a49d31f212a64563</dd></div>
           </dl>
-          <div class="release-actions three-up">
+          <div class="release-actions primary-download-action">
             <a
               class="button button-disabled release-link"
-              data-release-link="certificateUrl"
-              data-ready-label="1. Public certificate"
+              data-release-link="setupUrl"
+              data-ready-label="Download for Windows"
               aria-disabled="true"
-            >Certificate unavailable</a>
-            <a
-              class="button button-disabled release-link"
-              data-release-link="appInstallerUrl"
-              data-ready-label="2. Open App Installer"
-              aria-disabled="true"
-            >App Installer unavailable</a>
-            <a
-              class="button button-disabled release-link"
-              data-release-link="msixBundleUrl"
-              data-ready-label="Direct MSIX bundle"
-              aria-disabled="true"
-            >MSIX bundle unavailable</a>
+            >Installer unavailable</a>
           </div>
-          <p class="security-note">Only the public <code>.cer</code> is provided. Never install or share a private key, PFX, or certificate password.</p>
-          <p class="downloads-help">
-            Release details: <a data-release-link="releaseManifestUrl" data-ready-label="View release manifest">View release manifest</a>.
-          </p>
+          <p class="security-note">The installer contains only the public GreenVital certificate needed to trust this self-signed build. It never contains a private key or PFX.</p>
+
+          <details class="advanced-install">
+            <summary>Advanced / manual installation</summary>
+            <div class="advanced-install-content">
+              <p>Use these files only if you prefer to install the certificate and app package manually.</p>
+              <ol class="sideload-steps">
+                <li>
+                  <strong>Install the public certificate.</strong>
+                  Open the <code>.cer</code>, choose Local Machine, and place it in Trusted People.
+                </li>
+                <li>
+                  <strong>Verify the certificate.</strong>
+                  Confirm SHA-1 thumbprint <code>FC677345547ACF903AC8ABBEEEBD79A30318889C</code>.
+                </li>
+                <li>
+                  <strong>Open App Installer.</strong>
+                  Download the <code>.appinstaller</code> only after the certificate is trusted.
+                </li>
+              </ol>
+              <dl class="release-meta">
+                <div><dt>Bundle size</dt><dd data-release-field="bundleFileSize">125.8 MB</dd></div>
+                <div><dt>Bundle SHA-256</dt><dd data-release-field="bundleSha256">0d6cd33c40f9e837e2fa23ef3f81dd03c31c032a1e0b379f0d2e10ae9699080b</dd></div>
+                <div><dt>Certificate SHA-1</dt><dd>FC677345547ACF903AC8ABBEEEBD79A30318889C</dd></div>
+                <div><dt>Certificate SHA-256</dt><dd data-release-field="certificateSha256">E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484</dd></div>
+              </dl>
+              <div class="release-actions three-up">
+                <a class="button button-disabled release-link" data-release-link="certificateUrl" data-ready-label="1. Public certificate" aria-disabled="true">Certificate unavailable</a>
+                <a class="button button-disabled release-link" data-release-link="appInstallerUrl" data-ready-label="2. Open App Installer" aria-disabled="true">App Installer unavailable</a>
+                <a class="button button-disabled release-link" data-release-link="msixBundleUrl" data-ready-label="Direct MSIX bundle" aria-disabled="true">MSIX bundle unavailable</a>
+              </div>
+              <p class="security-note">Only the public <code>.cer</code> is provided. Never install or share a private key, PFX, or certificate password.</p>
+              <p class="downloads-help">Release details: <a data-release-link="releaseManifestUrl" data-ready-label="View release manifest">View release manifest</a>.</p>
+            </div>
+          </details>
           <p class="downloads-help">
             Questions? <a href="mailto:support@greenvital.app?subject=Offline%20Vault%20Windows%20Download">Email support</a>.
           </p>
