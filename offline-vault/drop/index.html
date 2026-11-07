@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#071112" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://checkout.stripe.com; connect-src 'self' https://drop.greenvital.app http://127.0.0.1:8790 http://localhost:8790; img-src 'self' blob: data:; style-src 'self'; base-uri 'none'; form-action https://checkout.stripe.com" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Cloud Drop Member Portal | Offline Vault</title>
+    <meta name="description" content="Private paid Cloud Drop access for transferring authorized media into Offline Vault." />
+    <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
+    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=2" />
+    <script src="/offline-vault/drop/drop.js?v=2" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=turnstileLoaded&amp;render=explicit" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#portal">Skip to Cloud Drop</a>
+    <header class="topbar">
+      <a class="brand" href="/offline-vault/"><img src="/offline-vault/assets/offline-vault-icon.png" alt="" width="36" height="36" /><span>Offline Vault</span></a>
+      <span class="secure-label">Member Cloud Drop</span>
+    </header>
+    <main id="portal">
+      <section class="intro">
+        <p class="eyebrow">Private paid service</p>
+        <h1>Save a link. Take it offline.</h1>
+        <p>Prepare your media in the cloud, then open the completed file in Offline Vault on your phone. Your downloads are private to your account.</p>
+        <dl class="facts">
+          <div><dt>Access</dt><dd>One-time member QR</dd></div>
+          <div><dt>Downloads</dt><dd>Only yours</dd></div>
+          <div><dt>Delivery</dt><dd>Single-use claim</dd></div>
+        </dl>
+      </section>
+      <section class="tool" aria-live="polite">
+        <div id="account-controls" class="member-line" hidden><span id="account-status">Cloud Drop</span><button id="manage-billing" type="button" hidden>Manage subscription</button><button id="forget-access" type="button">Sign out</button></div>
+        <div id="loading-state" class="state center-state"><div class="spinner" aria-hidden="true"></div><p>Checking secure access…</p></div>
+        <div id="subscribe-state" class="state" hidden>
+          <p class="eyebrow">Cloud Drop membership</p><h2>Your media, ready for your phone.</h2>
+          <p class="subscription-price"><strong id="subscription-amount">US$2.99</strong> <span id="subscription-interval">/ month</span></p>
+          <p class="muted">Billed monthly in USD. Renews automatically until canceled. After payment, use your personal activation QR on your phone.</p>
+          <label>Email for your receipt <input id="checkout-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" /></label>
+          <div class="turnstile-wrap" id="turnstile"></div>
+          <button id="start-checkout" class="primary" type="button" disabled>Continue to secure checkout</button>
+          <button id="restore-access" class="secondary" type="button" disabled>Email me a fresh access link</button>
+          <p class="fine-print">Already subscribed—or an approved GreenVital administrator? Use the same email to restore access without paying again.</p>
+        </div>
+        <div id="activation-state" class="state center-state" hidden>
+          <p class="eyebrow">Account access</p><h2>Your personal access link</h2>
+          <p class="muted">Confirm to sign in on this device. Your access link expires in 15 minutes.</p>
+          <div id="activation-qr-wrap" class="qr-wrap" hidden><img id="activation-qr" alt="Personal Cloud Drop activation QR code" width="272" height="272" /></div>
+          <button id="activate-here" class="primary" type="button">Use on this device</button>
+          <button id="back-to-access" class="secondary" type="button">Get a fresh access link</button>
+        </div>
+        <div id="input-state" class="state" hidden>
+          <h2>Send authorized media to Offline Vault</h2>
+          <label>Media page link <input id="source-url" type="url" inputmode="url" autocomplete="url" placeholder="https://…" /></label>
+          <fieldset><legend>Output</legend><div class="choices">
+            <label><input type="radio" name="output" value="video-720" checked /><span>Video<br /><small>720p</small></span></label>
+            <label><input type="radio" name="output" value="video-1080" /><span>Video<br /><small>1080p</small></span></label>
+            <label><input type="radio" name="output" value="audio" /><span>Audio<br /><small>MP3</small></span></label>
+          </div></fieldset>
+          <label class="rights"><input id="rights" type="checkbox" /><span>I own this media or have permission to save and transfer it.</span></label>
+          <button id="start-job" class="primary" type="button" disabled>Start private download</button>
+          <p class="fine-print">No DRM bypass, private-account cookies, or access-control circumvention. Supported public media pages only.</p>
+        </div>
+        <div id="progress-state" class="state center-state" hidden>
+          <p class="eyebrow">Private job running</p><h2 id="progress-title">Preparing media</h2>
+          <div class="progress-ring"><strong id="progress-value">0%</strong></div>
+          <progress id="job-progress" max="100" value="0">0%</progress>
+          <p id="progress-copy" class="muted">Your download is queued. You can return to this page later.</p>
+          <button id="back-to-library" class="secondary" type="button">Back to my downloads</button>
+        </div>
+        <div id="result-state" class="state center-state" hidden>
+          <p class="eyebrow">Ready for Offline Vault</p><h2 id="result-title">Your file is ready</h2>
+          <p class="muted" id="expiry-copy"></p>
+          <div class="qr-wrap"><img id="claim-qr" alt="One-time Offline Vault claim QR code" width="272" height="272" /></div>
+          <a id="open-app" class="primary" href="#">Open Offline Vault</a>
+          <button id="new-job" class="secondary" type="button">Process another link</button>
+        </div>
+        <section id="recent-downloads" hidden aria-label="Recent downloads"><h3>Recent downloads</h3><ul id="job-list"></ul></section>
+        <section id="billing-reviews" hidden aria-label="Administrator billing reviews"><h3>Billing reviews</h3><p class="fine-print">Review refunds, disputes, and fraud alerts in <a href="https://dashboard.stripe.com/" target="_blank" rel="noopener noreferrer">Stripe</a>. Marking an alert reviewed does not change payments or membership.</p><ul id="billing-review-list"></ul></section>
+        <p id="status-message" class="status" role="alert" hidden></p>
+      </section>
+    </main>
+    <footer><a href="/offline-vault/">Offline Vault</a><span>For media you own or are authorized to save.</span></footer>
+  </body>
+</html>
