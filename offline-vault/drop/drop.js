@@ -177,7 +177,7 @@
       const percent = Math.max(0, Math.min(100, Math.round((Number(job.progress) || 0) * 100)));
       el("job-progress").value = percent; el("progress-value").textContent = `${percent}%`;
       el("progress-title").textContent = job.title || "Preparing your media";
-      el("progress-copy").textContent = job.status === "importing" ? "Preparing the file for your phone…" : "You can return later. Your download will appear under Recent downloads.";
+      el("progress-copy").textContent = job.message || (job.status === "importing" ? "Preparing the file for your phone…" : "You can return later. Your download will appear under Recent downloads.");
       if (job.status === "ready" && job.deepLink) {
         await renderQR("/v1/qr", { deepLink: job.deepLink }, "claim-qr");
         el("result-title").textContent = job.title || "Your file is ready";
