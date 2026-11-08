@@ -3,108 +3,151 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#071112" />
+    <meta name="theme-color" content="#f7f8fb" />
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://checkout.stripe.com; connect-src 'self' https://drop.greenvital.app http://127.0.0.1:8790 http://localhost:8790; img-src 'self' blob: data:; style-src 'self'; base-uri 'none'; form-action https://checkout.stripe.com" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Cloud Drop Member Portal | Offline Vault</title>
-    <meta name="description" content="Private paid Cloud Drop access for transferring authorized media into Offline Vault." />
-    <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=4" />
-    <script src="/offline-vault/drop/drop.js?v=6" defer></script>
+    <title>Cloud Drop — Save a video for later</title>
+    <meta name="description" content="Paste a video link, connect your phone, and save it in Offline Vault. Simple steps. Two files free. No card needed." />
+    <link rel="icon" type="image/svg+xml" href="/offline-vault/drop/cloud-drop.svg" />
+    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=8" />
+    <script src="/offline-vault/drop/drop.js?v=8" defer></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=turnstileLoaded&amp;render=explicit" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#portal">Skip to Cloud Drop</a>
     <header class="topbar">
-      <a class="brand" href="/offline-vault/"><img src="/offline-vault/assets/offline-vault-icon.png" alt="" width="36" height="36" /><span>Offline Vault</span></a>
-      <span class="secure-label">Member Cloud Drop</span>
+      <a class="brand" href="/offline-vault/drop/" aria-label="Cloud Drop home"><img src="/offline-vault/drop/cloud-drop.svg" alt="" width="36" height="36" /><span>Cloud Drop</span></a>
+      <nav aria-label="Main navigation"><a href="https://apps.apple.com/us/app/offline-vault-by-greenvital/id6820337743" target="_blank" rel="noopener noreferrer">Get the free app <span aria-hidden="true">↗</span></a><a href="#help">Help</a></nav>
     </header>
     <main id="portal">
-      <section class="intro">
-        <p class="eyebrow">Cloud Drop</p>
-        <h1>Save a link. Take it offline.</h1>
-        <p>Prepare your media in the cloud, then download it directly into Offline Vault from the app’s Transfer screen. Your downloads are private to your account.</p>
-        <dl class="facts">
-          <div><dt>Access</dt><dd>One-time member QR</dd></div>
-          <div><dt>Monthly plan</dt><dd>5 GB · US$2.99</dd></div>
-          <div><dt>Delivery</dt><dd>Direct to your Library</dd></div>
-        </dl>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">From a link to your phone</p>
+        <h1 id="page-title">Save it now. Play it later.</h1>
+        <p>Get a video or audio file ready here. Then save it in the app to play offline.</p>
       </section>
-      <section class="tool" aria-live="polite">
-        <div id="account-controls" class="member-line" hidden><span id="account-status">Cloud Drop</span><button id="manage-billing" type="button" hidden>Manage subscription</button><button id="test-billing" type="button" hidden>Test checkout · sandbox</button><button id="forget-access" type="button">Sign out</button></div>
-        <section id="usage-panel" class="usage-panel" hidden aria-label="Cloud Drop allowance">
-          <div class="usage-heading"><strong id="usage-title">Your allowance</strong><span id="usage-summary"></span></div>
-          <progress id="usage-meter" max="100" value="0" aria-label="Allowance used"></progress>
-          <p id="usage-details" class="fine-print"></p>
-          <button id="view-plan" class="secondary" type="button" hidden>View the monthly plan</button>
+      <div class="workspace">
+        <section class="tool" aria-label="Your Cloud Drop">
+          <p id="status-message" class="status" role="status" aria-live="polite" hidden></p>
+          <div id="account-controls" class="member-line" hidden>
+            <span id="account-status">Cloud Drop</span>
+            <div class="account-actions"><button id="manage-billing" type="button" hidden>Billing</button><button id="test-billing" type="button" hidden>Test checkout · sandbox</button><button id="forget-access" type="button">Sign out</button></div>
+          </div>
+          <section id="usage-panel" class="usage-panel" hidden aria-label="Your remaining downloads">
+            <div class="usage-heading"><strong id="usage-title">Your downloads</strong><span id="usage-summary"></span></div>
+            <progress id="usage-meter" max="100" value="0" aria-label="Download limit used"></progress>
+            <p id="usage-details" class="fine-print"></p>
+            <button id="view-plan" class="text-button" type="button" hidden>See the monthly plan <span aria-hidden="true">→</span></button>
+          </section>
+          <div id="loading-state" class="state center-state"><div class="spinner" aria-hidden="true"></div><p>Getting things ready…</p></div>
+          <div id="subscribe-state" class="state" hidden>
+            <h2 id="subscribe-heading">Try 2 files free.</h2>
+            <p id="subscribe-intro" class="muted">All you need is your email. No password. No card.</p>
+            <div id="trial-offer" class="trial-offer"><strong>Up to 200 MB in total.</strong><span>No automatic subscription.</span><p class="setup-requirement">For the first connection, have your iPhone or iPad and a computer or tablet ready.</p></div>
+            <div id="email-entry"><label for="checkout-email">Your email</label>
+            <input id="checkout-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" aria-describedby="access-help" required /></div>
+            <div class="turnstile-wrap" id="turnstile"></div>
+            <button id="start-trial" class="primary" type="button" disabled>Send my free sign-in link <span aria-hidden="true">→</span></button>
+            <p id="access-help" class="fine-print">We will email you a link. Open it to sign in.</p>
+            <div id="returning-user" class="returning-user"><p>Already used Cloud Drop?</p><button id="restore-access" class="secondary" type="button" disabled>Email me a sign-in link</button></div>
+            <details id="plan-details" class="plan-details">
+              <summary>Want more than 2 files?</summary>
+              <h3>The monthly plan</h3>
+              <p id="plan-availability" class="fine-print">The paid plan is coming soon.</p>
+              <p class="subscription-price"><strong id="subscription-amount">US$2.99</strong> <span id="subscription-interval">/ month</span></p>
+              <p>Prepare up to <strong>5 GB of files each month</strong>. Larger videos use more of that total.</p>
+              <p class="fine-print">Billed in US dollars. Renews each month until you cancel. Unused GB do not carry over. After you use 5 GB, you can prepare more files when your monthly limit resets. No extra charges. Files saved on your phone stay there.</p>
+            </details>
+            <button id="start-checkout" class="primary" type="button" disabled hidden>Start the US$2.99 monthly plan</button>
+            <button id="return-to-downloads" class="secondary" type="button" hidden>Back to my files</button>
+          </div>
+          <div id="activation-state" class="state center-state" hidden>
+            <div class="state-symbol" aria-hidden="true">↗</div>
+            <h2>You’re one tap away.</h2>
+            <p class="muted">Tap below to sign in on this device.</p>
+            <div id="activation-qr-wrap" class="qr-wrap" hidden><img id="activation-qr" alt="Scan to sign in to Cloud Drop on another device" width="272" height="272" /></div>
+            <button id="activate-here" class="primary" type="button">Sign in and continue</button>
+            <p class="fine-print">This email link works once and lasts 15 minutes.</p>
+            <button id="back-to-access" class="secondary" type="button">Get a new sign-in link</button>
+          </div>
+          <div id="input-state" class="state" hidden>
+            <section class="connection-card" aria-labelledby="connect-title">
+              <div class="section-heading"><span class="step-number" aria-hidden="true">1</span><h2 id="connect-title">Connect your phone</h2></div>
+              <p id="connection-summary" class="muted" role="status" aria-live="polite">Connect your phone once. Then your ready files will appear in the app.</p>
+              <button id="connect-app" class="secondary" type="button">Connect my phone</button>
+              <p id="connection-help" class="fine-print">First time? Use a computer or tablet to show the code.</p>
+            </section>
+            <div class="section-heading"><span class="step-number" aria-hidden="true">2</span><span>Add your video</span></div>
+            <h2 id="input-title">Paste a video link.</h2>
+            <label for="source-url">Video link</label>
+            <input id="source-url" type="url" inputmode="url" autocomplete="off" placeholder="https://youtube.com/…" aria-describedby="link-help job-help" required />
+            <details class="inline-help" id="link-help"><summary>Where do I find the link?</summary><p>Open the video on YouTube or Vimeo. Tap <strong>Share</strong>, then <strong>Copy link</strong>. Come back here and paste it in the box.</p></details>
+            <fieldset><legend>What would you like to save?</legend><div class="choices">
+              <label><input type="radio" name="output" value="video-720" checked /><span><strong>Video</strong><small>720p · smaller</small></span></label>
+              <label><input type="radio" name="output" value="video-1080" /><span><strong>Video HD</strong><small>1080p · larger</small></span></label>
+              <label><input type="radio" name="output" value="audio" /><span><strong>Audio</strong><small>MP3 · sound only</small></span></label>
+            </div></fieldset>
+            <label class="rights"><input id="rights" type="checkbox" /><span>I own this video or have permission to download it.</span></label>
+            <button id="start-job" class="primary" type="button" disabled>Prepare my file <span aria-hidden="true">→</span></button>
+            <p id="job-help" class="fine-print" aria-live="polite">First, paste a full video link above.</p>
+            <p class="next-step">Next: save the ready file in the app.</p>
+            <details class="processing-limits"><summary>File limits and how it works</summary><p>Each file can be up to 60 minutes long and 600 MiB in size, or less if you have fewer MB left. Ready files stay here for 24 hours. Save them on your phone before then.</p><p>Only files we finish preparing count toward your limit. Failed attempts and saving the same ready file again do not count twice.</p><p>A free trial allows up to 10 attempts a day. The monthly plan allows 60. We cannot unlock protected videos or sign in to private video accounts.</p></details>
+          </div>
+          <div id="progress-state" class="state center-state" hidden>
+            <p class="eyebrow">Getting your file ready</p><h2 id="progress-title">Just a moment…</h2>
+            <div class="progress-ring"><strong id="progress-value">0%</strong></div>
+            <progress id="job-progress" max="100" value="0" aria-label="File preparation progress">0%</progress>
+            <p id="progress-copy" class="muted" role="status" aria-live="polite">Your file is waiting its turn. You can come back later.</p>
+            <button id="back-to-library" class="secondary" type="button">Back to my files</button>
+          </div>
+          <div id="result-state" class="state" hidden>
+            <div class="state-symbol" aria-hidden="true">✓</div><p class="eyebrow">Ready to save</p><h2 id="result-title">Your file is ready.</h2>
+            <p class="muted" id="expiry-copy"></p>
+            <p id="desktop-result-hint" class="screen-note"><strong>Next, pick up your phone.</strong><br />Open Offline Vault and follow these steps.</p>
+            <ol class="save-steps"><li>Open <strong>Offline Vault</strong> on your phone.</li><li>Tap <strong>Transfer</strong>, then the <strong>download arrow ↓</strong> next to your file.</li><li>When it finishes, find it in <strong>Library</strong>. Now it works offline.</li></ol>
+            <a id="open-app" class="primary" href="offlinevault://open?tab=transfer">Open Offline Vault <span aria-hidden="true">↗</span></a>
+            <button id="connect-result-app" class="secondary" type="button">Connect my phone first</button>
+            <button id="new-job" class="text-button" type="button">Prepare another file</button>
+          </div>
+          <div id="pairing-state" class="state" hidden>
+            <p class="eyebrow">Set up once</p><h2>Connect your phone.</h2>
+            <div id="pairing-guide">
+              <p class="screen-note"><strong>Show this code on a computer or tablet.</strong><br />On your phone now? Open this website on that other screen and sign in with the same email. Then scan the code inside Offline Vault.</p>
+              <div class="pairing-layout">
+                <div class="qr-wrap"><img id="claim-qr" alt="Scan this connection code inside Offline Vault Settings" width="272" height="272" /></div>
+                <ol class="phone-steps"><li>Open <strong>Offline Vault</strong> on your phone.</li><li>Tap <strong>Settings</strong>.</li><li>Tap <strong>Connect Your Computer</strong>.<small>Already connected? Tap <strong>Connect Another Computer</strong>.</small></li><li>Point the app’s camera at this code.<small>Use the scanner inside the app, not your phone’s Camera app.</small></li></ol>
+              </div>
+            </div>
+            <div id="pairing-confirmation" class="confirmation" role="status" aria-live="polite" hidden><div class="state-symbol" aria-hidden="true">✓</div><h3>Your app is connected.</h3><p>You can now prepare a file here. Then save it from <strong>Transfer</strong> in the app.</p></div>
+            <p id="pairing-expiry" class="pairing-status" role="status" aria-live="polite"></p>
+            <button id="refresh-pairing" class="secondary" type="button">Get a new code</button>
+            <button id="back-from-pairing" class="secondary" type="button">Back to my files</button>
+            <details class="inline-help"><summary>Only have your phone with you?</summary><p>For the first connection, open <strong>greenvital.app/offline-vault/drop/</strong> on a computer or tablet. Sign in with the <strong>same email</strong> and tap <strong>Connect my phone</strong>.</p><p>Once connected, you can use Cloud Drop from your phone. You will not need the second screen each time.</p></details>
+            <details class="inline-help"><summary>What happens to my existing files?</summary><p>They stay in Library. This changes where new files come from. You can disconnect below whenever you want. After 90 days, connect again with a new code.</p></details>
+          </div>
+          <section id="recent-downloads" class="list-section" hidden aria-label="My files"><h3>My files</h3><p class="fine-print">Tap a file for the next step.</p><ul id="job-list"></ul></section>
+          <section id="paired-devices" class="list-section" hidden aria-label="Connected apps"><details><summary>Connected apps</summary><ul id="device-list"></ul></details></section>
+          <section id="billing-reviews" class="list-section" hidden aria-label="Administrator billing reviews"><details><summary>Admin: billing alerts</summary><p class="fine-print">Check payment alerts in <a href="https://dashboard.stripe.com/" target="_blank" rel="noopener noreferrer">Stripe</a>. Marking an alert reviewed does not change any payment or plan.</p><ul id="billing-review-list"></ul></details></section>
         </section>
-        <div id="loading-state" class="state center-state"><div class="spinner" aria-hidden="true"></div><p>Checking secure access…</p></div>
-        <div id="subscribe-state" class="state" hidden>
-          <p class="eyebrow">Cloud Drop membership</p><h2>Your media, ready for your phone.</h2>
-          <p class="subscription-price"><strong id="subscription-amount">US$2.99</strong> <span id="subscription-interval">/ month</span></p>
-          <p class="muted">5 GB of prepared files per billing month. No rollover or automatic overage charges. Billed in USD; renews until canceled. Files saved on your phone keep working after cancellation.</p>
-          <p id="trial-offer" class="trial-offer"><strong>Try two transfers free.</strong> 200 MB combined, once per account. No card required and no automatic subscription.</p>
-          <label>Email for secure access <input id="checkout-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" /></label>
-          <div class="turnstile-wrap" id="turnstile"></div>
-          <button id="start-trial" class="primary" type="button" disabled>Email my free trial link</button>
-          <button id="start-checkout" class="secondary" type="button" disabled>Subscribe · US$2.99/month</button>
-          <button id="restore-access" class="secondary" type="button" disabled>Email me a fresh access link</button>
-          <p class="fine-print">Start a trial or sign in before subscribing. Already have a trial, subscription, or free admin account? Email yourself a fresh access link. Your allowance stays with your account.</p>
-        <button id="return-to-downloads" class="secondary" type="button" hidden>Back to my downloads</button>
-        </div>
-        <div id="activation-state" class="state center-state" hidden>
-          <p class="eyebrow">Account access</p><h2>Your personal access link</h2>
-          <p class="muted">Confirm to sign in on this device. Your access link expires in 15 minutes.</p>
-          <div id="activation-qr-wrap" class="qr-wrap" hidden><img id="activation-qr" alt="Personal Cloud Drop activation QR code" width="272" height="272" /></div>
-          <button id="activate-here" class="primary" type="button">Use on this device</button>
-          <button id="back-to-access" class="secondary" type="button">Get a fresh access link</button>
-        </div>
-        <div id="input-state" class="state" hidden>
-          <h2>Send authorized media to Offline Vault</h2>
-          <button id="connect-app" class="secondary" type="button">Connect the App Store app</button>
-          <p class="fine-print">Pair once using the QR on this website. Completed files appear in the app’s Transfer screen; tap the download arrow to save them.</p>
-          <label>Media page link <input id="source-url" type="url" inputmode="url" autocomplete="url" placeholder="https://…" /></label>
-          <fieldset><legend>Output</legend><div class="choices">
-            <label><input type="radio" name="output" value="video-720" checked /><span>Video<br /><small>720p</small></span></label>
-            <label><input type="radio" name="output" value="video-1080" /><span>Video<br /><small>1080p</small></span></label>
-            <label><input type="radio" name="output" value="audio" /><span>Audio<br /><small>MP3</small></span></label>
-          </div></fieldset>
-          <label class="rights"><input id="rights" type="checkbox" /><span>I own this media or have permission to save and transfer it.</span></label>
-          <button id="start-job" class="primary" type="button" disabled>Start private download</button>
-          <p class="fine-print">Only successfully prepared files count. Failed jobs and phone download retries do not. Files are available here for 24 hours.</p>
-          <details class="processing-limits"><summary>File and processing limits</summary><p>Maximum 60 minutes and 600 MiB per file, or your remaining allowance if smaller. Up to 10 processing attempts per 24 hours on a trial; 60 on the monthly plan. No DRM bypass or private-account cookies.</p></details>
-        </div>
-        <div id="progress-state" class="state center-state" hidden>
-          <p class="eyebrow">Private job running</p><h2 id="progress-title">Preparing media</h2>
-          <div class="progress-ring"><strong id="progress-value">0%</strong></div>
-          <progress id="job-progress" max="100" value="0">0%</progress>
-          <p id="progress-copy" class="muted">Your download is queued. You can return to this page later.</p>
-          <button id="back-to-library" class="secondary" type="button">Back to my downloads</button>
-        </div>
-        <div id="result-state" class="state center-state" hidden>
-          <p class="eyebrow">Ready for Offline Vault</p><h2 id="result-title">Your file is ready</h2>
-          <p class="muted" id="expiry-copy"></p>
-          <p class="delivery-instructions">Open <strong>Transfer</strong> in your paired app and tap the <strong>download arrow</strong> beside this file. It saves directly into your offline Library.</p>
-          <a id="open-app" class="primary" href="offlinevault://open?tab=transfer">Open Offline Vault</a>
-          <button id="connect-result-app" class="secondary" type="button">First time? Connect the app</button>
-          <button id="new-job" class="secondary" type="button">Process another link</button>
-        </div>
-        <div id="pairing-state" class="state center-state" hidden>
-          <p class="eyebrow">Works with the App Store app</p><h2>Connect your Offline Vault</h2>
-          <p class="muted">Display this page on your computer or another screen. On your iPhone, open <strong>Offline Vault → Settings → Connect Your Computer</strong>, then scan below. If already paired, choose <strong>Connect Another Computer</strong>.</p>
-          <div class="qr-wrap"><img id="claim-qr" alt="Pair Offline Vault with your private Cloud Drop account" width="272" height="272" /></div>
-          <p id="pairing-expiry" class="muted"></p>
-          <p class="fine-print">The QR works once. Your app receives access only to this account’s files. Pairing replaces the current computer connection; saved Library files stay on your phone. Reconnect after 90 days, or disconnect below at any time.</p>
-          <button id="refresh-pairing" class="primary" type="button">Create a new pairing QR</button>
-          <button id="back-from-pairing" class="secondary" type="button">Back to my downloads</button>
-        </div>
-        <section id="paired-devices" hidden aria-label="Connected Offline Vault apps"><h3>Connected apps</h3><ul id="device-list"></ul></section>
-        <section id="recent-downloads" hidden aria-label="Recent downloads"><h3>Recent downloads</h3><ul id="job-list"></ul></section>
-        <section id="billing-reviews" hidden aria-label="Administrator billing reviews"><h3>Billing reviews</h3><p class="fine-print">Review refunds, disputes, and fraud alerts in <a href="https://dashboard.stripe.com/" target="_blank" rel="noopener noreferrer">Stripe</a>. Marking an alert reviewed does not change payments or membership.</p><ul id="billing-review-list"></ul></section>
-        <p id="status-message" class="status" role="alert" hidden></p>
-      </section>
+        <aside class="help-column" id="help" aria-labelledby="help-title">
+          <h2 id="help-title">Need a hand?</h2>
+          <details id="setup-guide" class="setup-guide" open><summary>How to save a file, step by step</summary><section class="how-it-works">
+            <ol class="guide-steps">
+              <li><span class="guide-number" aria-hidden="true">1</span><div><h3>Get the free app</h3><p>Install Offline Vault on your iPhone or iPad.</p><a href="https://apps.apple.com/us/app/offline-vault-by-greenvital/id6820337743" target="_blank" rel="noopener noreferrer">Open the App Store <span aria-hidden="true">↗</span></a></div></li>
+              <li><span class="guide-number" aria-hidden="true">2</span><div><h3>Connect your phone</h3><p>Show the code on a computer or tablet. Sign in with the same email on that screen. Scan it inside the app’s Settings. You won’t need to connect every time.</p></div></li>
+              <li><span class="guide-number" aria-hidden="true">3</span><div><h3>Paste, prepare, save</h3><p>Paste your video link here. When it is ready, open <strong>Transfer</strong> in the app and tap the download arrow.</p></div></li>
+            </ol>
+            <div class="help-note"><span aria-hidden="true">✓</span><p>Saved to <strong>Library</strong>? You’re all set.<br />You can play it without internet.</p></div>
+          </section></details>
+          <section class="questions" aria-labelledby="questions-title"><h3 id="questions-title">Good to know</h3>
+            <details><summary>Is the app free?</summary><p>Yes. Offline Vault for iPhone and iPad is free. Cloud Drop is an optional service that gets files ready for the app.</p></details>
+            <details><summary>What does 5 GB mean?</summary><p>It is the total size of files you can prepare in one month. A longer or sharper video usually uses more. Choosing Audio or 720p video helps your GB go further.</p></details>
+            <details><summary>Does this save to my phone by itself?</summary><p>There is one last step: open <strong>Transfer</strong> in Offline Vault and tap the <strong>download arrow</strong>. When it finishes, your file is in <strong>Library</strong>.</p></details>
+            <details><summary>Do my saved files disappear?</summary><p>No. Files you have saved in the app stay on your phone, even if you stop your Cloud Drop plan. Files waiting on this website are removed after 24 hours.</p></details>
+          </section>
+        </aside>
+      </div>
     </main>
-    <footer><a href="/offline-vault/">Offline Vault</a><span>For media you own or are authorized to save.</span></footer>
+    <footer><span>Cloud Drop <span class="footer-byline">by GreenVital</span></span><nav aria-label="Footer"><a href="/privacy-policy.html">Privacy</a><a href="/greenvital-terms.html">Terms</a><a href="/offline-vault/">About the app</a></nav></footer>
   </body>
 </html>

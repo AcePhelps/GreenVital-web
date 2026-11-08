@@ -4,6 +4,13 @@
   const el = id => document.getElementById(id);
   const states = ["loading", "subscribe", "activation", "input", "progress", "result", "pairing"];
   let config, profile, activationCode, turnstileToken = "", widget, qrURL, timer, activeJob, retries = 0;
+  let currentState = "loading", connectedDevices = [], pairingSession;
+  const canOpenPhoneApp = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const smallScreen = window.matchMedia("(max-width: 720px)");
+  el("setup-guide").open = !smallScreen.matches;
+  smallScreen.addEventListener("change", event => { el("setup-guide").open = !event.matches; });
+  el("desktop-result-hint").hidden = canOpenPhoneApp;
+  el("open-app").hidden = !canOpenPhoneApp;
   const proofKey = "cloudDropCheckoutProof";
   // Earlier development versions stored bearer sessions here. The server now
   // keeps the session in a host-only HttpOnly cookie.
@@ -15,12 +22,12 @@
     try {
       await configPromise;
       widget = window.turnstile.render("#turnstile", {
-        sitekey: config.turnstileSiteKey, theme: "dark", size: "flexible",
+        sitekey: config.turnstileSiteKey, theme: "light", size: "flexible",
         callback: token => { turnstileToken = token; updateAccessButtons(); },
         "expired-callback": () => { turnstileToken = ""; updateAccessButtons(); },
-        "error-callback": () => { turnstileToken = ""; updateAccessButtons(); if (!profile && !el("subscribe-state").hidden) message("Verification could not load. Refresh and try again."); }
+        "error-callback": () => { turnstileToken = ""; updateAccessButtons(); if (!profile && !el("subscribe-state").hidden) message("The security check could not load. Refresh this page and try again."); }
       });
-    } catch { message("Cloud Drop is not connected yet. Please return later."); }
+    } catch { message("Cloud Drop could not load. Please try again in a moment."); }
   };
 
   el("start-checkout").addEventListener("click", async () => {
@@ -37,7 +44,7 @@
     disableAccessButtons();
     try {
       await request("/v1/access/trial", { email: el("checkout-email").value.trim(), turnstileToken });
-      message("Check your email for a sign-in link. Your free trial includes two transfers, up to 200 MB combined. No card is needed. Existing accounts keep their current allowance.", true);
+      message("Check your inbox. Open the Cloud Drop email and tap the sign-in link. Can't find it? Check Spam. If you are new, you can try 2 files free, up to 200 MB in total. No card needed.", true);
     } catch (error) { message(error.message); }
     finally { resetChallenge(); }
   });
@@ -58,7 +65,7 @@
     disableAccessButtons();
     try {
       await request("/v1/access/recover", { email: el("checkout-email").value.trim(), turnstileToken });
-      message("If that email belongs to a Cloud Drop account, a fresh access link is on its way. Approved admins have free access.", true);
+      message("If you have a Cloud Drop account with this email, we have sent you a sign-in link. Open it to continue. If it is not in your inbox, check Spam.", true);
     } catch (error) { message(error.message); }
     finally { resetChallenge(); }
   });
@@ -75,7 +82,7 @@
   el("forget-access").addEventListener("click", async () => {
     try {
       await request("/v1/access/logout", {});
-      profile = undefined; activeJob = undefined; clearTimeout(timer);
+      profile = undefined; activeJob = undefined; pairingSession = undefined; connectedDevices = []; clearTimeout(timer);
       el("source-url").value = ""; el("rights").checked = false;
       el("job-list").replaceChildren(); el("claim-qr").removeAttribute("src");
       el("paired-devices").hidden = true; el("device-list").replaceChildren();
@@ -99,7 +106,7 @@
   el("source-url").addEventListener("input", updateJobButton);
   el("rights").addEventListener("change", updateJobButton);
   el("start-job").addEventListener("click", async () => {
-    if (el("start-job").disabled) return;
+    if (el("start-job").disabled || !el("source-url").reportValidity()) return;
     el("start-job").disabled = true;
     const output = document.querySelector('input[name="output"]:checked').value;
     try {
@@ -110,6 +117,7 @@
     finally { updateJobButton(); }
   });
   for (const id of ["new-job", "back-to-library"]) el(id).addEventListener("click", async () => {
+    if (id === "new-job") { el("source-url").value = ""; el("rights").checked = false; }
     activeJob = undefined; clearTimeout(timer); show("input"); updateJobButton(); await loadHistory();
   });
   addEventListener("pagehide", () => clearTimeout(timer));
@@ -148,7 +156,9 @@
     try { profile = await request("/v1/me"); }
     catch (error) {
       if (error.status !== 401) throw error;
-      profile = undefined; clearBillingReviews(); show("subscribe"); return;
+      profile = undefined; connectedDevices = []; pairingSession = undefined;
+      for (const id of ["account-controls", "usage-panel", "paired-devices", "recent-downloads"]) el(id).hidden = true;
+      clearBillingReviews(); show("subscribe"); return;
     }
     el("account-controls").hidden = false;
     renderAccount();
@@ -157,22 +167,22 @@
     el("connect-app").disabled = !profile.active;
     el("connect-result-app").disabled = !profile.active;
     show("input"); updateJobButton();
-    if (!profile.active) message("Your membership is inactive. Manage your subscription to resume new downloads. Existing downloads are still listed below.");
-    else if (!config.downloadsAvailable) message("Downloads are being set up. Please return later.", true);
+    if (!profile.active) message("Your plan is not active. Open Billing to restart it. Files already saved on your phone will still play.");
+    else if (!config.downloadsAvailable) message("We cannot prepare files right now. Please come back later.", true);
     await loadHistory();
     await loadBillingReviews();
     await loadDevices();
   }
   function renderAccount() {
     const usage = profile?.usage;
-    el("account-status").textContent = profile?.admin ? "Administrator · Free" : usage?.kind === "trial" ? "Free trial" : profile?.active ? "Membership active" : "Membership inactive";
+    el("account-status").textContent = profile?.admin ? "Admin · Free" : usage?.kind === "trial" ? "Free trial" : profile?.active ? "Monthly plan" : "Plan not active";
     el("usage-panel").hidden = !usage;
     if (!usage) return;
-    el("usage-title").textContent = usage.kind === "admin" ? "Free administrator access" : usage.kind === "trial" ? "Your free trial" : "Monthly allowance";
+    el("usage-title").textContent = usage.kind === "admin" ? "Your admin account is free" : usage.kind === "trial" ? "Your free files" : "This month's downloads";
     el("usage-meter").hidden = usage.kind === "admin";
-    el("usage-summary").textContent = usage.kind === "admin" ? "No subscription required" : usage.kind === "trial" ? `${usage.remainingTransfers} of 2 transfers left` : `${formatBytes(usage.remainingBytes)} of 5 GB left`;
+    el("usage-summary").textContent = usage.kind === "admin" ? "No monthly fee" : usage.kind === "trial" ? `${usage.remainingTransfers} of 2 files left` : `${formatBytes(usage.remainingBytes)} of 5 GB left`;
     el("usage-meter").value = Math.min(100, Math.max(usage.byteLimit ? usage.usedBytes / usage.byteLimit * 100 : 0, usage.transferLimit ? usage.usedTransfers / usage.transferLimit * 100 : 0));
-    el("usage-details").textContent = usage.kind === "admin" ? "Your admin account has no monthly allowance cap. Individual file and processing limits still apply." : usage.kind === "trial" ? `${formatBytes(usage.remainingBytes)} remaining of 200 MB total. ${usage.canPrepare ? "No card required." : "Your trial allowance is used up. Prepared files remain available until their expiry."}` : `Resets ${usage.resetsAt ? new Date(usage.resetsAt).toLocaleDateString() : "with your next billing period"}. No rollover or automatic extra charges. Saved Library files remain yours.`;
+    el("usage-details").textContent = usage.kind === "admin" ? "You have no monthly size limit. The limit for each file still applies." : usage.kind === "trial" ? `${formatBytes(usage.remainingBytes)} left out of 200 MB total. ${usage.canPrepare ? "No card needed." : "You have used your free trial. You can still save files that are ready below before they expire."}` : `${usage.canPrepare ? "You get a fresh 5 GB" : "You have used this month's 5 GB. You get more"} ${usage.resetsAt ? `on ${new Date(usage.resetsAt).toLocaleDateString()}` : "when your plan renews"}. Unused space does not carry over. No extra charges. Files on your phone stay there.`;
     el("view-plan").hidden = usage.kind !== "trial";
     updateJobButton();
   }
@@ -191,34 +201,76 @@
     clearTimeout(timer);
     for (const id of ["connect-app", "connect-result-app", "refresh-pairing"]) el(id).disabled = true;
     try {
+      // Take a fresh snapshot so an old connection is never shown as proof
+      // that the code currently on screen was scanned.
+      const before = await request("/v1/app-store/devices");
       const pairing = await request("/v1/app-store/pairing", {});
+      pairingSession = { deviceIDs: new Set(before.devices.map(device => device.id)), expiresAt: Date.parse(pairing.expiresAt), connected: false };
       if (qrURL) URL.revokeObjectURL(qrURL);
       qrURL = URL.createObjectURL(new Blob([pairing.qrSVG], { type: "image/svg+xml" }));
       el("claim-qr").src = qrURL;
-      el("pairing-expiry").textContent = `Scan before ${new Date(pairing.expiresAt).toLocaleTimeString()}. This code expires in five minutes.`;
+      el("claim-qr").closest(".qr-wrap").hidden = false;
+      el("pairing-guide").hidden = false;
+      el("pairing-confirmation").hidden = true;
+      el("refresh-pairing").hidden = false;
+      el("back-from-pairing").textContent = "Back to my files";
+      el("back-from-pairing").className = "secondary";
+      el("refresh-pairing").textContent = "Get a new code";
+      el("refresh-pairing").className = "secondary";
+      el("pairing-expiry").textContent = `Scan this code before ${new Date(pairing.expiresAt).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}. It works once.`;
       show("pairing");
       await loadDevices();
-      timer = setTimeout(refreshPairingDevices, 5000);
-    } catch (error) { message(error.message); }
+      schedulePairingCheck();
+    } catch (error) { message(error.message); schedulePairingCheck(); }
     finally { for (const id of ["connect-app", "connect-result-app", "refresh-pairing"]) el(id).disabled = !profile?.active; }
   }
   async function refreshPairingDevices() {
     if (el("pairing-state").hidden || !profile) return;
     await loadDevices();
-    timer = setTimeout(refreshPairingDevices, 5000);
+    schedulePairingCheck();
+  }
+  function schedulePairingCheck() {
+    if (!pairingSession || currentState !== "pairing" || pairingSession.connected) return;
+    const remaining = pairingSession.expiresAt - Date.now();
+    if (remaining <= 0) {
+      el("claim-qr").closest(".qr-wrap").hidden = true;
+      el("claim-qr").removeAttribute("src");
+      el("pairing-expiry").textContent = "This code has expired. Tap Get a new code to try again.";
+      el("refresh-pairing").className = "primary";
+      return;
+    }
+    timer = setTimeout(refreshPairingDevices, Math.min(5000, remaining));
   }
   async function loadDevices() {
     if (!profile) return;
     try {
       const { devices } = await request("/v1/app-store/devices");
+      connectedDevices = devices;
+      el("open-app").hidden = !canOpenPhoneApp || !devices.length;
+      el("connect-result-app").className = devices.length ? "secondary" : "primary";
+      el("connect-title").textContent = devices.length ? "Your app is connected" : "Connect your phone";
+      el("connection-help").hidden = !!devices.length;
+      el("connect-app").closest(".connection-card").classList.toggle("is-connected", !!devices.length);
+      el("connection-summary").textContent = devices.length ? "Your ready files will appear in Transfer." : "Connect your phone. Then your ready files will appear in the app.";
+      el("connect-app").textContent = devices.length ? "Connect another phone" : "Connect my phone";
+      if (currentState === "pairing" && pairingSession && !pairingSession.connected && devices.some(device => !pairingSession.deviceIDs.has(device.id))) {
+        pairingSession.connected = true;
+        el("pairing-guide").hidden = true;
+        el("pairing-confirmation").hidden = false;
+        el("refresh-pairing").hidden = true;
+        el("claim-qr").removeAttribute("src");
+        el("pairing-expiry").textContent = "Connected. You do not need to scan again each time.";
+        el("back-from-pairing").textContent = activeJob ? "Continue to my file" : "Continue";
+        el("back-from-pairing").className = "primary";
+      }
       el("device-list").replaceChildren(); el("paired-devices").hidden = !devices.length;
       for (const device of devices) {
         const row = document.createElement("li"), text = document.createElement("span"), button = document.createElement("button");
-        text.textContent = `App connected ${new Date(device.createdAt).toLocaleString()}`;
+        text.textContent = `Connected on ${new Date(device.createdAt).toLocaleDateString()}`;
         button.type = "button"; button.textContent = "Disconnect";
         button.addEventListener("click", async () => {
           button.disabled = true;
-          try { await request("/v1/app-store/devices/revoke", { deviceID: device.id }); await loadDevices(); message("This app’s Cloud Drop connection was removed. Files already saved on the phone stay in its Library.", true); }
+          try { await request("/v1/app-store/devices/revoke", { deviceID: device.id }); await loadDevices(); message("Disconnected. Files already saved on the phone will stay in Library.", true); }
           catch (error) { message(error.message); button.disabled = false; }
         });
         row.append(text, button); el("device-list").append(row);
@@ -255,11 +307,12 @@
       el("recent-downloads").hidden = false;
       for (const job of jobs) {
         const li = document.createElement("li"), button = document.createElement("button"), title = document.createElement("span"), status = document.createElement("small");
-        button.type = "button"; title.textContent = job.title || "Media download"; status.textContent = job.status;
+        const labels = { queued: "Waiting", processing: "Preparing", downloading: "Preparing", uploading: "Almost ready", importing: "Almost ready", ready: "Ready to save", failed: "Try again", expired: "Expired", claimed: "Sent to app", canceled: "Stopped", cancelled: "Stopped" };
+        button.type = "button"; title.textContent = job.title || "Untitled file"; status.textContent = labels[job.status] || "Preparing";
         button.append(title, status); li.append(button); el("job-list").append(li);
         button.addEventListener("click", () => { retries = 0; poll(job.id); });
       }
-      if (!jobs.length) { const li = document.createElement("li"); li.textContent = "Your downloads will appear here."; el("job-list").append(li); }
+      if (!jobs.length) { const li = document.createElement("li"); li.textContent = "No files yet. Paste a video link above to get started."; el("job-list").append(li); }
     } catch (error) { message(error.message); }
   }
   async function poll(id) {
@@ -270,22 +323,23 @@
       retries = 0;
       const percent = Math.max(0, Math.min(100, Math.round((Number(job.progress) || 0) * 100)));
       el("job-progress").value = percent; el("progress-value").textContent = `${percent}%`;
-      el("progress-title").textContent = job.title || "Preparing your media";
-      el("progress-copy").textContent = job.message || (job.status === "importing" ? "Preparing the file for your phone…" : "You can return later. Your download will appear under Recent downloads.");
+      el("progress-title").textContent = job.title || "Getting your file ready";
+      el("progress-copy").textContent = job.status === "queued" ? (config.processorOnline === false ? "Our download service is offline right now. Your file is waiting and will start when it is back." : "Your file is waiting its turn. You can leave this page and come back later.") : job.status === "importing" || job.status === "uploading" ? "Almost ready. We are finishing your file." : "We are getting your file ready. You can come back later and find it in My files.";
       if (job.status === "ready") {
         el("result-title").textContent = job.title || "Your file is ready";
-        el("expiry-copy").textContent = `Available in your paired app until ${new Date(job.expiresAt).toLocaleString()}.`;
+        el("expiry-copy").textContent = `Save this file to your phone before ${new Date(job.expiresAt).toLocaleString()}. After saving, you can play it without internet.`;
+        el("connect-result-app").textContent = connectedDevices.length ? "Connect another phone" : "Connect my phone first";
         show("result"); await refreshUsage(); await loadHistory();
       } else if (["failed", "claimed", "expired", "canceled", "cancelled"].includes(job.status)) {
         activeJob = undefined; show("input"); await refreshUsage();
-        message(job.status === "claimed" ? "This file has already been claimed by a device." : job.status === "expired" ? "This delivery has expired. Submit the link again to prepare another copy." : job.error || "This download did not finish.", job.status === "claimed");
+        message(job.status === "claimed" ? "This file has already been sent to the app. Check Library on your phone." : job.status === "expired" ? "This file is no longer available here. Paste the link again to make a new copy. Files already saved on your phone are unchanged." : job.error || "We could not prepare this file. Check the link and try again.", job.status === "claimed");
         updateJobButton(); await loadHistory();
       } else timer = setTimeout(() => poll(id), 3000);
     } catch (error) {
       if ([401, 403, 404, 410].includes(error.status) || ++retries >= 5) {
         activeJob = undefined; show(profile ? "input" : "subscribe"); message(error.message); return;
       }
-      el("progress-copy").textContent = "Connection interrupted. Retrying shortly…";
+      el("progress-copy").textContent = "We lost the connection. Trying again in a few seconds…";
       timer = setTimeout(() => poll(id), 5000);
     }
   }
@@ -298,18 +352,64 @@
   function updateJobButton() {
     let valid = false; try { valid = new URL(el("source-url").value.trim()).protocol === "https:"; } catch {}
     el("start-job").disabled = !(config?.downloadsAvailable && profile?.active && profile?.usage?.canPrepare !== false && valid && el("rights").checked);
+    const help = !config?.downloadsAvailable ? "File downloads are not available right now. Please try later." : !profile?.active ? "Sign in to an active account to prepare a file." : profile.usage?.canPrepare === false ? (profile.usage.kind === "trial" ? "You have used your free trial. Your saved files will still play." : "You have used this month's 5 GB. You can prepare more files when your plan renews.") : !valid ? "First, paste a full video link above." : !el("rights").checked ? "Tick the permission box to continue." : "Ready. Tap Prepare my file to start.";
+    if (el("job-help")) el("job-help").textContent = help;
   }
-  function updateAccessButtons() { el("start-trial").disabled = !(turnstileToken && config?.trialAvailable && el("checkout-email").value.trim() && el("checkout-email").checkValidity()); el("start-checkout").disabled = !(turnstileToken && config?.checkoutAvailable && profile); el("restore-access").disabled = !(turnstileToken && config?.recoveryAvailable); }
+  function updateAccessButtons() {
+    const emailValid = !!el("checkout-email").value.trim() && el("checkout-email").checkValidity();
+    el("start-trial").disabled = !(turnstileToken && config?.trialAvailable && emailValid);
+    el("start-checkout").disabled = !(turnstileToken && config?.checkoutAvailable && profile);
+    el("restore-access").disabled = !(turnstileToken && config?.recoveryAvailable && emailValid);
+    if (el("access-help")) el("access-help").textContent = profile ? (turnstileToken ? "Your account is signed in." : "Please wait for the security check above.") : !emailValid ? "Enter your email above. We will send you a link to sign in." : !turnstileToken ? "Please finish the security check above, then send your email link." : "Ready. Send the link, then check your inbox.";
+  }
   function disableAccessButtons() { el("start-trial").disabled = true; el("start-checkout").disabled = true; el("restore-access").disabled = true; }
   function resetChallenge() { turnstileToken = ""; updateAccessButtons(); if (window.turnstile && widget !== undefined) window.turnstile.reset(widget); }
-  function show(name) { states.forEach(state => { el(`${state}-state`).hidden = state !== name; }); el("status-message").hidden = true; el("return-to-downloads").hidden = !(name === "subscribe" && profile);
+  function show(name) { const previousState = currentState; currentState = name;
+    document.body.dataset.signedIn = profile ? "true" : "false";
+    states.forEach(state => { el(`${state}-state`).hidden = state !== name; }); el("status-message").hidden = true; el("return-to-downloads").hidden = !(name === "subscribe" && profile);
     el("start-trial").hidden = !!profile; el("trial-offer").hidden = !!profile;
-    if (name === "subscribe" && config && !config.checkoutAvailable) message(config.trialAvailable ? "Free trials are open. Paid subscriptions are not open yet." : "Cloud Drop is being set up. Paid subscriptions are not open yet.", true); }
-  function message(text, notice = false) { el("status-message").textContent = text; el("status-message").dataset.kind = notice ? "notice" : "error"; el("status-message").hidden = false; }
+    el("start-checkout").hidden = !config?.checkoutAvailable || !profile;
+    if (name === "subscribe") {
+      el("subscribe-heading").textContent = profile ? "Your monthly plan" : "Try 2 files free.";
+      el("subscribe-intro").textContent = profile ? "Get up to 5 GB of videos and audio each month." : "All you need is your email. No password. No card.";
+      for (const id of ["email-entry", "returning-user"]) el(id).hidden = !!profile;
+      el("plan-details").open = !!profile;
+      el("plan-availability").hidden = !!config?.checkoutAvailable;
+      el("turnstile").hidden = !!profile && !config?.checkoutAvailable;
+      el("access-help").hidden = !!profile && !config?.checkoutAvailable;
+      updateAccessButtons();
+      if (config && !config.trialAvailable && !config.checkoutAvailable) message("Cloud Drop is not open yet. Please come back later.", true, false);
+    }
+    if (previousState !== name && previousState !== "loading") {
+      const heading = name === "input" ? el("input-title") : el(`${name}-state`).querySelector("h2");
+      if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); heading.scrollIntoView({ block: "start", behavior: "auto" }); }
+    }
+  }
+  function message(text, notice = false, bringIntoView = true) {
+    const status = el("status-message");
+    status.setAttribute("role", notice ? "status" : "alert");
+    status.setAttribute("aria-live", notice ? "polite" : "assertive");
+    status.textContent = text; status.dataset.kind = notice ? "notice" : "error"; status.hidden = false;
+    if (bringIntoView) status.scrollIntoView({ block: "nearest", behavior: "auto" });
+  }
   async function request(path, body) {
-    const response = await fetch(`${apiBase}${path}`, { credentials: "include", ...(body !== undefined ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {}) });
+    let response;
+    try { response = await fetch(`${apiBase}${path}`, { credentials: "include", ...(body !== undefined ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {}) }); }
+    catch { throw new Error("We could not connect. Check your internet connection and try again."); }
     const result = await response.json().catch(() => ({}));
-    if (!response.ok) { const error = new Error(result.error || "Cloud Drop is temporarily unavailable."); error.status = response.status; throw error; }
+    if (!response.ok) {
+      const simpler = {
+        "Membership session is missing or expired.": "Please sign in again with your email link.",
+        "This activation is unavailable or expired.": "This sign-in link has expired. Get a new link below.",
+        "This activation was already used.": "This sign-in link has already been used. Get a new link below.",
+        "Enter a supported HTTPS media page link.": "Paste a full video link from YouTube or Vimeo. It should start with https://.",
+        "Please complete the verification and try again.": "Finish the security check, then try again.",
+        "Your previous download is still running. Open it from recent downloads.": "One file is still being prepared. Open it in My files below.",
+        "Your free trial allowance is used up. Subscribe to prepare more files. Saved files remain yours.": "You have used your free trial. Files saved on your phone will still play.",
+        "Your monthly allowance is used up. It resets with your next billing period. There are no extra charges.": "You have used this month's 5 GB. You get more when your plan renews. There are no extra charges."
+      };
+      const error = new Error(simpler[result.error] || result.error || "Cloud Drop is not available right now. Please try again later."); error.status = response.status; throw error;
+    }
     return result;
   }
 })();
