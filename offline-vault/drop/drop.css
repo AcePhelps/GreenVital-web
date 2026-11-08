@@ -39,6 +39,14 @@ button,.primary,.secondary { min-height:52px; border-radius:7px; font-weight:750
 .primary:hover { background:var(--cyan2); }
 .primary:disabled { opacity:.38; cursor:not-allowed; }
 .secondary { width:100%; margin-top:10px; border:1px solid var(--line); background:transparent; color:#fff; }
+#result-title { max-width:100%; overflow-wrap:anywhere; }
+.delivery-instructions { line-height:1.6; color:#c5d2d0; }
+.delivery-instructions strong { color:var(--white); }
+#paired-devices { margin-top:24px; border-top:1px solid var(--line); padding-top:16px; }
+#paired-devices h3 { font-size:16px; }
+#device-list { padding:0; list-style:none; }
+#device-list li { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:10px; padding:12px; border-radius:7px; background:var(--surface2); font-size:13px; }
+#device-list button { min-height:40px; padding:8px 12px; border:1px solid var(--line); background:transparent; color:var(--cyan2); }
 .turnstile-wrap { min-height:66px; margin-top:18px; }
 .qr-wrap { width:296px; max-width:100%; margin:18px auto; padding:12px; border:1px solid var(--line); border-radius:10px; background:#fff; }
 .qr-wrap img { display:block; width:100%; height:auto; }

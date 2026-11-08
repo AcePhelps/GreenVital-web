@@ -2,7 +2,7 @@
   "use strict";
   const apiBase = ["localhost", "127.0.0.1"].includes(location.hostname) ? "http://127.0.0.1:8790" : "https://drop.greenvital.app";
   const el = id => document.getElementById(id);
-  const states = ["loading", "subscribe", "activation", "input", "progress", "result"];
+  const states = ["loading", "subscribe", "activation", "input", "progress", "result", "pairing"];
   let config, profile, activationCode, turnstileToken = "", widget, qrURL, timer, activeJob, retries = 0;
   const proofKey = "cloudDropCheckoutProof";
   // Earlier development versions stored bearer sessions here. The server now
@@ -66,7 +66,7 @@
       profile = undefined; activeJob = undefined; clearTimeout(timer);
       el("source-url").value = ""; el("rights").checked = false;
       el("job-list").replaceChildren(); el("claim-qr").removeAttribute("src");
-      el("open-app").href = "#";
+      el("paired-devices").hidden = true; el("device-list").replaceChildren();
       if (qrURL) { URL.revokeObjectURL(qrURL); qrURL = undefined; }
       el("account-controls").hidden = true; el("recent-downloads").hidden = true;
       clearBillingReviews();
@@ -76,6 +76,13 @@
   el("manage-billing").addEventListener("click", async () => {
     try { location.assign((await request("/v1/billing/portal", {})).url); }
     catch (error) { message(error.message); }
+  });
+  for (const id of ["connect-app", "connect-result-app", "refresh-pairing"]) el(id).addEventListener("click", showAppPairing);
+  el("back-from-pairing").addEventListener("click", async () => {
+    clearTimeout(timer);
+    if (activeJob) await poll(activeJob);
+    else { show("input"); updateJobButton(); }
+    await loadDevices();
   });
   el("source-url").addEventListener("input", updateJobButton);
   el("rights").addEventListener("change", updateJobButton);
@@ -135,11 +142,52 @@
     el("account-status").textContent = profile.admin ? "Administrator · Free" : profile.active ? "Membership active" : "Membership inactive";
     el("manage-billing").hidden = !profile.billingAvailable;
     el("test-billing").hidden = !profile.billingTestAvailable;
+    el("connect-app").disabled = !profile.active;
+    el("connect-result-app").disabled = !profile.active;
     show("input"); updateJobButton();
     if (!profile.active) message("Your membership is inactive. Manage your subscription to resume new downloads. Existing downloads are still listed below.");
     else if (!config.downloadsAvailable) message("Downloads are being set up. Please return later.", true);
     await loadHistory();
     await loadBillingReviews();
+    await loadDevices();
+  }
+  async function showAppPairing() {
+    clearTimeout(timer);
+    for (const id of ["connect-app", "connect-result-app", "refresh-pairing"]) el(id).disabled = true;
+    try {
+      const pairing = await request("/v1/app-store/pairing", {});
+      if (qrURL) URL.revokeObjectURL(qrURL);
+      qrURL = URL.createObjectURL(new Blob([pairing.qrSVG], { type: "image/svg+xml" }));
+      el("claim-qr").src = qrURL;
+      el("pairing-expiry").textContent = `Scan before ${new Date(pairing.expiresAt).toLocaleTimeString()}. This code expires in five minutes.`;
+      show("pairing");
+      await loadDevices();
+      timer = setTimeout(refreshPairingDevices, 5000);
+    } catch (error) { message(error.message); }
+    finally { for (const id of ["connect-app", "connect-result-app", "refresh-pairing"]) el(id).disabled = !profile?.active; }
+  }
+  async function refreshPairingDevices() {
+    if (el("pairing-state").hidden || !profile) return;
+    await loadDevices();
+    timer = setTimeout(refreshPairingDevices, 5000);
+  }
+  async function loadDevices() {
+    if (!profile) return;
+    try {
+      const { devices } = await request("/v1/app-store/devices");
+      el("device-list").replaceChildren(); el("paired-devices").hidden = !devices.length;
+      for (const device of devices) {
+        const row = document.createElement("li"), text = document.createElement("span"), button = document.createElement("button");
+        text.textContent = `App connected ${new Date(device.createdAt).toLocaleString()}`;
+        button.type = "button"; button.textContent = "Disconnect";
+        button.addEventListener("click", async () => {
+          button.disabled = true;
+          try { await request("/v1/app-store/devices/revoke", { deviceID: device.id }); await loadDevices(); message("This app’s Cloud Drop connection was removed. Files already saved on the phone stay in its Library.", true); }
+          catch (error) { message(error.message); button.disabled = false; }
+        });
+        row.append(text, button); el("device-list").append(row);
+      }
+    } catch (error) { message(error.message); }
   }
   function clearBillingReviews() { el("billing-reviews").hidden = true; el("billing-review-list").replaceChildren(); }
   async function loadBillingReviews() {
@@ -188,11 +236,9 @@
       el("job-progress").value = percent; el("progress-value").textContent = `${percent}%`;
       el("progress-title").textContent = job.title || "Preparing your media";
       el("progress-copy").textContent = job.message || (job.status === "importing" ? "Preparing the file for your phone…" : "You can return later. Your download will appear under Recent downloads.");
-      if (job.status === "ready" && job.deepLink) {
-        await renderQR("/v1/qr", { deepLink: job.deepLink }, "claim-qr");
+      if (job.status === "ready") {
         el("result-title").textContent = job.title || "Your file is ready";
-        el("open-app").href = job.deepLink;
-        el("expiry-copy").textContent = `Open on your phone, or scan the QR. Available until ${new Date(job.expiresAt).toLocaleString()}.`;
+        el("expiry-copy").textContent = `Available in your paired app until ${new Date(job.expiresAt).toLocaleString()}.`;
         show("result"); await loadHistory();
       } else if (["failed", "claimed", "expired", "canceled", "cancelled"].includes(job.status)) {
         activeJob = undefined; show("input");

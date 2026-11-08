@@ -10,8 +10,8 @@
     <title>Cloud Drop Member Portal | Offline Vault</title>
     <meta name="description" content="Private paid Cloud Drop access for transferring authorized media into Offline Vault." />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=2" />
-    <script src="/offline-vault/drop/drop.js?v=4" defer></script>
+    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=3" />
+    <script src="/offline-vault/drop/drop.js?v=5" defer></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=turnstileLoaded&amp;render=explicit" defer></script>
   </head>
   <body>
@@ -24,11 +24,11 @@
       <section class="intro">
         <p class="eyebrow">Private paid service</p>
         <h1>Save a link. Take it offline.</h1>
-        <p>Prepare your media in the cloud, then open the completed file in Offline Vault on your phone. Your downloads are private to your account.</p>
+        <p>Prepare your media in the cloud, then download it directly into Offline Vault from the app’s Transfer screen. Your downloads are private to your account.</p>
         <dl class="facts">
           <div><dt>Access</dt><dd>One-time member QR</dd></div>
           <div><dt>Downloads</dt><dd>Only yours</dd></div>
-          <div><dt>Delivery</dt><dd>Single-use claim</dd></div>
+          <div><dt>Delivery</dt><dd>Direct to your Library</dd></div>
         </dl>
       </section>
       <section class="tool" aria-live="polite">
@@ -53,6 +53,8 @@
         </div>
         <div id="input-state" class="state" hidden>
           <h2>Send authorized media to Offline Vault</h2>
+          <button id="connect-app" class="secondary" type="button">Connect the App Store app</button>
+          <p class="fine-print">Pair once using the QR on this website. Completed files appear in the app’s Transfer screen; tap the download arrow to save them.</p>
           <label>Media page link <input id="source-url" type="url" inputmode="url" autocomplete="url" placeholder="https://…" /></label>
           <fieldset><legend>Output</legend><div class="choices">
             <label><input type="radio" name="output" value="video-720" checked /><span>Video<br /><small>720p</small></span></label>
@@ -73,10 +75,21 @@
         <div id="result-state" class="state center-state" hidden>
           <p class="eyebrow">Ready for Offline Vault</p><h2 id="result-title">Your file is ready</h2>
           <p class="muted" id="expiry-copy"></p>
-          <div class="qr-wrap"><img id="claim-qr" alt="One-time Offline Vault claim QR code" width="272" height="272" /></div>
-          <a id="open-app" class="primary" href="#">Open Offline Vault</a>
+          <p class="delivery-instructions">Open <strong>Transfer</strong> in your paired app and tap the <strong>download arrow</strong> beside this file. It saves directly into your offline Library.</p>
+          <a id="open-app" class="primary" href="offlinevault://open?tab=transfer">Open Offline Vault</a>
+          <button id="connect-result-app" class="secondary" type="button">First time? Connect the app</button>
           <button id="new-job" class="secondary" type="button">Process another link</button>
         </div>
+        <div id="pairing-state" class="state center-state" hidden>
+          <p class="eyebrow">Works with the App Store app</p><h2>Connect your Offline Vault</h2>
+          <p class="muted">Display this page on your computer or another screen. On your iPhone, open <strong>Offline Vault → Settings → Connect Your Computer</strong>, then scan below. If already paired, choose <strong>Connect Another Computer</strong>.</p>
+          <div class="qr-wrap"><img id="claim-qr" alt="Pair Offline Vault with your private Cloud Drop account" width="272" height="272" /></div>
+          <p id="pairing-expiry" class="muted"></p>
+          <p class="fine-print">The QR works once. Your app receives access only to this account’s files. Pairing replaces the current computer connection; saved Library files stay on your phone. Reconnect after 90 days, or disconnect below at any time.</p>
+          <button id="refresh-pairing" class="primary" type="button">Create a new pairing QR</button>
+          <button id="back-from-pairing" class="secondary" type="button">Back to my downloads</button>
+        </div>
+        <section id="paired-devices" hidden aria-label="Connected Offline Vault apps"><h3>Connected apps</h3><ul id="device-list"></ul></section>
         <section id="recent-downloads" hidden aria-label="Recent downloads"><h3>Recent downloads</h3><ul id="job-list"></ul></section>
         <section id="billing-reviews" hidden aria-label="Administrator billing reviews"><h3>Billing reviews</h3><p class="fine-print">Review refunds, disputes, and fraud alerts in <a href="https://dashboard.stripe.com/" target="_blank" rel="noopener noreferrer">Stripe</a>. Marking an alert reviewed does not change payments or membership.</p><ul id="billing-review-list"></ul></section>
         <p id="status-message" class="status" role="alert" hidden></p>
