@@ -10,8 +10,8 @@
     <title>Cloud Drop Member Portal | Offline Vault</title>
     <meta name="description" content="Private paid Cloud Drop access for transferring authorized media into Offline Vault." />
     <link rel="icon" type="image/png" href="/offline-vault/assets/offline-vault-icon.png" />
-    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=3" />
-    <script src="/offline-vault/drop/drop.js?v=5" defer></script>
+    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=4" />
+    <script src="/offline-vault/drop/drop.js?v=6" defer></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=turnstileLoaded&amp;render=explicit" defer></script>
   </head>
   <body>
@@ -22,27 +22,36 @@
     </header>
     <main id="portal">
       <section class="intro">
-        <p class="eyebrow">Private paid service</p>
+        <p class="eyebrow">Cloud Drop</p>
         <h1>Save a link. Take it offline.</h1>
         <p>Prepare your media in the cloud, then download it directly into Offline Vault from the app’s Transfer screen. Your downloads are private to your account.</p>
         <dl class="facts">
           <div><dt>Access</dt><dd>One-time member QR</dd></div>
-          <div><dt>Downloads</dt><dd>Only yours</dd></div>
+          <div><dt>Monthly plan</dt><dd>5 GB · US$2.99</dd></div>
           <div><dt>Delivery</dt><dd>Direct to your Library</dd></div>
         </dl>
       </section>
       <section class="tool" aria-live="polite">
         <div id="account-controls" class="member-line" hidden><span id="account-status">Cloud Drop</span><button id="manage-billing" type="button" hidden>Manage subscription</button><button id="test-billing" type="button" hidden>Test checkout · sandbox</button><button id="forget-access" type="button">Sign out</button></div>
+        <section id="usage-panel" class="usage-panel" hidden aria-label="Cloud Drop allowance">
+          <div class="usage-heading"><strong id="usage-title">Your allowance</strong><span id="usage-summary"></span></div>
+          <progress id="usage-meter" max="100" value="0" aria-label="Allowance used"></progress>
+          <p id="usage-details" class="fine-print"></p>
+          <button id="view-plan" class="secondary" type="button" hidden>View the monthly plan</button>
+        </section>
         <div id="loading-state" class="state center-state"><div class="spinner" aria-hidden="true"></div><p>Checking secure access…</p></div>
         <div id="subscribe-state" class="state" hidden>
           <p class="eyebrow">Cloud Drop membership</p><h2>Your media, ready for your phone.</h2>
           <p class="subscription-price"><strong id="subscription-amount">US$2.99</strong> <span id="subscription-interval">/ month</span></p>
-          <p class="muted">Billed monthly in USD. Renews automatically until canceled. After payment, use your personal activation QR on your phone.</p>
-          <label>Email for your receipt <input id="checkout-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" /></label>
+          <p class="muted">5 GB of prepared files per billing month. No rollover or automatic overage charges. Billed in USD; renews until canceled. Files saved on your phone keep working after cancellation.</p>
+          <p id="trial-offer" class="trial-offer"><strong>Try two transfers free.</strong> 200 MB combined, once per account. No card required and no automatic subscription.</p>
+          <label>Email for secure access <input id="checkout-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" /></label>
           <div class="turnstile-wrap" id="turnstile"></div>
-          <button id="start-checkout" class="primary" type="button" disabled>Continue to secure checkout</button>
+          <button id="start-trial" class="primary" type="button" disabled>Email my free trial link</button>
+          <button id="start-checkout" class="secondary" type="button" disabled>Subscribe · US$2.99/month</button>
           <button id="restore-access" class="secondary" type="button" disabled>Email me a fresh access link</button>
-          <p class="fine-print">Already subscribed—or an approved GreenVital administrator? Use the same email to restore access without paying again.</p>
+          <p class="fine-print">Start a trial or sign in before subscribing. Already have a trial, subscription, or free admin account? Email yourself a fresh access link. Your allowance stays with your account.</p>
+        <button id="return-to-downloads" class="secondary" type="button" hidden>Back to my downloads</button>
         </div>
         <div id="activation-state" class="state center-state" hidden>
           <p class="eyebrow">Account access</p><h2>Your personal access link</h2>
@@ -63,7 +72,8 @@
           </div></fieldset>
           <label class="rights"><input id="rights" type="checkbox" /><span>I own this media or have permission to save and transfer it.</span></label>
           <button id="start-job" class="primary" type="button" disabled>Start private download</button>
-          <p class="fine-print">No DRM bypass, private-account cookies, or access-control circumvention. Supported public media pages only.</p>
+          <p class="fine-print">Only successfully prepared files count. Failed jobs and phone download retries do not. Files are available here for 24 hours.</p>
+          <details class="processing-limits"><summary>File and processing limits</summary><p>Maximum 60 minutes and 600 MiB per file, or your remaining allowance if smaller. Up to 10 processing attempts per 24 hours on a trial; 60 on the monthly plan. No DRM bypass or private-account cookies.</p></details>
         </div>
         <div id="progress-state" class="state center-state" hidden>
           <p class="eyebrow">Private job running</p><h2 id="progress-title">Preparing media</h2>

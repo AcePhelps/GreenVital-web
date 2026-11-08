@@ -32,6 +32,18 @@
       location.assign(result.url);
     } catch (error) { message(error.message); resetChallenge(); }
   });
+  el("start-trial").addEventListener("click", async () => {
+    if (el("start-trial").disabled || !el("checkout-email").reportValidity()) return;
+    disableAccessButtons();
+    try {
+      await request("/v1/access/trial", { email: el("checkout-email").value.trim(), turnstileToken });
+      message("Check your email for a sign-in link. Your free trial includes two transfers, up to 200 MB combined. No card is needed. Existing accounts keep their current allowance.", true);
+    } catch (error) { message(error.message); }
+    finally { resetChallenge(); }
+  });
+  el("checkout-email").addEventListener("input", updateAccessButtons);
+  el("view-plan").addEventListener("click", () => { show("subscribe"); resetChallenge(); });
+  el("return-to-downloads").addEventListener("click", () => { show("input"); updateJobButton(); });
   el("test-billing").addEventListener("click", async () => {
     el("test-billing").disabled = true;
     try {
@@ -68,7 +80,7 @@
       el("job-list").replaceChildren(); el("claim-qr").removeAttribute("src");
       el("paired-devices").hidden = true; el("device-list").replaceChildren();
       if (qrURL) { URL.revokeObjectURL(qrURL); qrURL = undefined; }
-      el("account-controls").hidden = true; el("recent-downloads").hidden = true;
+      el("account-controls").hidden = true; el("recent-downloads").hidden = true; el("usage-panel").hidden = true;
       clearBillingReviews();
       show("subscribe");
     } catch (error) { message(error.message); }
@@ -94,7 +106,7 @@
       const job = await request("/v1/link-jobs", { url: el("source-url").value.trim(), confirmRights: true, type: output === "audio" ? "audio" : "video", quality: output === "video-1080" ? 1080 : 720 });
       retries = 0;
       await poll(job.id);
-    } catch (error) { message(error.message); await loadHistory(); }
+    } catch (error) { await refreshUsage(); message(error.message); await loadHistory(); }
     finally { updateJobButton(); }
   });
   for (const id of ["new-job", "back-to-library"]) el(id).addEventListener("click", async () => {
@@ -118,7 +130,7 @@
     try {
       await configPromise;
       if (activationCode) {
-        el("account-controls").hidden = true; el("recent-downloads").hidden = true;
+        el("account-controls").hidden = true; el("recent-downloads").hidden = true; el("usage-panel").hidden = true;
         show("activation"); return;
       }
       if (checkout) {
@@ -139,7 +151,7 @@
       profile = undefined; clearBillingReviews(); show("subscribe"); return;
     }
     el("account-controls").hidden = false;
-    el("account-status").textContent = profile.admin ? "Administrator · Free" : profile.active ? "Membership active" : "Membership inactive";
+    renderAccount();
     el("manage-billing").hidden = !profile.billingAvailable;
     el("test-billing").hidden = !profile.billingTestAvailable;
     el("connect-app").disabled = !profile.active;
@@ -150,6 +162,30 @@
     await loadHistory();
     await loadBillingReviews();
     await loadDevices();
+  }
+  function renderAccount() {
+    const usage = profile?.usage;
+    el("account-status").textContent = profile?.admin ? "Administrator · Free" : usage?.kind === "trial" ? "Free trial" : profile?.active ? "Membership active" : "Membership inactive";
+    el("usage-panel").hidden = !usage;
+    if (!usage) return;
+    el("usage-title").textContent = usage.kind === "admin" ? "Free administrator access" : usage.kind === "trial" ? "Your free trial" : "Monthly allowance";
+    el("usage-meter").hidden = usage.kind === "admin";
+    el("usage-summary").textContent = usage.kind === "admin" ? "No subscription required" : usage.kind === "trial" ? `${usage.remainingTransfers} of 2 transfers left` : `${formatBytes(usage.remainingBytes)} of 5 GB left`;
+    el("usage-meter").value = Math.min(100, Math.max(usage.byteLimit ? usage.usedBytes / usage.byteLimit * 100 : 0, usage.transferLimit ? usage.usedTransfers / usage.transferLimit * 100 : 0));
+    el("usage-details").textContent = usage.kind === "admin" ? "Your admin account has no monthly allowance cap. Individual file and processing limits still apply." : usage.kind === "trial" ? `${formatBytes(usage.remainingBytes)} remaining of 200 MB total. ${usage.canPrepare ? "No card required." : "Your trial allowance is used up. Prepared files remain available until their expiry."}` : `Resets ${usage.resetsAt ? new Date(usage.resetsAt).toLocaleDateString() : "with your next billing period"}. No rollover or automatic extra charges. Saved Library files remain yours.`;
+    el("view-plan").hidden = usage.kind !== "trial";
+    updateJobButton();
+  }
+  async function refreshUsage() {
+    if (!profile) return;
+    try { profile = await request("/v1/me"); renderAccount(); }
+    catch (error) { if (error.status === 401) { profile = undefined; el("usage-panel").hidden = true; } }
+  }
+  function formatBytes(bytes) {
+    if (bytes >= 1000000000) return `${new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(bytes / 1000000000)} GB`;
+    if (bytes >= 1000000) return `${new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 }).format(bytes / 1000000)} MB`;
+    if (bytes >= 1000) return `${Math.floor(bytes / 1000)} KB`;
+    return `${bytes ?? 0} B`;
   }
   async function showAppPairing() {
     clearTimeout(timer);
@@ -239,9 +275,9 @@
       if (job.status === "ready") {
         el("result-title").textContent = job.title || "Your file is ready";
         el("expiry-copy").textContent = `Available in your paired app until ${new Date(job.expiresAt).toLocaleString()}.`;
-        show("result"); await loadHistory();
+        show("result"); await refreshUsage(); await loadHistory();
       } else if (["failed", "claimed", "expired", "canceled", "cancelled"].includes(job.status)) {
-        activeJob = undefined; show("input");
+        activeJob = undefined; show("input"); await refreshUsage();
         message(job.status === "claimed" ? "This file has already been claimed by a device." : job.status === "expired" ? "This delivery has expired. Submit the link again to prepare another copy." : job.error || "This download did not finish.", job.status === "claimed");
         updateJobButton(); await loadHistory();
       } else timer = setTimeout(() => poll(id), 3000);
@@ -261,12 +297,14 @@
   }
   function updateJobButton() {
     let valid = false; try { valid = new URL(el("source-url").value.trim()).protocol === "https:"; } catch {}
-    el("start-job").disabled = !(config?.downloadsAvailable && profile?.active && valid && el("rights").checked);
+    el("start-job").disabled = !(config?.downloadsAvailable && profile?.active && profile?.usage?.canPrepare !== false && valid && el("rights").checked);
   }
-  function updateAccessButtons() { el("start-checkout").disabled = !(turnstileToken && config?.checkoutAvailable); el("restore-access").disabled = !(turnstileToken && config?.recoveryAvailable); }
-  function disableAccessButtons() { el("start-checkout").disabled = true; el("restore-access").disabled = true; }
+  function updateAccessButtons() { el("start-trial").disabled = !(turnstileToken && config?.trialAvailable && el("checkout-email").value.trim() && el("checkout-email").checkValidity()); el("start-checkout").disabled = !(turnstileToken && config?.checkoutAvailable && profile); el("restore-access").disabled = !(turnstileToken && config?.recoveryAvailable); }
+  function disableAccessButtons() { el("start-trial").disabled = true; el("start-checkout").disabled = true; el("restore-access").disabled = true; }
   function resetChallenge() { turnstileToken = ""; updateAccessButtons(); if (window.turnstile && widget !== undefined) window.turnstile.reset(widget); }
-  function show(name) { states.forEach(state => { el(`${state}-state`).hidden = state !== name; }); el("status-message").hidden = true; if (name === "subscribe" && config && !config.checkoutAvailable) message("Cloud Drop is being set up. Paid subscriptions are not open yet.", true); }
+  function show(name) { states.forEach(state => { el(`${state}-state`).hidden = state !== name; }); el("status-message").hidden = true; el("return-to-downloads").hidden = !(name === "subscribe" && profile);
+    el("start-trial").hidden = !!profile; el("trial-offer").hidden = !!profile;
+    if (name === "subscribe" && config && !config.checkoutAvailable) message(config.trialAvailable ? "Free trials are open. Paid subscriptions are not open yet." : "Cloud Drop is being set up. Paid subscriptions are not open yet.", true); }
   function message(text, notice = false) { el("status-message").textContent = text; el("status-message").dataset.kind = notice ? "notice" : "error"; el("status-message").hidden = false; }
   async function request(path, body) {
     const response = await fetch(`${apiBase}${path}`, { credentials: "include", ...(body !== undefined ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {}) });
