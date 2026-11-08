@@ -18,7 +18,7 @@
         sitekey: config.turnstileSiteKey, theme: "dark", size: "flexible",
         callback: token => { turnstileToken = token; updateAccessButtons(); },
         "expired-callback": () => { turnstileToken = ""; updateAccessButtons(); },
-        "error-callback": () => { turnstileToken = ""; updateAccessButtons(); message("Verification could not load. Refresh and try again."); }
+        "error-callback": () => { turnstileToken = ""; updateAccessButtons(); if (!profile && !el("subscribe-state").hidden) message("Verification could not load. Refresh and try again."); }
       });
     } catch { message("Cloud Drop is not connected yet. Please return later."); }
   };
