@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GreenVital — Simple apps for everyday life</title>
     <meta name="description" content="Explore GreenVital apps for money, focus, wellness, and offline media. Find free Offline Vault downloads, try Cloud Drop, and see what is coming next." />
-    <meta name="theme-color" content="#f7f8fb" />
+    <meta name="theme-color" content="#faf9f6" />
     <meta property="og:title" content="GreenVital — Simple apps for everyday life" />
     <meta property="og:description" content="Practical apps for your money, time, and files. Explore the apps, try Cloud Drop, or get help from GreenVital." />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/greenvital-mark.svg" />
-    <link rel="stylesheet" href="/greenvital.css?v=1" />
+    <link rel="stylesheet" href="/greenvital.css?v=20261108-modern" />
     <script src="/script.js" defer></script>
   </head>
-  <body>
+  <body class="gv-home">
     <a class="gv-skip-link" href="#main">Skip to content</a>
     <header class="gv-header">
       <div class="gv-shell">
@@ -30,29 +30,30 @@
     <main id="main">
       <section class="gv-shell gv-hero gv-home-hero" aria-labelledby="hero-title">
         <div class="gv-hero-copy">
-          <p class="gv-eyebrow">Independent apps. Everyday help.</p>
-          <h1 id="hero-title">Simple apps for everyday life.</h1>
-          <p>Keep track of your money. Make time to focus. Take your videos offline. Find a GreenVital app for the things you do every day.</p>
+          <p class="gv-eyebrow">The GreenVital app studio</p>
+          <h1 id="hero-title">Small apps.<br /><span>More room<br />for life.</span></h1>
+          <p>For your money, your time, and the things you want to keep. Thoughtful apps that make everyday tasks a little easier.</p>
           <div class="gv-actions">
             <a class="gv-button" href="#apps">Explore our apps <span aria-hidden="true">↓</span></a>
             <a class="gv-button gv-button-secondary" href="/offline-vault/drop/">Try Cloud Drop</a>
           </div>
           <p class="gv-small">For iPhone, iPad, Android, and your computer. See each app for supported devices.</p>
         </div>
-        <div class="gv-hero-visual gv-home-showcase" aria-label="Screens from GreenVital apps">
-          <figure class="gv-home-screen">
+        <div class="gv-hero-visual gv-home-showcase" aria-label="Real screens from GreenVital apps">
+          <p class="gv-showcase-caption">A look inside our apps.</p>
+          <figure class="gv-home-screen gv-home-screen-money">
             <img src="/Screenshots/moneypulse-may-2026.png" alt="Money Pulse showing a monthly balance, spending, and recent activity" width="1206" height="2622" fetchpriority="high" />
             <figcaption>Money Pulse</figcaption>
           </figure>
-          <figure class="gv-home-screen">
-            <img src="/Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png" alt="Back to Life showing scheduled focus times for the day" width="1206" height="2622" />
-            <figcaption>Back to Life</figcaption>
+          <figure class="gv-home-screen gv-home-screen-vault">
+            <img src="/offline-vault/assets/offline-vault-library-app-store.jpg" alt="Offline Vault Library with example media ready for offline playback" width="1206" height="2622" />
+            <figcaption>Offline Vault</figcaption>
           </figure>
         </div>
       </section>
 
       <nav class="gv-shell gv-home-directory" aria-label="Explore GreenVital products">
-        <span>Find your next app</span>
+        <span>Made for real life</span>
         <a href="#apps">Available now <span aria-hidden="true">↓</span></a>
         <a href="#cloud-drop">Video links to files <span aria-hidden="true">↓</span></a>
         <a href="#coming-next">Coming next <span aria-hidden="true">↓</span></a>
@@ -60,11 +61,11 @@
 
       <section id="apps" class="gv-shell gv-section" aria-labelledby="apps-title">
         <div class="gv-section-heading">
-          <div><p class="gv-eyebrow">Available now</p><h2 id="apps-title">A useful app for your day.</h2></div>
-          <p>Choose what you need help with. Each product page explains the features, supported devices, and how to get started.</p>
+          <div><p class="gv-eyebrow">Available now</p><h2 id="apps-title">Good tools.<br />For your kind of day.</h2></div>
+          <p>Find an app for the things you do every day. See what it does and how to get started.</p>
         </div>
-        <div class="gv-grid gv-grid-two">
-          <article class="gv-card gv-product" aria-labelledby="money-title">
+        <div class="gv-app-collection">
+          <article class="gv-product gv-app-feature gv-feature-money" aria-labelledby="money-title">
             <div class="gv-product-copy">
               <div class="gv-product-meta"><p class="gv-eyebrow">Your money</p><span class="gv-tag">iPhone &amp; Android</span></div>
               <h3 id="money-title">Money Pulse</h3>
@@ -78,7 +79,7 @@
             <div class="gv-product-visual gv-product-visual-money"><img src="/Screenshots/moneypulse-may-2026.png" alt="Money Pulse monthly balance screen" width="1206" height="2622" loading="lazy" decoding="async" /></div>
           </article>
 
-          <article class="gv-card gv-product" aria-labelledby="focus-title">
+          <article class="gv-product gv-app-compact gv-feature-focus" aria-labelledby="focus-title">
             <div class="gv-product-copy">
               <div class="gv-product-meta"><p class="gv-eyebrow">Your time</p><span class="gv-tag">iPhone</span></div>
               <h3 id="focus-title">Back to Life</h3>
@@ -92,7 +93,20 @@
             <div class="gv-product-visual gv-product-visual-focus"><img src="/Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png" alt="Back to Life daily focus schedules" width="1206" height="2622" loading="lazy" decoding="async" /></div>
           </article>
 
-          <article class="gv-card gv-product" aria-labelledby="vault-title">
+          <article class="gv-product gv-app-compact gv-feature-wellness" aria-labelledby="wellness-title">
+            <div class="gv-product-copy">
+              <div class="gv-product-meta"><p class="gv-eyebrow">Your wellbeing</p><span class="gv-tag">Android</span></div>
+              <h3 id="wellness-title">GreenVital Wellness</h3>
+              <p>Explore natural remedies, wellness guidance, and traditional healing content, organized in one Android app.</p>
+              <div class="gv-actions">
+                <a class="gv-button gv-button-secondary" href="/greenvital-app.html">Explore GreenVital Wellness</a>
+                <a class="gv-text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp&amp;pcampaignid=web_share" target="_blank" rel="noopener noreferrer" aria-label="GreenVital Wellness on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+            <div class="gv-product-visual gv-product-visual-wellness"><img src="/Screenshots/greenvital.jpeg" alt="GreenVital Wellness app showing its wellness content" width="970" height="2048" loading="lazy" decoding="async" /></div>
+          </article>
+
+          <article class="gv-product gv-app-feature gv-app-feature-reverse gv-feature-vault" aria-labelledby="vault-title">
             <div class="gv-product-copy">
               <div class="gv-product-meta"><p class="gv-eyebrow">Your offline library</p><span class="gv-tag">Free · iPhone &amp; iPad</span></div>
               <div class="gv-card-heading"><img src="/offline-vault/assets/offline-vault-icon.png" alt="" width="48" height="48" loading="lazy" /><h3 id="vault-title">Offline Vault</h3></div>
@@ -106,33 +120,26 @@
             </div>
             <div class="gv-product-visual gv-product-visual-vault"><img src="/offline-vault/assets/offline-vault-library-app-store.jpg" alt="Offline Vault Library with example media and storage information" width="1206" height="2622" loading="lazy" decoding="async" /></div>
           </article>
-
-          <article class="gv-card gv-product" aria-labelledby="wellness-title">
-            <div class="gv-product-copy">
-              <div class="gv-product-meta"><p class="gv-eyebrow">Your wellbeing</p><span class="gv-tag">Android</span></div>
-              <h3 id="wellness-title">GreenVital Wellness</h3>
-              <p>Explore natural remedies, wellness guidance, and traditional healing content, organized in one Android app.</p>
-              <div class="gv-actions">
-                <a class="gv-button gv-button-secondary" href="/greenvital-app.html">Explore GreenVital Wellness</a>
-                <a class="gv-text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp&amp;pcampaignid=web_share" target="_blank" rel="noopener noreferrer" aria-label="GreenVital Wellness on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-            <div class="gv-product-visual gv-product-visual-wellness"><img src="/Screenshots/greenvital.jpeg" alt="GreenVital Wellness app showing its wellness content" width="970" height="2048" loading="lazy" decoding="async" /></div>
-          </article>
         </div>
       </section>
 
-      <section id="cloud-drop" class="gv-shell gv-home-cloud-band" aria-labelledby="cloud-title">
-        <div class="gv-home-cloud">
-          <div>
+      <section id="cloud-drop" class="gv-home-cloud-band" aria-labelledby="cloud-title">
+        <div class="gv-shell gv-home-cloud">
+          <div class="gv-cloud-intro">
             <div class="gv-card-heading"><img src="/offline-vault/drop/cloud-drop.svg" alt="" width="44" height="44" /><span>Cloud Drop</span></div>
             <p class="gv-eyebrow">Works with Offline Vault</p>
-            <h2 id="cloud-title">A video link. A file to keep offline.</h2>
+            <h2 id="cloud-title">From a link.<br />To wherever<br /><span>life takes you.</span></h2>
             <p>Paste a video link and choose video or audio. Cloud Drop prepares the file. You then save it in the free Offline Vault app.</p>
             <a class="gv-button" href="/offline-vault/drop/">Try 2 files free <span aria-hidden="true">→</span></a>
             <p class="gv-small">Up to 200 MB in total, once per account. No card. No automatic subscription. Paid subscriptions are not open yet.</p>
           </div>
-          <div>
+          <div class="gv-cloud-handoff" aria-label="Cloud Drop prepares a file on the website, then you download it in Offline Vault">
+            <div class="gv-cloud-origin"><span class="gv-cloud-location">On this website</span><strong>A video link</strong><span>Choose video or audio</span></div>
+            <div class="gv-cloud-connector" aria-hidden="true"><span>↓</span></div>
+            <div class="gv-cloud-destination"><img src="/offline-vault/assets/offline-vault-icon.png" alt="" width="56" height="56" loading="lazy" /><div><span class="gv-cloud-location">In Offline Vault</span><strong>Your offline library</strong><span>Open Transfer. Tap the download arrow.</span></div></div>
+            <p>You choose what to save.<br />You tap to download.</p>
+          </div>
+          <div class="gv-cloud-instructions">
             <ol class="gv-steps">
               <li><h3>Get the app and sign in</h3><p>Install <a href="https://apps.apple.com/us/app/offline-vault-by-greenvital/id6820337743" target="_blank" rel="noopener noreferrer">free Offline Vault</a> on your iPhone or iPad. Sign in to Cloud Drop with your email.</p></li>
               <li><h3>Connect inside the app</h3><p>Show Cloud Drop’s code on another screen. In Offline Vault, open <strong>Settings → Connect Your Computer</strong> and scan the code.</p></li>
@@ -146,11 +153,11 @@
       <section id="coming-next" class="gv-home-upcoming" aria-labelledby="next-title">
         <div class="gv-shell gv-section">
           <div class="gv-section-heading">
-            <div><p class="gv-eyebrow">Coming next</p><h2 id="next-title">More everyday help, in progress.</h2></div>
+            <div><p class="gv-eyebrow">Coming next</p><h2 id="next-title">A little look ahead.</h2></div>
             <p>These apps are in private testing or getting ready for release. Their product pages explain what is available.</p>
           </div>
-          <div class="gv-grid gv-grid-two">
-            <article class="gv-card gv-product" aria-labelledby="petshift-title">
+          <div class="gv-upcoming-collection">
+            <article class="gv-product gv-upcoming-product gv-feature-petshift" aria-labelledby="petshift-title">
               <div class="gv-product-copy">
                 <div class="gv-product-meta"><p class="gv-eyebrow">Pet care</p><span class="gv-tag gv-tag-neutral">Private beta</span></div>
                 <h3 id="petshift-title">PetShift</h3>
@@ -162,7 +169,7 @@
               </div>
               <div class="gv-product-visual"><img src="/petshift/assets/petshift-owner-live-schedule.png" alt="PetShift live pet-care schedule" width="1206" height="2622" loading="lazy" decoding="async" /></div>
             </article>
-            <article class="gv-card gv-product" aria-labelledby="storage-title">
+            <article class="gv-product gv-upcoming-product gv-feature-storage" aria-labelledby="storage-title">
               <div class="gv-product-copy">
                 <div class="gv-product-meta"><p class="gv-eyebrow">Android storage</p><span class="gv-tag gv-tag-neutral">Google Play soon</span></div>
                 <h3 id="storage-title">StoragePilot</h3>
@@ -181,7 +188,7 @@
       <section id="principles" class="gv-shell gv-section gv-home-principles" aria-labelledby="principles-title">
         <div>
           <p class="gv-eyebrow">How we build</p>
-          <h2 id="principles-title">Useful tools. Clear choices.</h2>
+          <h2 id="principles-title">Small studio.<br />Care in the details.</h2>
           <p>GreenVital is an independent app studio. We build practical tools around specific everyday tasks, with clear instructions and support you can find.</p>
         </div>
         <ul class="gv-home-principle-list">
@@ -191,8 +198,8 @@
         </ul>
       </section>
 
-      <section id="contact" class="gv-shell gv-card gv-home-contact" aria-labelledby="contact-title">
-        <div><h2 id="contact-title">Need a hand?</h2><p>Email <a href="mailto:support@greenvital.app">support@greenvital.app</a> with the app name, your device, and what happened. If you see an error message, include that too.</p></div>
+      <section id="contact" class="gv-shell gv-home-contact" aria-labelledby="contact-title">
+        <div><p class="gv-eyebrow">We’re here to help</p><h2 id="contact-title">Let’s make it work.</h2><p>Email <a href="mailto:support@greenvital.app">support@greenvital.app</a> with the app name, your device, and what happened. If you see an error message, include that too.</p></div>
         <a class="gv-button" href="mailto:support@greenvital.app?subject=GreenVital%20Support">Email support <span aria-hidden="true">↗</span></a>
       </section>
     </main>

@@ -7,17 +7,15 @@
    Offline Vault by GreenVital | Your private media library
   </title>
   <meta content="Offline Vault is a private, self-hosted media library for iPhone and iPad, with computer companions for macOS and Windows, offline playback, background sync, playlists, and private folders." name="description"/>
-  <meta content="#f7f8fb" name="theme-color"/>
+  <meta content="#faf9f6" name="theme-color"/>
   <link href="/greenvital-mark.svg" rel="icon" type="image/svg+xml"/>
-  <link href="/greenvital.css?v=20261108" rel="stylesheet"/>
-  <link href="/greenvital-pages.css?v=20261108" rel="stylesheet"/>
-  <meta content="Offline Vault by GreenVital" property="og:title">
-   <meta content="Keep your own media organized, available offline, and under your control. Offline Vault by GreenVital for iPhone and iPad and Offline Vault Companion for Mac are free downloads." property="og:description">
-    <meta content="website" property="og:type"/>
-   </meta>
-  </meta>
+  <link href="/greenvital.css?v=20261108-modern" rel="stylesheet"/>
+  <link href="/greenvital-pages.css?v=20261108-modern" rel="stylesheet"/>
+  <meta content="Offline Vault by GreenVital" property="og:title"/>
+  <meta content="Keep your own media organized, available offline, and under your control. Offline Vault by GreenVital for iPhone and iPad and Offline Vault Companion for Mac are free downloads." property="og:description"/>
+  <meta content="website" property="og:type"/>
  </head>
- <body>
+ <body class="gv-product-page" data-product="vault">
   <a class="gv-skip-link" href="#main">
    Skip to content
   </a>
@@ -79,7 +77,7 @@
      </p>
     </div>
     <figure class="gv-detail-visual">
-     <img alt="Offline Vault library with saved media" height="640" src="/offline-vault/assets/offline-vault-library-app-store.jpg" width="320"/>
+     <img alt="Offline Vault library with saved media" height="2622" src="/offline-vault/assets/offline-vault-library-app-store.jpg" width="1206"/>
      <figcaption>
       A real screen from Offline Vault.
      </figcaption>
@@ -193,111 +191,116 @@
        Version 1.0.1 uses a one-file installer. This build is self-signed and untimestamped,
                 so Windows may show SmartScreen. It is not a Microsoft Store or generally trusted installer.
       </p>
-      <ol class="compact-install-steps">
-       <li>
-        Download and run the EXE.
-       </li>
-       <li>
-        If SmartScreen appears, choose More info, then Run anyway.
-       </li>
-       <li>
-        Approve UAC; setup installs the embedded public certificate and app, then launches it.
-       </li>
-      </ol>
-      <dl class="release-meta">
-       <div>
-        <dt>
-         Version
-        </dt>
-        <dd data-release-field="version">
-         1.0.1
-        </dd>
-       </div>
-       <div>
-        <dt>
-         Release type
-        </dt>
-        <dd>
-         Self-signed, untimestamped
-        </dd>
-       </div>
-       <div>
-        <dt>
-         Installer size
-        </dt>
-        <dd data-release-field="setupFileSize">
-         160,738,000 bytes (153.3 MiB)
-        </dd>
-       </div>
-       <div>
-        <dt>
-         Installer SHA-256
-        </dt>
-        <dd data-release-field="setupSha256">
-         c18f80eb39e73d8f2be305fa6982fc5c402a738746b081e8a49d31f212a64563
-        </dd>
-       </div>
-      </dl>
       <div class="release-actions primary-download-action">
        <a aria-disabled="true" class="button button-disabled release-link gv-button" data-ready-label="Download for Windows" data-release-link="setupUrl">
         Installer unavailable
        </a>
       </div>
-      <details class="advanced-install compact">
+      <details class="advanced-install gv-release-details">
        <summary>
-        Advanced / manual installation
+        Windows setup &amp; file details
        </summary>
-       <div class="advanced-install-content">
-        <dl class="release-meta">
-         <div>
-          <dt>
-           Bundle SHA-256
-          </dt>
-          <dd data-release-field="bundleSha256">
-           0d6cd33c40f9e837e2fa23ef3f81dd03c31c032a1e0b379f0d2e10ae9699080b
-          </dd>
-         </div>
-         <div>
-          <dt>
-           Certificate SHA-1
-          </dt>
-          <dd>
-           FC677345547ACF903AC8ABBEEEBD79A30318889C
-          </dd>
-         </div>
-         <div>
-          <dt>
-           Certificate SHA-256
-          </dt>
-          <dd data-release-field="certificateSha256">
-           E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484
-          </dd>
-         </div>
-        </dl>
-        <div class="release-actions three-up">
-         <a aria-disabled="true" class="button button-disabled release-link gv-button" data-ready-label="Public certificate" data-release-link="certificateUrl">
-          Certificate unavailable
-         </a>
-         <a aria-disabled="true" class="button button-disabled release-link gv-button" data-ready-label="Open App Installer" data-release-link="appInstallerUrl">
-          App Installer unavailable
-         </a>
-         <a aria-disabled="true" class="button button-disabled release-link gv-button" data-ready-label="Direct MSIX bundle" data-release-link="msixBundleUrl">
-          MSIX bundle unavailable
-         </a>
+       <ol class="compact-install-steps">
+        <li>
+         Download and run the EXE.
+        </li>
+        <li>
+         If SmartScreen appears, choose More info, then Run anyway.
+        </li>
+        <li>
+         Approve UAC; setup installs the embedded public certificate and app, then launches it.
+        </li>
+       </ol>
+       <dl class="release-meta">
+        <div>
+         <dt>
+          Version
+         </dt>
+         <dd data-release-field="version">
+          1.0.1
+         </dd>
         </div>
-        <p class="security-note">
-         The certificate download is the public
-         <code>
-          .cer
-         </code>
-         only. GreenVital will never ask for a private key or PFX.
-        </p>
-        <p class="downloads-help">
-         <a data-ready-label="View release manifest" data-release-link="releaseManifestUrl">
-          View release manifest
-         </a>
-        </p>
-       </div>
+        <div>
+         <dt>
+          Release type
+         </dt>
+         <dd>
+          Self-signed, untimestamped
+         </dd>
+        </div>
+        <div>
+         <dt>
+          Installer size
+         </dt>
+         <dd data-release-field="setupFileSize">
+          160,738,000 bytes (153.3 MiB)
+         </dd>
+        </div>
+        <div>
+         <dt>
+          Installer SHA-256
+         </dt>
+         <dd data-release-field="setupSha256">
+          c18f80eb39e73d8f2be305fa6982fc5c402a738746b081e8a49d31f212a64563
+         </dd>
+        </div>
+       </dl>
+       <details class="advanced-install compact">
+        <summary>
+         Advanced / manual installation
+        </summary>
+        <div class="advanced-install-content">
+         <dl class="release-meta">
+          <div>
+           <dt>
+            Bundle SHA-256
+           </dt>
+           <dd data-release-field="bundleSha256">
+            0d6cd33c40f9e837e2fa23ef3f81dd03c31c032a1e0b379f0d2e10ae9699080b
+           </dd>
+          </div>
+          <div>
+           <dt>
+            Certificate SHA-1
+           </dt>
+           <dd>
+            FC677345547ACF903AC8ABBEEEBD79A30318889C
+           </dd>
+          </div>
+          <div>
+           <dt>
+            Certificate SHA-256
+           </dt>
+           <dd data-release-field="certificateSha256">
+            E452A048C253EE0D1F6AC45B8B0DC1350E9A3DCCF946A240BF237F27DCB68484
+           </dd>
+          </div>
+         </dl>
+         <div class="release-actions three-up">
+          <a aria-disabled="true" class="button button-disabled release-link gv-button" data-ready-label="Public certificate" data-release-link="certificateUrl">
+           Certificate unavailable
+          </a>
+          <a aria-disabled="true" class="button button-disabled release-link gv-button" data-ready-label="Open App Installer" data-release-link="appInstallerUrl">
+           App Installer unavailable
+          </a>
+          <a aria-disabled="true" class="button button-disabled release-link gv-button" data-ready-label="Direct MSIX bundle" data-release-link="msixBundleUrl">
+           MSIX bundle unavailable
+          </a>
+         </div>
+         <p class="security-note">
+          The certificate download is the public
+          <code>
+           .cer
+          </code>
+          only. GreenVital will never ask for a private key or PFX.
+         </p>
+         <p class="downloads-help">
+          <a data-ready-label="View release manifest" data-release-link="releaseManifestUrl">
+           View release manifest
+          </a>
+         </p>
+        </div>
+       </details>
       </details>
      </article>
     </div>
