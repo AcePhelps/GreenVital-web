@@ -1,151 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GreenVital | GreenVital Apps</title>
-    <meta
-      name="description"
-      content="GreenVital is an educational wellness app for natural remedies, cultural healing practices, and offline-friendly guides."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Outfit:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body class="site-body">
-    <div class="site-shell">
-      <header class="site-header">
-        <a class="brand" href="/">
-          <span class="brand-mark"></span>
-          GreenVital Apps
-        </a>
-        <nav class="site-nav">
-          <a href="/#apps">All apps</a>
-          <a href="./money-pulse.html">Money Pulse</a>
-          <a href="./back-to-life.html">Back to Life</a>
-        </nav>
-      </header>
-
-      <main>
-        <section class="app-hero app-hero-light">
-          <div class="app-hero-copy">
-            <p class="eyebrow">GreenVital</p>
-            <h1 class="fade-up">Natural remedies and wellness guidance, made easier to explore.</h1>
-            <p class="app-summary fade-up">
-              GreenVital helps people browse traditional remedies, wellness topics, and
-              cultural healing practices in a clean, offline-friendly format.
-            </p>
-            <p>
-              <a
-                class="button button-primary fade-up"
-                href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp&pcampaignid=web_share"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open on Google Play
-              </a>
-            </p>
-          </div>
-          <div class="app-hero-screen">
-            <div class="device-frame">
-              <img
-                src="./Screenshots/greenvital.jpeg"
-                alt="GreenVital screenshot"
-                class="image-reveal"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section class="section-nav">
-          <a href="#overview">Overview</a>
-          <a href="#about">About</a>
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
-        </section>
-
-        <section class="metrics-row">
-          <article class="metric-card fade-up">
-            <span class="metric-label">Category</span>
-            <strong>Health &amp; Fitness</strong>
-          </article>
-          <article class="metric-card fade-up">
-            <span class="metric-label">Focus</span>
-            <strong>Natural remedies and wellness education</strong>
-          </article>
-          <article class="metric-card fade-up">
-            <span class="metric-label">Updated</span>
-            <strong>September 28, 2025</strong>
-          </article>
-        </section>
-
-        <section class="feature-stage" id="overview">
-          <div class="feature-copy fade-up">
-            <p class="eyebrow">Overview</p>
-            <h2>A calmer way to learn from traditional wellness practices.</h2>
-            <p>
-              GreenVital is built as an educational reference. People can explore remedies
-              by illness, wellness goal, or country of origin, review ingredients and safe
-              usage notes, save favorites, and keep useful guidance available even offline.
-            </p>
-          </div>
-          <div class="feature-list-card fade-up">
-            <ul class="feature-list">
-              <li>Browse remedies by illness, wellness goal, or country of origin.</li>
-              <li>Learn about ingredients, benefits, and safe usage guidance.</li>
-              <li>Save favorites and use reminders for daily wellness habits.</li>
-              <li>Works offline for easier access anywhere.</li>
-              <li>Supports English, Russian, and Spanish.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="legal-grid">
-          <article class="legal-card legal-card-light fade-up" id="about">
-            <p class="eyebrow">About</p>
-            <h3>Educational, not medical.</h3>
-            <div class="legal-rule"></div>
-            <p>
-              GreenVital presents natural remedies and cultural healing knowledge as an
-              educational and self-help resource. It is intended to support learning and
-              wellness exploration, not replace professional medical advice.
-            </p>
-          </article>
-
-          <article class="legal-card legal-card-dark fade-up" id="privacy">
-            <p class="eyebrow">Privacy</p>
-            <h3>Privacy policy</h3>
-            <div class="legal-rule"></div>
-            <p>
-              Review how GreenVital handles app data, local storage, purchases, and support
-              communication based on its current Play Store configuration.
-            </p>
-            <p><a class="product-link product-link-dark" href="./greenvital-privacy.html">Read privacy policy</a></p>
-          </article>
-
-          <article class="legal-card legal-card-light fade-up" id="terms">
-            <p class="eyebrow">Terms</p>
-            <h3>Terms of service</h3>
-            <div class="legal-rule"></div>
-            <p>
-              Review the usage terms for GreenVital, including educational-use limitations,
-              purchase terms, and medical disclaimer language.
-            </p>
-            <p><a class="product-link" href="./greenvital-terms.html">View terms</a></p>
-          </article>
-        </section>
-      </main>
-
-      <footer class="site-footer">
-        <span>GreenVital by GreenVital Apps</span>
-        <span id="current-year"></span>
-      </footer>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   GreenVital | GreenVital Apps
+  </title>
+  <meta content="GreenVital is an educational wellness app for natural remedies, cultural healing practices, and offline-friendly guides." name="description"/>
+  <meta content="#f7f8fb" name="theme-color"/>
+  <link href="/greenvital-mark.svg" rel="icon" type="image/svg+xml"/>
+  <link href="/greenvital.css?v=20261108" rel="stylesheet"/>
+  <link href="/greenvital-pages.css?v=20261108" rel="stylesheet"/>
+ </head>
+ <body>
+  <a class="gv-skip-link" href="#main">
+   Skip to content
+  </a>
+  <header class="gv-header">
+   <div class="gv-shell">
+    <a class="gv-brand" href="/">
+     <img alt="" height="32" src="/greenvital-mark.svg" width="32"/>
+     GreenVital
+    </a>
+    <nav aria-label="Main navigation" class="gv-nav">
+     <a href="/#apps">
+      Our apps
+     </a>
+     <a href="/downloads/">
+      Downloads
+     </a>
+     <a href="/support/">
+      Help
+     </a>
+     <a href="/offline-vault/drop/">
+      Cloud Drop
+     </a>
+    </nav>
+   </div>
+  </header>
+  <main class="gv-shell" id="main">
+   <div class="gv-detail-breadcrumb">
+    <a href="/#apps">
+     All apps
+    </a>
+    <span aria-hidden="true">
+     /
+    </span>
+    <span>
+     GreenVital Wellness
+    </span>
+   </div>
+   <section class="gv-detail-hero">
+    <div>
+     <p class="gv-eyebrow">
+      GreenVital Wellness
+     </p>
+     <h1>
+      Explore everyday wellness.
+     </h1>
+     <p class="gv-detail-lead">
+      Browse traditional remedies and wellness topics. Save useful information to read again, even when you are offline.
+     </p>
+     <div class="gv-detail-actions">
+      <a class="gv-button" href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp">
+       Get it on Google Play
+      </a>
+     </div>
+     <p class="gv-detail-badge">
+      For Android · English, Russian, and Spanish
+     </p>
     </div>
-
-    <script src="./script.js"></script>
-  </body>
+    <figure class="gv-detail-visual">
+     <img alt="GreenVital Wellness natural remedies screen" height="640" src="/Screenshots/greenvital.jpeg" width="320"/>
+     <figcaption>
+      A real screen from GreenVital Wellness.
+     </figcaption>
+    </figure>
+   </section>
+   <section class="gv-detail-section" id="overview">
+    <h2>
+     Find something useful. Keep it close.
+    </h2>
+    <div class="gv-detail-grid">
+     <article class="gv-detail-card">
+      <h3>
+       Browse by topic
+      </h3>
+      <p>
+       Explore remedies by wellness goal, illness, or country of origin.
+      </p>
+     </article>
+     <article class="gv-detail-card">
+      <h3>
+       Learn the details
+      </h3>
+      <p>
+       Read about ingredients, traditional uses, and safe usage notes.
+      </p>
+     </article>
+     <article class="gv-detail-card">
+      <h3>
+       Save your favorites
+      </h3>
+      <p>
+       Keep helpful information available offline and set reminders.
+      </p>
+     </article>
+    </div>
+   </section>
+   <section class="gv-detail-section" id="about">
+    <h2>
+     A place to learn.
+    </h2>
+    <p>
+     GreenVital Wellness is an educational resource. It does not replace professional medical advice, diagnosis, or treatment.
+    </p>
+   </section>
+   <section class="gv-detail-section">
+    <h2>
+     Questions about the app?
+    </h2>
+    <a class="gv-button" href="mailto:greenvitalapp@gmail.com">
+     Email support
+    </a>
+    <div class="gv-detail-links">
+     <a href="/greenvital-privacy.html" id="privacy">
+      Privacy policy
+     </a>
+     <a href="/greenvital-terms.html" id="terms">
+      Terms of service
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="gv-footer">
+   <div class="gv-shell gv-detail-footer">
+    <div>
+     <a class="gv-brand" href="/">
+      GreenVital
+     </a>
+     <p>
+      Useful apps for everyday life.
+     </p>
+    </div>
+    <nav aria-label="Footer navigation">
+     <a href="/#apps">
+      Our apps
+     </a>
+     <a href="/support/">
+      Help &amp; contact
+     </a>
+     <a href="/privacy/">
+      Privacy &amp; terms
+     </a>
+    </nav>
+    <small>
+     © 2026 GreenVital LLC
+    </small>
+   </div>
+  </footer>
+ </body>
 </html>

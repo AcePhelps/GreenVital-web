@@ -1,10 +1,25 @@
 # GreenVital Apps
 
-A minimal multi-page website for GreenVital Apps featuring:
+A static, responsive website for GreenVital Apps featuring:
 
 - A homepage for the GreenVital app collection
-- A dedicated page for Back to Life
-- A dedicated page for Money Pulse
+- Product pages for Money Pulse, Back to Life, GreenVital Wellness, Offline Vault, PetShift, and StoragePilot
+- Cloud Drop, the optional web service for Offline Vault
+- A shared support directory at `/support/` and policy directory at `/privacy/`
+
+## Website design
+
+`greenvital.css` defines the shared blue-and-white theme, accessible focus styles,
+navigation, buttons, and homepage layouts. `greenvital-pages.css` contains the
+product, support, policy, download, and app-handoff layouts. Use the `gv-` class
+prefix for new site components. Cloud Drop keeps its own existing styles and
+application scripts under `offline-vault/drop/`.
+
+Keep product availability and pricing explicit. Offline Vault's iPhone/iPad and
+Mac apps are free. Cloud Drop has a separate free trial; paid checkout remains
+controlled by its backend. Preserve legal text and dates during visual edits,
+PetShift's `data-bridge-*`/`data-open-app` hooks, and the verified Windows release
+attributes used by `offline-vault/releases.js`.
 
 ## Local preview
 

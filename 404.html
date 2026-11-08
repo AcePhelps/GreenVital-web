@@ -1,30 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PetShift Link | GreenVital</title>
-    <meta
-      name="description"
-      content="Open a PetShift link and continue in the app."
-    />
-    <link rel="stylesheet" href="/petshift-bridge.css" />
-  </head>
-  <body>
-    <main class="bridge-shell">
-      <section class="bridge-panel">
-        <div class="brand"><span class="brand-mark"></span>PetShift by GreenVital</div>
-        <h1 data-bridge-title>Open your invite</h1>
-        <p data-bridge-copy>
-          We are opening PetShift so you can accept this invite. If the app does not
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   PetShift Link | GreenVital
+  </title>
+  <meta content="Open a PetShift link and continue in the app." name="description"/>
+  <meta content="#f7f8fb" name="theme-color"/>
+  <link href="/greenvital-mark.svg" rel="icon" type="image/svg+xml"/>
+  <link href="/greenvital.css?v=20261108" rel="stylesheet"/>
+  <link href="/greenvital-pages.css?v=20261108" rel="stylesheet"/>
+ </head>
+ <body>
+  <a class="gv-skip-link" href="#main">
+   Skip to content
+  </a>
+  <header class="gv-header">
+   <div class="gv-shell">
+    <a class="gv-brand" href="/">
+     <img alt="" height="32" src="/greenvital-mark.svg" width="32"/>
+     GreenVital
+    </a>
+    <nav aria-label="Main navigation" class="gv-nav">
+     <a href="/#apps">
+      Our apps
+     </a>
+     <a href="/downloads/">
+      Downloads
+     </a>
+     <a href="/support/">
+      Help
+     </a>
+     <a href="/offline-vault/drop/">
+      Cloud Drop
+     </a>
+    </nav>
+   </div>
+  </header>
+  <main class="gv-bridge-shell" id="main">
+   <section class="gv-bridge-panel">
+    <div class="brand">
+     <span class="brand-mark">
+     </span>
+     PetShift by GreenVital
+    </div>
+    <h1 data-bridge-title="">
+     Open your invite
+    </h1>
+    <p data-bridge-copy="">
+     We are opening PetShift so you can accept this invite. If the app does not
           open automatically, use the button below.
-        </p>
-        <div class="bridge-actions">
-          <a class="button button-primary" href="#" data-open-app>Open PetShift</a>
-          <a class="button" href="/">Back to GreenVital</a>
-        </div>
-      </section>
-    </main>
-    <script src="/petshift-bridge.js"></script>
-  </body>
+    </p>
+    <div class="bridge-actions">
+     <a class="gv-button" data-open-app="" href="#">
+      Open PetShift
+     </a>
+     <a class="gv-button gv-button-secondary" href="/">
+      Back to GreenVital
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="gv-footer">
+   <div class="gv-shell gv-detail-footer">
+    <div>
+     <a class="gv-brand" href="/">
+      GreenVital
+     </a>
+     <p>
+      Useful apps for everyday life.
+     </p>
+    </div>
+    <nav aria-label="Footer navigation">
+     <a href="/#apps">
+      Our apps
+     </a>
+     <a href="/support/">
+      Help &amp; contact
+     </a>
+     <a href="/privacy/">
+      Privacy &amp; terms
+     </a>
+    </nav>
+    <small>
+     © 2026 GreenVital LLC
+    </small>
+   </div>
+  </footer>
+  <script src="/petshift-bridge.js">
+  </script>
+ </body>
 </html>

@@ -1,137 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Money Pulse | GreenVital Apps</title>
-    <meta
-      name="description"
-      content="Money Pulse by GreenVital Apps helps people understand spending, income, and monthly momentum with clarity."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Outfit:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body class="site-body">
-    <div class="site-shell">
-      <header class="site-header">
-        <a class="brand" href="/">
-          <span class="brand-mark"></span>
-          GreenVital Apps
-        </a>
-        <nav class="site-nav">
-          <a href="/#apps">All apps</a>
-          <a href="./back-to-life.html">Back to Life</a>
-        </nav>
-      </header>
-
-      <main>
-        <section class="app-hero app-hero-dark">
-          <div class="app-hero-copy">
-            <p class="eyebrow">Money Pulse</p>
-            <h1 class="fade-up">Financial clarity with a sharper edge.</h1>
-            <p class="app-summary fade-up">
-              Money Pulse helps users read the month quickly, with a clearer sense of
-              balance, spending, income, and recent transaction activity.
-            </p>
-          </div>
-          <div class="app-hero-screen">
-            <div class="device-frame device-frame-dark">
-              <img
-                src="./Screenshots/moneypulse-may-2026.png"
-                alt="Money Pulse screenshot"
-                class="image-reveal"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section class="section-nav">
-          <a href="#overview">Overview</a>
-          <a href="#about">About</a>
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
-        </section>
-
-        <section class="metrics-row">
-          <article class="metric-card fade-up">
-            <span class="metric-label">Category</span>
-            <strong>Finance</strong>
-          </article>
-          <article class="metric-card fade-up">
-            <span class="metric-label">Focus</span>
-            <strong>Monthly money visibility</strong>
-          </article>
-          <article class="metric-card fade-up">
-            <span class="metric-label">Updated</span>
-            <strong>April 13, 2026</strong>
-          </article>
-        </section>
-
-        <section class="feature-stage" id="overview">
-          <div class="feature-copy fade-up">
-            <p class="eyebrow">Overview</p>
-            <h2>A stronger view of where the month stands.</h2>
-            <p>
-              Money Pulse front-loads the information that matters most. Users can see
-              whether the month is trending up or down, then move naturally into income,
-              spending, bank status, and transaction history.
-            </p>
-          </div>
-          <div class="feature-list-card feature-list-card-dark fade-up">
-            <ul class="feature-list">
-              <li>Centers the monthly result instead of hiding it in reports.</li>
-              <li>Connects balance, spending, and activity in one flow.</li>
-              <li>Uses a darker, more focused visual system for stronger contrast.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="legal-grid">
-          <article class="legal-card legal-card-light fade-up" id="about">
-            <p class="eyebrow">About</p>
-            <h3>A finance product that feels immediate.</h3>
-            <div class="legal-rule"></div>
-            <p>
-              Money Pulse takes on a more concentrated tone inside the GreenVital family.
-              The goal is to make money feel more readable and less intimidating.
-            </p>
-          </article>
-
-          <article class="legal-card legal-card-dark fade-up" id="privacy">
-            <p class="eyebrow">Privacy</p>
-            <h3>Privacy policy</h3>
-            <div class="legal-rule"></div>
-            <p>
-              Read the full MoneyPulse privacy policy, including Plaid usage, analytics,
-              deletion rights, and contact information.
-            </p>
-            <p><a class="product-link product-link-dark" href="./privacy-policy.html">Read privacy policy</a></p>
-          </article>
-
-          <article class="legal-card legal-card-light fade-up" id="terms">
-            <p class="eyebrow">Terms</p>
-            <h3>Terms of service</h3>
-            <div class="legal-rule"></div>
-            <p>
-              Read the full Terms of Service for MoneyPulse, including subscription,
-              liability, and prohibited activity terms.
-            </p>
-            <p><a class="product-link" href="./terms-of-service.html">View terms</a></p>
-          </article>
-        </section>
-      </main>
-
-      <footer class="site-footer">
-        <span>Money Pulse by GreenVital Apps</span>
-        <span id="current-year"></span>
-      </footer>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Money Pulse | GreenVital Apps
+  </title>
+  <meta content="Money Pulse by GreenVital Apps helps people understand spending, income, and monthly momentum with clarity." name="description"/>
+  <meta content="#f7f8fb" name="theme-color"/>
+  <link href="/greenvital-mark.svg" rel="icon" type="image/svg+xml"/>
+  <link href="/greenvital.css?v=20261108" rel="stylesheet"/>
+  <link href="/greenvital-pages.css?v=20261108" rel="stylesheet"/>
+ </head>
+ <body>
+  <a class="gv-skip-link" href="#main">
+   Skip to content
+  </a>
+  <header class="gv-header">
+   <div class="gv-shell">
+    <a class="gv-brand" href="/">
+     <img alt="" height="32" src="/greenvital-mark.svg" width="32"/>
+     GreenVital
+    </a>
+    <nav aria-label="Main navigation" class="gv-nav">
+     <a href="/#apps">
+      Our apps
+     </a>
+     <a href="/downloads/">
+      Downloads
+     </a>
+     <a href="/support/">
+      Help
+     </a>
+     <a href="/offline-vault/drop/">
+      Cloud Drop
+     </a>
+    </nav>
+   </div>
+  </header>
+  <main class="gv-shell" id="main">
+   <div class="gv-detail-breadcrumb">
+    <a href="/#apps">
+     All apps
+    </a>
+    <span aria-hidden="true">
+     /
+    </span>
+    <span>
+     Money Pulse
+    </span>
+   </div>
+   <section class="gv-detail-hero">
+    <div>
+     <p class="gv-eyebrow">
+      Money Pulse
+     </p>
+     <h1>
+      See where your money goes.
+     </h1>
+     <p class="gv-detail-lead">
+      Bring your monthly income, spending, and recurring charges into one clear view. Understand the month without digging through separate bank screens.
+     </p>
+     <div class="gv-detail-actions">
+      <a class="gv-button" href="https://apps.apple.com/us/app/moneypulse-by-greenvital/id6759937760">
+       Get it on the App Store
+      </a>
+      <a class="gv-button gv-button-secondary" href="https://play.google.com/store/apps/details?id=com.greenvital.moneypulse">
+       Get it on Google Play
+      </a>
+     </div>
+     <p class="gv-detail-badge">
+      For iPhone and Android · Some features require a subscription
+     </p>
     </div>
-
-    <script src="./script.js"></script>
-  </body>
+    <figure class="gv-detail-visual">
+     <img alt="Money Pulse monthly balance and spending dashboard" height="640" src="/Screenshots/moneypulse-may-2026.png" width="320"/>
+     <figcaption>
+      A real screen from Money Pulse.
+     </figcaption>
+    </figure>
+   </section>
+   <section class="gv-detail-section" id="overview">
+    <h2>
+     Your month, easier to understand.
+    </h2>
+    <div class="gv-detail-grid">
+     <article class="gv-detail-card">
+      <h3>
+       Income and spending
+      </h3>
+      <p>
+       See money coming in and going out for the month you choose.
+      </p>
+     </article>
+     <article class="gv-detail-card">
+      <h3>
+       Recurring charges
+      </h3>
+      <p>
+       Review subscriptions and other charges that repeat.
+      </p>
+     </article>
+     <article class="gv-detail-card">
+      <h3>
+       Recent activity
+      </h3>
+      <p>
+       Look through transactions from your connected accounts.
+      </p>
+     </article>
+    </div>
+   </section>
+   <section class="gv-detail-section" id="about">
+    <h2>
+     Connect. Review. Understand.
+    </h2>
+    <ol class="gv-detail-steps">
+     <li>
+      <h3>
+       Connect an account
+      </h3>
+      <p>
+       Use Plaid to link a supported bank or credit union.
+      </p>
+     </li>
+     <li>
+      <h3>
+       Review your activity
+      </h3>
+      <p>
+       See transactions and recurring charges in one place.
+      </p>
+     </li>
+     <li>
+      <h3>
+       Check the month
+      </h3>
+      <p>
+       Compare income and spending to understand your monthly cash flow.
+      </p>
+     </li>
+    </ol>
+   </section>
+   <section class="gv-detail-section">
+    <h2>
+     You stay in control.
+    </h2>
+    <p>
+     Money Pulse is read-only. It cannot move money or make payments. Bank sign-in is handled by Plaid.
+    </p>
+    <a class="gv-button" href="/faq-support.html">
+     Questions? Get help
+    </a>
+    <div class="gv-detail-links">
+     <a href="/privacy-policy.html" id="privacy">
+      Privacy policy
+     </a>
+     <a href="/terms-of-service.html" id="terms">
+      Terms of service
+     </a>
+    </div>
+   </section>
+  </main>
+  <footer class="gv-footer">
+   <div class="gv-shell gv-detail-footer">
+    <div>
+     <a class="gv-brand" href="/">
+      GreenVital
+     </a>
+     <p>
+      Useful apps for everyday life.
+     </p>
+    </div>
+    <nav aria-label="Footer navigation">
+     <a href="/#apps">
+      Our apps
+     </a>
+     <a href="/support/">
+      Help &amp; contact
+     </a>
+     <a href="/privacy/">
+      Privacy &amp; terms
+     </a>
+    </nav>
+    <small>
+     © 2026 GreenVital LLC
+    </small>
+   </div>
+  </footer>
+ </body>
 </html>
