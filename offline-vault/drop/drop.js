@@ -32,6 +32,15 @@
       location.assign(result.url);
     } catch (error) { message(error.message); resetChallenge(); }
   });
+  el("test-billing").addEventListener("click", async () => {
+    el("test-billing").disabled = true;
+    try {
+      const result = await request("/v1/admin/billing-test-checkout", {});
+      sessionStorage.setItem(proofKey, result.proof);
+      location.assign(result.url);
+    } catch (error) { message(error.message); }
+    finally { el("test-billing").disabled = false; }
+  });
   el("restore-access").addEventListener("click", async () => {
     if (el("restore-access").disabled) return;
     disableAccessButtons();
@@ -125,6 +134,7 @@
     el("account-controls").hidden = false;
     el("account-status").textContent = profile.admin ? "Administrator · Free" : profile.active ? "Membership active" : "Membership inactive";
     el("manage-billing").hidden = !profile.billingAvailable;
+    el("test-billing").hidden = !profile.billingTestAvailable;
     show("input"); updateJobButton();
     if (!profile.active) message("Your membership is inactive. Manage your subscription to resume new downloads. Existing downloads are still listed below.");
     else if (!config.downloadsAvailable) message("Downloads are being set up. Please return later.", true);
