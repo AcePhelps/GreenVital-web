@@ -104,7 +104,6 @@
     await loadDevices();
   });
   el("source-url").addEventListener("input", updateJobButton);
-  el("source-domain").addEventListener("input", updateJobButton);
   el("rights").addEventListener("change", updateJobButton);
   el("start-job").addEventListener("click", async () => {
     if (el("start-job").disabled || !el("source-url").reportValidity()) return;
@@ -354,11 +353,9 @@
     let url;
     try { url = new URL(el("source-url").value.trim()); } catch {}
     const valid = url?.protocol === "https:";
-    const domain = config?.customSourcesAvailable ? el("source-domain").value.trim().toLowerCase().replace(/\.$/, "") : "";
-    const hostname = url?.hostname.replace(/\.$/, "") || "";
-    const domainMatches = !domain || (domain.includes(".") && (hostname === domain || hostname.endsWith("." + domain)));
-    el("start-job").disabled = !(config?.downloadsAvailable && profile?.active && profile?.usage?.canPrepare !== false && valid && domainMatches && el("rights").checked);
-    const help = !config?.downloadsAvailable ? "File downloads are not available right now. Please try later." : !profile?.active ? "Sign in to an active account to prepare a file." : profile.usage?.canPrepare === false ? (profile.usage.kind === "trial" ? "You have used your free trial. Your saved files will still play." : "You have used this month's 5 GB. You can prepare more files when your plan renews.") : !valid ? "First, paste a full video link above." : !domainMatches ? "Enter the same domain as the video link, such as example.com." : !el("rights").checked ? "Tick the permission box to continue." : "Ready. Tap Prepare my file to start.";
+    el("source-domain").value = valid ? url.hostname : "";
+    el("start-job").disabled = !(config?.downloadsAvailable && profile?.active && profile?.usage?.canPrepare !== false && valid && el("rights").checked);
+    const help = !config?.downloadsAvailable ? "File downloads are not available right now. Please try later." : !profile?.active ? "Sign in to an active account to prepare a file." : profile.usage?.canPrepare === false ? (profile.usage.kind === "trial" ? "You have used your free trial. Your saved files will still play." : "You have used this month's 5 GB. You can prepare more files when your plan renews.") : !valid ? "First, paste a full video link above." : !el("rights").checked ? "Tick the permission box to continue." : "Ready. Tap Prepare my file to start.";
     if (el("job-help")) el("job-help").textContent = help;
   }
   function updateAccessButtons() {
