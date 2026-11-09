@@ -11,69 +11,12 @@
   smallScreen.addEventListener("change", event => { el("setup-guide").open = !event.matches; });
   el("desktop-result-hint").hidden = canOpenPhoneApp;
   el("open-app").hidden = !canOpenPhoneApp;
-  const sourceSites = new Map([["youtube.com", "YouTube"], ["vimeo.com", "Vimeo"]]);
-  const savedSitesKey = "cloudDropSavedSourceSites";
-  let savedSites = [];
-  try {
-    const stored = JSON.parse(localStorage.getItem(savedSitesKey) || "[]");
-    if (Array.isArray(stored)) savedSites = [...new Set(stored.filter(site => sourceSites.has(site)))];
-  } catch {
-    // The website still works when browser storage is unavailable.
-  }
-  el("save-source-site").addEventListener("click", () => {
-    const site = el("source-site").value;
-    if (!sourceSites.has(site)) return;
-    if (savedSites.includes(site)) {
-      el("source-site-status").textContent = `${sourceSites.get(site)} is already saved.`;
-      return;
-    }
-    saveSourceSites([...savedSites, site], `${sourceSites.get(site)} saved.`);
-  });
-  renderSourceSites();
-
-  function saveSourceSites(sites, status) {
-    try {
-      localStorage.setItem(savedSitesKey, JSON.stringify(sites));
-    } catch {
-      el("source-site-status").textContent = "This browser could not save the website.";
-      return;
-    }
-    savedSites = sites;
-    renderSourceSites();
-    el("source-site-status").textContent = status;
-  }
-
-  function renderSourceSites() {
-    const list = el("saved-source-sites");
-    list.replaceChildren();
-    for (const site of savedSites) {
-      const name = sourceSites.get(site);
-      const row = document.createElement("li");
-      const link = document.createElement("a");
-      link.href = `https://${site}/`;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = name;
-      const remove = document.createElement("button");
-      remove.type = "button";
-      remove.className = "text-button";
-      remove.textContent = "Remove";
-      remove.setAttribute("aria-label", `Remove ${name}`);
-      remove.addEventListener("click", () => {
-        saveSourceSites(savedSites.filter(saved => saved !== site), `${name} removed.`);
-        el("save-source-site").focus();
-      });
-      row.append(link, " · ", remove);
-      list.append(row);
-    }
-  }
-
   const proofKey = "cloudDropCheckoutProof";
   // Earlier development versions stored bearer sessions here. The server now
   // keeps the session in a host-only HttpOnly cookie.
   localStorage.removeItem("offlineVaultCloudDropSession");
   sessionStorage.removeItem("offlineVaultCloudDropJob");
-  const configPromise = request("/v1/config").then(value => { config = value; return value; });
+  const configPromise = request("/v1/config").then(value => { config = value; el("source-domain-entry").hidden = !value.customSourcesAvailable; return value; });
 
   window.turnstileLoaded = async () => {
     try {
@@ -140,7 +83,7 @@
     try {
       await request("/v1/access/logout", {});
       profile = undefined; activeJob = undefined; pairingSession = undefined; connectedDevices = []; clearTimeout(timer);
-      el("source-url").value = ""; el("rights").checked = false;
+      el("source-url").value = ""; el("source-domain").value = ""; el("rights").checked = false;
       el("job-list").replaceChildren(); el("claim-qr").removeAttribute("src");
       el("paired-devices").hidden = true; el("device-list").replaceChildren();
       if (qrURL) { URL.revokeObjectURL(qrURL); qrURL = undefined; }
@@ -161,6 +104,7 @@
     await loadDevices();
   });
   el("source-url").addEventListener("input", updateJobButton);
+  el("source-domain").addEventListener("input", updateJobButton);
   el("rights").addEventListener("change", updateJobButton);
   el("start-job").addEventListener("click", async () => {
     if (el("start-job").disabled || !el("source-url").reportValidity()) return;
@@ -174,7 +118,7 @@
     finally { updateJobButton(); }
   });
   for (const id of ["new-job", "back-to-library"]) el(id).addEventListener("click", async () => {
-    if (id === "new-job") { el("source-url").value = ""; el("rights").checked = false; }
+    if (id === "new-job") { el("source-url").value = ""; el("source-domain").value = ""; el("rights").checked = false; }
     activeJob = undefined; clearTimeout(timer); show("input"); updateJobButton(); await loadHistory();
   });
   addEventListener("pagehide", () => clearTimeout(timer));
@@ -407,9 +351,14 @@
     qrURL = URL.createObjectURL(await response.blob()); el(target).src = qrURL;
   }
   function updateJobButton() {
-    let valid = false; try { valid = new URL(el("source-url").value.trim()).protocol === "https:"; } catch {}
-    el("start-job").disabled = !(config?.downloadsAvailable && profile?.active && profile?.usage?.canPrepare !== false && valid && el("rights").checked);
-    const help = !config?.downloadsAvailable ? "File downloads are not available right now. Please try later." : !profile?.active ? "Sign in to an active account to prepare a file." : profile.usage?.canPrepare === false ? (profile.usage.kind === "trial" ? "You have used your free trial. Your saved files will still play." : "You have used this month's 5 GB. You can prepare more files when your plan renews.") : !valid ? "First, paste a full video link above." : !el("rights").checked ? "Tick the permission box to continue." : "Ready. Tap Prepare my file to start.";
+    let url;
+    try { url = new URL(el("source-url").value.trim()); } catch {}
+    const valid = url?.protocol === "https:";
+    const domain = config?.customSourcesAvailable ? el("source-domain").value.trim().toLowerCase().replace(/\.$/, "") : "";
+    const hostname = url?.hostname.replace(/\.$/, "") || "";
+    const domainMatches = !domain || (domain.includes(".") && (hostname === domain || hostname.endsWith("." + domain)));
+    el("start-job").disabled = !(config?.downloadsAvailable && profile?.active && profile?.usage?.canPrepare !== false && valid && domainMatches && el("rights").checked);
+    const help = !config?.downloadsAvailable ? "File downloads are not available right now. Please try later." : !profile?.active ? "Sign in to an active account to prepare a file." : profile.usage?.canPrepare === false ? (profile.usage.kind === "trial" ? "You have used your free trial. Your saved files will still play." : "You have used this month's 5 GB. You can prepare more files when your plan renews.") : !valid ? "First, paste a full video link above." : !domainMatches ? "Enter the same domain as the video link, such as example.com." : !el("rights").checked ? "Tick the permission box to continue." : "Ready. Tap Prepare my file to start.";
     if (el("job-help")) el("job-help").textContent = help;
   }
   function updateAccessButtons() {
@@ -459,7 +408,7 @@
         "Membership session is missing or expired.": "Please sign in again with your email link.",
         "This activation is unavailable or expired.": "This sign-in link has expired. Get a new link below.",
         "This activation was already used.": "This sign-in link has already been used. Get a new link below.",
-        "Enter a supported HTTPS media page link.": "Paste a full video link from YouTube or Vimeo. It should start with https://.",
+        "Enter a supported HTTPS media page link.": config?.customSourcesAvailable ? "Paste a full video link from a public website. It should start with https://." : "Paste a full YouTube or Vimeo link that starts with https://.",
         "Please complete the verification and try again.": "Finish the security check, then try again.",
         "Your previous download is still running. Open it from recent downloads.": "One file is still being prepared. Open it in My files below.",
         "Your free trial allowance is used up. Subscribe to prepare more files. Saved files remain yours.": "You have used your free trial. Files saved on your phone will still play.",

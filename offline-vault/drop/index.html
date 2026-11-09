@@ -10,8 +10,8 @@
     <title>Cloud Drop — Save a video for later</title>
     <meta name="description" content="Paste a video link, connect your phone, and save it in Offline Vault. Simple steps. Two files free. No card needed." />
     <link rel="icon" type="image/svg+xml" href="/offline-vault/drop/cloud-drop.svg" />
-    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=9" />
-    <script src="/offline-vault/drop/drop.js?v=9" defer></script>
+    <link rel="stylesheet" href="/offline-vault/drop/drop.css?v=10" />
+    <script src="/offline-vault/drop/drop.js?v=10" defer></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=turnstileLoaded&amp;render=explicit" defer></script>
   </head>
   <body>
@@ -80,21 +80,13 @@
             <div class="section-heading"><span class="step-number" aria-hidden="true">2</span><span>Add your video</span></div>
             <h2 id="input-title">Paste a video link.</h2>
             <label for="source-url">Video link</label>
-            <input id="source-url" type="url" inputmode="url" autocomplete="off" placeholder="https://youtube.com/…" aria-describedby="link-help job-help" required />
-            <details class="inline-help">
-              <summary>Add a source website</summary>
-              <p>Save shortcuts to supported websites in this browser. Open a saved site, copy a video link, then paste it above.</p>
-              <label for="source-site">Website to save</label>
-              <select id="source-site">
-                <option value="youtube.com">YouTube</option>
-                <option value="vimeo.com">Vimeo</option>
-              </select>
-              <button id="save-source-site" class="secondary" type="button">Save website</button>
-              <p id="source-site-status" class="fine-print" role="status"></p>
-              <ul id="saved-source-sites" aria-label="Saved websites"></ul>
-              <p><a href="mailto:support@greenvital.app?subject=Cloud%20Drop%20website%20request">Suggest another website</a></p>
-            </details>
-            <details class="inline-help" id="link-help"><summary>Where do I find the link?</summary><p>Open the video on YouTube or Vimeo. Tap <strong>Share</strong>, then <strong>Copy link</strong>. Come back here and paste it in the box.</p></details>
+            <input id="source-url" type="url" inputmode="url" autocomplete="off" placeholder="https://…" aria-describedby="link-help job-help" required />
+            <div id="source-domain-entry" hidden>
+              <label for="source-domain">Website domain <span class="fine-print">(optional)</span></label>
+              <input id="source-domain" type="text" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="example.com" aria-describedby="source-domain-help job-help" />
+              <p id="source-domain-help" class="fine-print">Enter the website’s domain and paste the full video link above. Cloud Drop will try to download from that site.</p>
+            </div>
+            <details class="inline-help" id="link-help"><summary>Where do I find the link?</summary><p>Open the video on its website. Tap <strong>Share</strong>, then <strong>Copy link</strong>. Come back here and paste it in the box.</p></details>
             <fieldset><legend>What would you like to save?</legend><div class="choices">
               <label><input type="radio" name="output" value="video-720" checked /><span><strong>Video</strong><small>720p · smaller</small></span></label>
               <label><input type="radio" name="output" value="video-1080" /><span><strong>Video HD</strong><small>1080p · larger</small></span></label>
