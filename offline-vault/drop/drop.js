@@ -11,6 +11,63 @@
   smallScreen.addEventListener("change", event => { el("setup-guide").open = !event.matches; });
   el("desktop-result-hint").hidden = canOpenPhoneApp;
   el("open-app").hidden = !canOpenPhoneApp;
+  const sourceSites = new Map([["youtube.com", "YouTube"], ["vimeo.com", "Vimeo"]]);
+  const savedSitesKey = "cloudDropSavedSourceSites";
+  let savedSites = [];
+  try {
+    const stored = JSON.parse(localStorage.getItem(savedSitesKey) || "[]");
+    if (Array.isArray(stored)) savedSites = [...new Set(stored.filter(site => sourceSites.has(site)))];
+  } catch {
+    // The website still works when browser storage is unavailable.
+  }
+  el("save-source-site").addEventListener("click", () => {
+    const site = el("source-site").value;
+    if (!sourceSites.has(site)) return;
+    if (savedSites.includes(site)) {
+      el("source-site-status").textContent = `${sourceSites.get(site)} is already saved.`;
+      return;
+    }
+    saveSourceSites([...savedSites, site], `${sourceSites.get(site)} saved.`);
+  });
+  renderSourceSites();
+
+  function saveSourceSites(sites, status) {
+    try {
+      localStorage.setItem(savedSitesKey, JSON.stringify(sites));
+    } catch {
+      el("source-site-status").textContent = "This browser could not save the website.";
+      return;
+    }
+    savedSites = sites;
+    renderSourceSites();
+    el("source-site-status").textContent = status;
+  }
+
+  function renderSourceSites() {
+    const list = el("saved-source-sites");
+    list.replaceChildren();
+    for (const site of savedSites) {
+      const name = sourceSites.get(site);
+      const row = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = `https://${site}/`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = name;
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "text-button";
+      remove.textContent = "Remove";
+      remove.setAttribute("aria-label", `Remove ${name}`);
+      remove.addEventListener("click", () => {
+        saveSourceSites(savedSites.filter(saved => saved !== site), `${name} removed.`);
+        el("save-source-site").focus();
+      });
+      row.append(link, " · ", remove);
+      list.append(row);
+    }
+  }
+
   const proofKey = "cloudDropCheckoutProof";
   // Earlier development versions stored bearer sessions here. The server now
   // keeps the session in a host-only HttpOnly cookie.

@@ -2,7 +2,7 @@
 * { box-sizing:border-box; }
 html { scroll-padding-top:24px; }
 body { margin:0; background:var(--page); color:var(--ink); font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
-button,input { font:inherit; }
+button,input,select { font:inherit; }
 a { color:var(--blue); text-underline-offset:4px; }
 a:hover { color:var(--blue-hover); }
 button,a,input,summary { -webkit-tap-highlight-color:transparent; }
@@ -40,7 +40,7 @@ p { margin-bottom:16px; }
 .trial-offer span { color:var(--muted); }
 label,legend { font-size:16px; font-weight:650; }
 label[for] { display:block; margin-bottom:8px; }
-input[type="email"],input[type="url"] { width:100%; min-width:0; height:54px; padding:0 14px; border:1px solid var(--line-strong); border-radius:7px; color:var(--ink); background:#fff; font-size:17px; }
+input[type="email"],input[type="url"],#source-site { width:100%; min-width:0; height:54px; padding:0 14px; border:1px solid var(--line-strong); border-radius:7px; color:var(--ink); background:#fff; font-size:17px; }
 input::placeholder { color:#68768c; opacity:1; }
 input:focus { border-color:var(--blue); }
 button,.primary,.secondary { cursor:pointer; min-height:50px; border-radius:7px; font-size:16px; line-height:1.4; font-weight:650; padding:13px 18px; transition:background-color .15s,border-color .15s; }
