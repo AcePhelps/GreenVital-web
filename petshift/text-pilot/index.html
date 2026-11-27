@@ -46,9 +46,17 @@
             <strong>STOP</strong> to opt out or <strong>HELP</strong> for help.
             You can also email <a href="mailto:support@greenvital.app">support@greenvital.app</a>.
           </p>
+          <p><a id="start-text" class="home-link" href="sms:+18777880333?body=START">Open Messages with START</a></p>
         </section>
       </div>
       <footer class="footer">GreenVital LLC</footer>
     </main>
+    <script>
+      // Apple Messages uses an ampersand to separate the recipient and body.
+      if (/iPhone|iPad|iPod/.test(navigator.userAgent) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) {
+        document.getElementById("start-text").href = "sms:+18777880333&body=START";
+      }
+    </script>
   </body>
 </html>
