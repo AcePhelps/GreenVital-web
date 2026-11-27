@@ -1,11 +1,11 @@
 :root {
-  --bg: #f7f8f5;
-  --ink: #151713;
+  --bg: #f1f6f3;
+  --ink: #173c2b;
   --muted: #62675f;
   --line: rgba(21, 23, 19, 0.12);
   --surface: #ffffff;
-  --green: #2e7d32;
-  --green-dark: #1e6025;
+  --green: #226747;
+  --green-dark: #1b563a;
   --focus: #0f6fff;
 }
 
@@ -252,3 +252,13 @@ strong {
     grid-template-columns: 1fr;
   }
 }
+
+/* Invitation and pilot pages share the PetShift product finish. */
+.page { padding-top:28px; }
+.hero { padding:clamp(28px,5vw,48px); border:1px solid #cddfd4; border-radius:24px; background:radial-gradient(at 100% 0%,#dcece2,transparent 65%),#fff; box-shadow:0 20px 54px -38px #234b38; }
+h1 { letter-spacing:-.04em; }
+.topbar { min-height:72px; }
+.topbar img { max-width:142px; height:auto; }
+.home-link { display:inline-flex; align-items:center; min-height:48px; }
+@media(max-width:480px) { .hero { padding:24px 20px; border-radius:18px; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
