@@ -9,7 +9,7 @@ A static, responsive website for GreenVital Apps featuring:
 
 ## Website design
 
-`greenvital.css` defines the shared blue-and-white theme, accessible focus styles,
+`greenvital.css` defines the shared blue-and-navy theme, self-hosted Geist typography, accessible focus styles,
 navigation, buttons, and homepage layouts. `greenvital-pages.css` contains the
 product, support, policy, download, and app-handoff layouts. Use the `gv-` class
 prefix for new site components. Cloud Drop keeps its own existing styles and
