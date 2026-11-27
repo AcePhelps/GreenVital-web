@@ -12,7 +12,7 @@ ordinary navigation when JavaScript is disabled. Reduced motion suppresses the
 preview and dialog animations.
 
 The new site script has no runtime dependencies. The 29 KB WOFF2 font is hosted by
-the site under the included license in assets/fonts/OFL.txt. Ten WebP screenshot
+the site under the included license in assets/fonts/OFL.txt. Ten WebP app-image
 derivatives reduce the corresponding image payload from 6,982,405 to 1,045,864
 bytes, about 85 percent. Responsive variants serve smaller screens, and the screenshot dialog loads the full-size derivative. Original screenshots remain available for social previews.
 
