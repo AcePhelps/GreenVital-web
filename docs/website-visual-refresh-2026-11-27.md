@@ -22,5 +22,10 @@ were excluded from local visual checks. Two Cloud Drop image elements have no sr
 until application data loads. Browser checks blocked remote service requests.
 External service operation and native app handoff require their existing checks.
 
+Automated axe WCAG 2 A/AA and 2.1 AA checks reported zero violations on the
+mobile homepage, PetShift product, PetShift privacy, invitation landing, support
+and downloads pages. The test browser bypassed CSP only to inject axe. The
+application CSP was retained. Automated checks do not replace screen-reader QA.
+
 Font files are hosted by the site and distributed under the included SIL Open Font
 License in assets/fonts/OFL.txt.
