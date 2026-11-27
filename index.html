@@ -10,7 +10,7 @@
     <meta property="og:description" content="Practical apps for your money, time, and files. Explore the apps, try Cloud Drop, or get help from GreenVital." />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/greenvital-mark.svg" />
-    <link rel="stylesheet" href="/greenvital.css?v=20261127-studio" />
+    <link rel="stylesheet" href="/greenvital.css?v=20261127-structure" />
     <script src="/script.js" defer></script>
     <link rel="preload" href="/assets/fonts/geist-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/site-experience.js?v=20261127-studio" defer></script>
@@ -20,12 +20,12 @@
     <header class="gv-header">
       <div class="gv-shell">
         <a class="gv-brand" href="/" aria-label="GreenVital home"><img src="/greenvital-mark.svg" alt="" width="36" height="36" /><span>GreenVital</span></a>
-        <nav class="gv-nav" aria-label="Main navigation">
-          <a href="#apps">Our apps</a>
-          <a href="/downloads/">Downloads</a>
-          <a href="/support/">Help</a>
-          <a href="/offline-vault/drop/">Cloud Drop</a>
-        </nav>
+        <nav aria-label="Main navigation" class="gv-nav">
+      <a href="/apps/">Apps</a>
+      <a href="/support/">Support</a>
+      <a href="/#principles">About</a>
+      <a href="/offline-vault/drop/">Cloud Drop</a>
+    </nav>
       </div>
     </header>
 
@@ -36,7 +36,7 @@
           <h1 id="hero-title">Small apps.<br /><span>More room<br />for life.</span></h1>
           <p>For your money, your time, and the things you want to keep. Thoughtful apps that make everyday tasks a little easier.</p>
           <div class="gv-actions">
-            <a class="gv-button" href="#apps">Explore our apps <span aria-hidden="true">↓</span></a>
+            <a class="gv-button" href="/apps/">Explore our apps <span aria-hidden="true">↓</span></a>
             <a class="gv-button gv-button-secondary" href="/offline-vault/drop/">Try Cloud Drop</a>
           </div>
           <p class="gv-small">For iPhone, iPad, Android, and your computer. See each app for supported devices.</p>
@@ -62,137 +62,50 @@
         </div>
       </section>
 
-      <nav class="gv-shell gv-home-directory" aria-label="Explore GreenVital products">
-        <span>Made for real life</span>
-        <a href="#apps">Available now <span aria-hidden="true">↓</span></a>
-        <a href="#cloud-drop">Video links to files <span aria-hidden="true">↓</span></a>
-        <a href="#coming-next">Coming next <span aria-hidden="true">↓</span></a>
-      </nav>
-
-      <section id="apps" class="gv-shell gv-section" aria-labelledby="apps-title">
-        <div class="gv-section-heading">
-          <div><p class="gv-eyebrow">Available now</p><h2 id="apps-title">Good tools.<br />For your kind of day.</h2></div>
-          <p>Find an app for the things you do every day. See what it does and how to get started.</p>
-        </div>
-        <div class="gv-app-collection">
-          <article class="gv-product gv-app-feature gv-feature-money" aria-labelledby="money-title">
-            <div class="gv-product-copy">
-              <div class="gv-product-meta"><p class="gv-eyebrow">Your money</p><span class="gv-tag">iPhone &amp; Android</span></div>
-              <h3 id="money-title">Money Pulse</h3>
-              <p>See your monthly balance, spending, and subscriptions together. Keep track of what comes in and what goes out.</p>
-              <div class="gv-actions">
-                <a class="gv-button gv-button-secondary" href="/money-pulse.html">Explore Money Pulse</a>
-                <a class="gv-text-link" href="https://apps.apple.com/us/app/moneypulse-by-greenvital/id6759937760" target="_blank" rel="noopener noreferrer" aria-label="Money Pulse on the App Store (opens in a new tab)">App Store <span aria-hidden="true">↗</span></a>
-                <a class="gv-text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.moneypulse&amp;pcampaignid=web_share" target="_blank" rel="noopener noreferrer" aria-label="Money Pulse on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-            <div class="gv-product-visual gv-product-visual-money"><img src="/assets/previews/moneypulse-may-2026-3367a2e-640.webp" srcset="/assets/previews/moneypulse-may-2026-3367a2e-360.webp 360w, /assets/previews/moneypulse-may-2026-3367a2e-640.webp 640w, /assets/previews/moneypulse-may-2026-3367a2e-960.webp 960w, /assets/previews/moneypulse-may-2026-3367a2e.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/moneypulse-may-2026-3367a2e.webp" alt="Money Pulse monthly balance screen" width="1206" height="2622" loading="lazy" decoding="async" /></div>
-          </article>
-
-          <article class="gv-product gv-app-compact gv-feature-focus" aria-labelledby="focus-title">
-            <div class="gv-product-copy">
-              <div class="gv-product-meta"><p class="gv-eyebrow">Your time</p><span class="gv-tag">iPhone</span></div>
-              <h3 id="focus-title">Back to Life</h3>
-              <p>Set aside time to focus. Use schedules, reminders, and Screen Time controls to put boundaries around distracting apps.</p>
-              <div class="gv-actions">
-                <a class="gv-button gv-button-secondary" href="/back-to-life.html">Explore Back to Life</a>
-                <a class="gv-text-link" href="https://apps.apple.com/us/app/back-to-life-by-greenvital/id6762013552" target="_blank" rel="noopener noreferrer" aria-label="Back to Life on the App Store (opens in a new tab)">App Store <span aria-hidden="true">↗</span></a>
-                <a class="gv-text-link" href="/back-to-liife-support.html">Support</a>
-              </div>
-            </div>
-            <div class="gv-product-visual gv-product-visual-focus"><img src="/assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-640.webp" srcset="/assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-360.webp 360w, /assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-640.webp 640w, /assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-960.webp 960w, /assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2.webp" alt="Back to Life daily focus schedules" width="1206" height="2622" loading="lazy" decoding="async" /></div>
-          </article>
-
-          <article class="gv-product gv-app-compact gv-feature-wellness" aria-labelledby="wellness-title">
-            <div class="gv-product-copy">
-              <div class="gv-product-meta"><p class="gv-eyebrow">Your wellbeing</p><span class="gv-tag">Android</span></div>
-              <h3 id="wellness-title">GreenVital Wellness</h3>
-              <p>Explore natural remedies, wellness guidance, and traditional healing content, organized in one Android app.</p>
-              <div class="gv-actions">
-                <a class="gv-button gv-button-secondary" href="/greenvital-app.html">Explore GreenVital Wellness</a>
-                <a class="gv-text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp&amp;pcampaignid=web_share" target="_blank" rel="noopener noreferrer" aria-label="GreenVital Wellness on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-            <div class="gv-product-visual gv-product-visual-wellness"><img src="/assets/previews/greenvital-f89ac9f-640.webp" srcset="/assets/previews/greenvital-f89ac9f-360.webp 360w, /assets/previews/greenvital-f89ac9f-640.webp 640w, /assets/previews/greenvital-f89ac9f-960.webp 960w, /assets/previews/greenvital-f89ac9f.webp 970w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/greenvital-f89ac9f.webp" alt="GreenVital Wellness app showing its wellness content" width="970" height="2048" loading="lazy" decoding="async" /></div>
-          </article>
-
-          <article class="gv-product gv-app-feature gv-app-feature-reverse gv-feature-vault" aria-labelledby="vault-title">
-            <div class="gv-product-copy">
-              <div class="gv-product-meta"><p class="gv-eyebrow">Your offline library</p><span class="gv-tag">Free · iPhone &amp; iPad</span></div>
-              <div class="gv-card-heading"><img src="/assets/previews/offline-vault-icon-12f3e95-640.webp" srcset="/assets/previews/offline-vault-icon-12f3e95-360.webp 360w, /assets/previews/offline-vault-icon-12f3e95-640.webp 640w, /assets/previews/offline-vault-icon-12f3e95-960.webp 960w, /assets/previews/offline-vault-icon-12f3e95.webp 1024w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/offline-vault-icon-12f3e95.webp" alt="" width="48" height="48" loading="lazy" /><h3 id="vault-title">Offline Vault</h3></div>
-              <p>Keep your own videos and audio in a private library. Save files on your iPhone or iPad and play them without internet. The app and Mac companion are free.</p>
-              <div class="gv-actions">
-                <a class="gv-button gv-button-secondary" href="/offline-vault/">Explore Offline Vault</a>
-                <a class="gv-text-link" href="https://apps.apple.com/us/app/offline-vault-by-greenvital/id6820337743" target="_blank" rel="noopener noreferrer" aria-label="Get free Offline Vault for iPhone and iPad on the App Store (opens in a new tab)">Free iPhone &amp; iPad app <span aria-hidden="true">↗</span></a>
-                <a class="gv-text-link" href="https://apps.apple.com/us/app/id6820337924" target="_blank" rel="noopener noreferrer" aria-label="Get the free Offline Vault Mac companion on the App Store (opens in a new tab)">Free Mac app <span aria-hidden="true">↗</span></a>
-                <a class="gv-text-link" href="/downloads/">Windows downloads</a>
-              </div>
-            </div>
-            <div class="gv-product-visual gv-product-visual-vault"><img src="/assets/previews/offline-vault-library-app-store-dccaa98-640.webp" srcset="/assets/previews/offline-vault-library-app-store-dccaa98-360.webp 360w, /assets/previews/offline-vault-library-app-store-dccaa98-640.webp 640w, /assets/previews/offline-vault-library-app-store-dccaa98-960.webp 960w, /assets/previews/offline-vault-library-app-store-dccaa98.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/offline-vault-library-app-store-dccaa98.webp" alt="Offline Vault Library with example media and storage information" width="1206" height="2622" loading="lazy" decoding="async" /></div>
-          </article>
-        </div>
+      <section id="apps" class="gv-shell gv-catalog-section" aria-labelledby="apps-title">
+        <div class="gv-section-heading"><div><h2 id="apps-title">Find the right app.</h2><p>Choose what you want to do, then explore the app.</p></div><a class="gv-catalog-link" href="/apps/">Browse all apps</a></div>
+        <div class="gv-catalog-grid"><article class="gv-catalog-card" id="money-pulse">
+  <div class="gv-catalog-meta"><span>iPhone &amp; Android</span><span>Available now</span></div>
+  <h3 id="money-title"><a href="/money-pulse.html">Money Pulse</a></h3>
+  <p>Track monthly income, spending and subscriptions.</p>
+  <a class="gv-catalog-link" href="/money-pulse.html">Explore Money Pulse</a>
+</article>
+<article class="gv-catalog-card" id="offline-vault">
+  <div class="gv-catalog-meta"><span>iPhone &amp; iPad · Mac &amp; Windows companions</span><span>Free app</span></div>
+  <h3 id="vault-title"><a href="/offline-vault/">Offline Vault</a></h3>
+  <p>Keep your videos and audio ready to play offline.</p>
+  <a class="gv-catalog-link" href="/offline-vault/">Explore Offline Vault</a>
+</article>
+<article class="gv-catalog-card" id="back-to-life">
+  <div class="gv-catalog-meta"><span>iPhone</span><span>Available now</span></div>
+  <h3 id="focus-title"><a href="/back-to-life.html">Back to Life</a></h3>
+  <p>Make space to focus with schedules and Screen Time controls.</p>
+  <a class="gv-catalog-link" href="/back-to-life.html">Explore Back to Life</a>
+</article>
+<article class="gv-catalog-card" id="wellness">
+  <div class="gv-catalog-meta"><span>Android</span><span>Available now</span></div>
+  <h3 id="wellness-title"><a href="/greenvital-app.html">GreenVital Wellness</a></h3>
+  <p>Explore organized wellness and natural-healing content.</p>
+  <a class="gv-catalog-link" href="/greenvital-app.html">Explore GreenVital Wellness</a>
+</article></div>
       </section>
-
-      <section id="cloud-drop" class="gv-home-cloud-band" aria-labelledby="cloud-title">
-        <div class="gv-shell gv-home-cloud">
-          <div class="gv-cloud-intro">
-            <div class="gv-card-heading"><img src="/offline-vault/drop/cloud-drop.svg" alt="" width="44" height="44" /><span>Cloud Drop</span></div>
-            <p class="gv-eyebrow">Works with Offline Vault</p>
-            <h2 id="cloud-title">From a link.<br />To wherever<br /><span>life takes you.</span></h2>
-            <p>Paste a video link and choose video or audio. Cloud Drop prepares the file. You then save it in the free Offline Vault app.</p>
-            <a class="gv-button" href="/offline-vault/drop/">Try 2 files free <span aria-hidden="true">→</span></a>
-            <p class="gv-small">Up to 200 MB in total, once per account. No card. No automatic subscription. Paid subscriptions are not open yet.</p>
-          </div>
-          <div class="gv-cloud-handoff" aria-label="Cloud Drop prepares a file on the website, then you download it in Offline Vault">
-            <div class="gv-cloud-origin"><span class="gv-cloud-location">On this website</span><strong>A video link</strong><span>Choose video or audio</span></div>
-            <div class="gv-cloud-connector" aria-hidden="true"><span>↓</span></div>
-            <div class="gv-cloud-destination"><img src="/assets/previews/offline-vault-icon-12f3e95-640.webp" srcset="/assets/previews/offline-vault-icon-12f3e95-360.webp 360w, /assets/previews/offline-vault-icon-12f3e95-640.webp 640w, /assets/previews/offline-vault-icon-12f3e95-960.webp 960w, /assets/previews/offline-vault-icon-12f3e95.webp 1024w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/offline-vault-icon-12f3e95.webp" alt="" width="56" height="56" loading="lazy" /><div><span class="gv-cloud-location">In Offline Vault</span><strong>Your offline library</strong><span>Open Transfer. Tap the download arrow.</span></div></div>
-            <p>You choose what to save.<br />You tap to download.</p>
-          </div>
-          <div class="gv-cloud-instructions">
-            <ol class="gv-steps">
-              <li><h3>Get the app and sign in</h3><p>Install <a href="https://apps.apple.com/us/app/offline-vault-by-greenvital/id6820337743" target="_blank" rel="noopener noreferrer">free Offline Vault</a> on your iPhone or iPad. Sign in to Cloud Drop with your email.</p></li>
-              <li><h3>Connect inside the app</h3><p>Show Cloud Drop’s code on another screen. In Offline Vault, open <strong>Settings → Connect Your Computer</strong> and scan the code.</p></li>
-              <li><h3>Prepare here. Save in the app.</h3><p>Paste a link into Cloud Drop. When your file is ready, open <strong>Transfer</strong> in the app and tap the <strong>download arrow</strong>. Play it offline from <strong>Library</strong>.</p></li>
-            </ol>
-            <div class="gv-note"><strong>First time?</strong> You need your iPhone or iPad and another screen, such as a computer or tablet, for the first connection.</div>
-          </div>
-        </div>
+      <section id="coming-next" class="gv-shell gv-catalog-section" aria-labelledby="next-title">
+        <div class="gv-section-heading"><div><h2 id="next-title">In development</h2><p>See what’s in private testing or preparing for release.</p></div></div>
+        <div class="gv-catalog-grid"><article class="gv-catalog-card" id="petshift">
+  <div class="gv-catalog-meta"><span>Owners &amp; sitters</span><span>Private beta</span></div>
+  <h3 id="petshift-title"><a href="/petshift/">PetShift</a></h3>
+  <p>Share care plans and updates with owners and sitters you know.</p>
+  <a class="gv-catalog-link" href="/petshift/">Explore PetShift</a>
+</article>
+<article class="gv-catalog-card" id="storagepilot">
+  <div class="gv-catalog-meta"><span>Android</span><span>Google Play soon</span></div>
+  <h3 id="storage-title"><a href="/storagepilot/">StoragePilot</a></h3>
+  <p>Review storage, organize files and choose what to remove.</p>
+  <a class="gv-catalog-link" href="/storagepilot/">Explore StoragePilot</a>
+</article></div>
       </section>
-
-      <section id="coming-next" class="gv-home-upcoming" aria-labelledby="next-title">
-        <div class="gv-shell gv-section">
-          <div class="gv-section-heading">
-            <div><p class="gv-eyebrow">Coming next</p><h2 id="next-title">A little look ahead.</h2></div>
-            <p>These apps are in private testing or getting ready for release. Their product pages explain what is available.</p>
-          </div>
-          <div class="gv-upcoming-collection">
-            <article class="gv-product gv-upcoming-product gv-feature-petshift" aria-labelledby="petshift-title">
-              <div class="gv-product-copy">
-                <div class="gv-product-meta"><p class="gv-eyebrow">Pet care</p><span class="gv-tag gv-tag-neutral">Private beta</span></div>
-                <h3 id="petshift-title">PetShift</h3>
-                <p>Keep pet owners and trusted sitters on the same page. Share care schedules, photos, and updates during a stay.</p>
-                <div class="gv-actions">
-                  <a class="gv-button gv-button-secondary" href="/petshift/">Explore PetShift</a>
-                  <a class="gv-text-link" href="mailto:support@greenvital.app?subject=PetShift%20Private%20Beta">Ask about the beta</a>
-                </div>
-              </div>
-              <div class="gv-product-visual"><img src="/assets/previews/petshift-owner-live-schedule-3269b92-640.webp" srcset="/assets/previews/petshift-owner-live-schedule-3269b92-360.webp 360w, /assets/previews/petshift-owner-live-schedule-3269b92-640.webp 640w, /assets/previews/petshift-owner-live-schedule-3269b92-960.webp 960w, /assets/previews/petshift-owner-live-schedule-3269b92.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/petshift-owner-live-schedule-3269b92.webp" alt="PetShift live pet-care schedule" width="1206" height="2622" loading="lazy" decoding="async" /></div>
-            </article>
-            <article class="gv-product gv-upcoming-product gv-feature-storage" aria-labelledby="storage-title">
-              <div class="gv-product-copy">
-                <div class="gv-product-meta"><p class="gv-eyebrow">Android storage</p><span class="gv-tag gv-tag-neutral">Google Play soon</span></div>
-                <h3 id="storage-title">StoragePilot</h3>
-                <p>See what is taking up space. Review your files, compress them carefully, and choose what to remove. Your files stay on your device.</p>
-                <div class="gv-actions">
-                  <a class="gv-button gv-button-secondary" href="/storagepilot/">Explore StoragePilot</a>
-                  <a class="gv-text-link" href="/storagepilot/privacy/">Privacy</a>
-                </div>
-              </div>
-              <div class="gv-product-visual"><img src="/assets/previews/storagepilot-dashboard-8470ab5-640.webp" srcset="/assets/previews/storagepilot-dashboard-8470ab5-360.webp 360w, /assets/previews/storagepilot-dashboard-8470ab5-640.webp 640w, /assets/previews/storagepilot-dashboard-8470ab5-960.webp 960w, /assets/previews/storagepilot-dashboard-8470ab5.webp 1080w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/storagepilot-dashboard-8470ab5.webp" alt="StoragePilot dashboard showing storage use" width="1080" height="2400" loading="lazy" decoding="async" /></div>
-            </article>
-          </div>
-        </div>
+      <section id="cloud-drop" class="gv-shell gv-catalog-section" aria-labelledby="cloud-title">
+        <div class="gv-catalog-service"><div><h2 id="cloud-title">Start with a video link.</h2><p>Cloud Drop prepares video or audio files for Offline Vault. Sign in on the website, connect your phone, then choose what to save.</p><p class="gv-small">Two files free, up to 200 MB in total. No card. No automatic subscription.</p></div><a class="gv-button" href="/offline-vault/drop/">Open Cloud Drop</a></div>
       </section>
 
       <section id="principles" class="gv-shell gv-section gv-home-principles" aria-labelledby="principles-title">
