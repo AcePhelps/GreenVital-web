@@ -191,3 +191,4 @@ body.gv-image-viewing { overflow:hidden; }
 .gv-image-dialog[open] { animation:gv-dialog-enter 180ms ease-out; }
 @media(prefers-reduced-motion:reduce) { .gv-image-dialog[open] { animation:none; } }
 .gv-product-page[data-product="pet"] { --gv-blue:#226747; --gv-blue-hover:#194d35; --gv-blue-soft:#e3f0e9; }
+.gv-detail-split>article { scroll-margin-top:112px; }
