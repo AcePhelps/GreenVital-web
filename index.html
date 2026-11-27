@@ -12,7 +12,9 @@
     <link rel="icon" type="image/svg+xml" href="/greenvital-mark.svg" />
     <link rel="stylesheet" href="/greenvital.css?v=20261127-studio" />
     <script src="/script.js" defer></script>
-  </head>
+    <link rel="preload" href="/assets/fonts/geist-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/site-experience.js?v=20261127-studio" defer></script>
+ </head>
   <body class="gv-home">
     <a class="gv-skip-link" href="#main">Skip to content</a>
     <header class="gv-header">
@@ -39,16 +41,24 @@
           </div>
           <p class="gv-small">For iPhone, iPad, Android, and your computer. See each app for supported devices.</p>
         </div>
-        <div class="gv-hero-visual gv-home-showcase" aria-label="Real screens from GreenVital apps">
-          <p class="gv-showcase-caption">A look inside our apps.</p>
-          <figure class="gv-home-screen gv-home-screen-money">
-            <img src="/Screenshots/moneypulse-may-2026.png" alt="Money Pulse showing a monthly balance, spending, and recent activity" width="1206" height="2622" fetchpriority="high" />
-            <figcaption>Money Pulse</figcaption>
-          </figure>
-          <figure class="gv-home-screen gv-home-screen-vault">
-            <img src="/offline-vault/assets/offline-vault-library-app-store.jpg" alt="Offline Vault Library with example media ready for offline playback" width="1206" height="2622" />
-            <figcaption>Offline Vault</figcaption>
-          </figure>
+        <div class="gv-hero-visual gv-app-preview" data-app-preview>
+          <div class="gv-preview-tabs" role="tablist" aria-label="Preview an app" hidden>
+            <button type="button" role="tab" id="preview-money-tab" aria-controls="preview-money" aria-selected="true">Money Pulse</button>
+            <button type="button" role="tab" id="preview-vault-tab" aria-controls="preview-vault" aria-selected="false" tabindex="-1">Offline Vault</button>
+            <button type="button" role="tab" id="preview-pet-tab" aria-controls="preview-pet" aria-selected="false" tabindex="-1">PetShift</button>
+          </div>
+          <div class="gv-preview-scene" id="preview-money" role="tabpanel" aria-labelledby="preview-money-tab" tabindex="0">
+            <div class="gv-preview-copy"><h2>Your month,<br>at a glance.</h2><p>Balance, spending and subscriptions together.</p><a href="/money-pulse.html">Explore Money Pulse</a></div>
+            <img src="/assets/previews/moneypulse-may-2026-3367a2e-640.webp" srcset="/assets/previews/moneypulse-may-2026-3367a2e-360.webp 360w, /assets/previews/moneypulse-may-2026-3367a2e-640.webp 640w, /assets/previews/moneypulse-may-2026-3367a2e-960.webp 960w, /assets/previews/moneypulse-may-2026-3367a2e.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/moneypulse-may-2026-3367a2e.webp" alt="Money Pulse showing a monthly balance, spending and recent activity" width="1206" height="2622" fetchpriority="high">
+          </div>
+          <div class="gv-preview-scene" id="preview-vault" role="tabpanel" aria-labelledby="preview-vault-tab" tabindex="0" hidden>
+            <div class="gv-preview-copy"><h2>Take your<br>library along.</h2><p>Your videos and audio, ready for offline playback.</p><a href="/offline-vault/">Explore Offline Vault</a></div>
+            <img src="/assets/previews/offline-vault-library-app-store-dccaa98-640.webp" srcset="/assets/previews/offline-vault-library-app-store-dccaa98-360.webp 360w, /assets/previews/offline-vault-library-app-store-dccaa98-640.webp 640w, /assets/previews/offline-vault-library-app-store-dccaa98-960.webp 960w, /assets/previews/offline-vault-library-app-store-dccaa98.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/offline-vault-library-app-store-dccaa98.webp" alt="Offline Vault Library with example media ready for offline playback" width="1206" height="2622">
+          </div>
+          <div class="gv-preview-scene" id="preview-pet" role="tabpanel" aria-labelledby="preview-pet-tab" tabindex="0" hidden>
+            <div class="gv-preview-copy"><h2>A shared view<br>of their day.</h2><p>Care plans and updates for owners and trusted sitters.</p><a href="/petshift/">Explore PetShift</a><small>Private beta</small></div>
+            <img src="/assets/previews/petshift-sitter-today-bc64c0c-640.webp" srcset="/assets/previews/petshift-sitter-today-bc64c0c-360.webp 360w, /assets/previews/petshift-sitter-today-bc64c0c-640.webp 640w, /assets/previews/petshift-sitter-today-bc64c0c-960.webp 960w, /assets/previews/petshift-sitter-today-bc64c0c.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/petshift-sitter-today-bc64c0c.webp" alt="PetShift sitter daily care checklist" width="1206" height="2622">
+          </div>
         </div>
       </section>
 
@@ -76,7 +86,7 @@
                 <a class="gv-text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.moneypulse&amp;pcampaignid=web_share" target="_blank" rel="noopener noreferrer" aria-label="Money Pulse on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a>
               </div>
             </div>
-            <div class="gv-product-visual gv-product-visual-money"><img src="/Screenshots/moneypulse-may-2026.png" alt="Money Pulse monthly balance screen" width="1206" height="2622" loading="lazy" decoding="async" /></div>
+            <div class="gv-product-visual gv-product-visual-money"><img src="/assets/previews/moneypulse-may-2026-3367a2e-640.webp" srcset="/assets/previews/moneypulse-may-2026-3367a2e-360.webp 360w, /assets/previews/moneypulse-may-2026-3367a2e-640.webp 640w, /assets/previews/moneypulse-may-2026-3367a2e-960.webp 960w, /assets/previews/moneypulse-may-2026-3367a2e.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/moneypulse-may-2026-3367a2e.webp" alt="Money Pulse monthly balance screen" width="1206" height="2622" loading="lazy" decoding="async" /></div>
           </article>
 
           <article class="gv-product gv-app-compact gv-feature-focus" aria-labelledby="focus-title">
@@ -90,7 +100,7 @@
                 <a class="gv-text-link" href="/back-to-liife-support.html">Support</a>
               </div>
             </div>
-            <div class="gv-product-visual gv-product-visual-focus"><img src="/Screenshots/Screenshot%202026-04-13%20at%2010.38.35.png" alt="Back to Life daily focus schedules" width="1206" height="2622" loading="lazy" decoding="async" /></div>
+            <div class="gv-product-visual gv-product-visual-focus"><img src="/assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-640.webp" srcset="/assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-360.webp 360w, /assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-640.webp 640w, /assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2-960.webp 960w, /assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/screenshot-202026-04-13-20at-2010-38-35-93707e2.webp" alt="Back to Life daily focus schedules" width="1206" height="2622" loading="lazy" decoding="async" /></div>
           </article>
 
           <article class="gv-product gv-app-compact gv-feature-wellness" aria-labelledby="wellness-title">
@@ -103,13 +113,13 @@
                 <a class="gv-text-link" href="https://play.google.com/store/apps/details?id=com.greenvital.naturalhealingapp&amp;pcampaignid=web_share" target="_blank" rel="noopener noreferrer" aria-label="GreenVital Wellness on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a>
               </div>
             </div>
-            <div class="gv-product-visual gv-product-visual-wellness"><img src="/Screenshots/greenvital.jpeg" alt="GreenVital Wellness app showing its wellness content" width="970" height="2048" loading="lazy" decoding="async" /></div>
+            <div class="gv-product-visual gv-product-visual-wellness"><img src="/assets/previews/greenvital-f89ac9f-640.webp" srcset="/assets/previews/greenvital-f89ac9f-360.webp 360w, /assets/previews/greenvital-f89ac9f-640.webp 640w, /assets/previews/greenvital-f89ac9f-960.webp 960w, /assets/previews/greenvital-f89ac9f.webp 970w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/greenvital-f89ac9f.webp" alt="GreenVital Wellness app showing its wellness content" width="970" height="2048" loading="lazy" decoding="async" /></div>
           </article>
 
           <article class="gv-product gv-app-feature gv-app-feature-reverse gv-feature-vault" aria-labelledby="vault-title">
             <div class="gv-product-copy">
               <div class="gv-product-meta"><p class="gv-eyebrow">Your offline library</p><span class="gv-tag">Free · iPhone &amp; iPad</span></div>
-              <div class="gv-card-heading"><img src="/offline-vault/assets/offline-vault-icon.png" alt="" width="48" height="48" loading="lazy" /><h3 id="vault-title">Offline Vault</h3></div>
+              <div class="gv-card-heading"><img src="/assets/previews/offline-vault-icon-12f3e95-640.webp" srcset="/assets/previews/offline-vault-icon-12f3e95-360.webp 360w, /assets/previews/offline-vault-icon-12f3e95-640.webp 640w, /assets/previews/offline-vault-icon-12f3e95-960.webp 960w, /assets/previews/offline-vault-icon-12f3e95.webp 1024w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/offline-vault-icon-12f3e95.webp" alt="" width="48" height="48" loading="lazy" /><h3 id="vault-title">Offline Vault</h3></div>
               <p>Keep your own videos and audio in a private library. Save files on your iPhone or iPad and play them without internet. The app and Mac companion are free.</p>
               <div class="gv-actions">
                 <a class="gv-button gv-button-secondary" href="/offline-vault/">Explore Offline Vault</a>
@@ -118,7 +128,7 @@
                 <a class="gv-text-link" href="/downloads/">Windows downloads</a>
               </div>
             </div>
-            <div class="gv-product-visual gv-product-visual-vault"><img src="/offline-vault/assets/offline-vault-library-app-store.jpg" alt="Offline Vault Library with example media and storage information" width="1206" height="2622" loading="lazy" decoding="async" /></div>
+            <div class="gv-product-visual gv-product-visual-vault"><img src="/assets/previews/offline-vault-library-app-store-dccaa98-640.webp" srcset="/assets/previews/offline-vault-library-app-store-dccaa98-360.webp 360w, /assets/previews/offline-vault-library-app-store-dccaa98-640.webp 640w, /assets/previews/offline-vault-library-app-store-dccaa98-960.webp 960w, /assets/previews/offline-vault-library-app-store-dccaa98.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/offline-vault-library-app-store-dccaa98.webp" alt="Offline Vault Library with example media and storage information" width="1206" height="2622" loading="lazy" decoding="async" /></div>
           </article>
         </div>
       </section>
@@ -136,7 +146,7 @@
           <div class="gv-cloud-handoff" aria-label="Cloud Drop prepares a file on the website, then you download it in Offline Vault">
             <div class="gv-cloud-origin"><span class="gv-cloud-location">On this website</span><strong>A video link</strong><span>Choose video or audio</span></div>
             <div class="gv-cloud-connector" aria-hidden="true"><span>↓</span></div>
-            <div class="gv-cloud-destination"><img src="/offline-vault/assets/offline-vault-icon.png" alt="" width="56" height="56" loading="lazy" /><div><span class="gv-cloud-location">In Offline Vault</span><strong>Your offline library</strong><span>Open Transfer. Tap the download arrow.</span></div></div>
+            <div class="gv-cloud-destination"><img src="/assets/previews/offline-vault-icon-12f3e95-640.webp" srcset="/assets/previews/offline-vault-icon-12f3e95-360.webp 360w, /assets/previews/offline-vault-icon-12f3e95-640.webp 640w, /assets/previews/offline-vault-icon-12f3e95-960.webp 960w, /assets/previews/offline-vault-icon-12f3e95.webp 1024w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/offline-vault-icon-12f3e95.webp" alt="" width="56" height="56" loading="lazy" /><div><span class="gv-cloud-location">In Offline Vault</span><strong>Your offline library</strong><span>Open Transfer. Tap the download arrow.</span></div></div>
             <p>You choose what to save.<br />You tap to download.</p>
           </div>
           <div class="gv-cloud-instructions">
@@ -167,7 +177,7 @@
                   <a class="gv-text-link" href="mailto:support@greenvital.app?subject=PetShift%20Private%20Beta">Ask about the beta</a>
                 </div>
               </div>
-              <div class="gv-product-visual"><img src="/petshift/assets/petshift-owner-live-schedule.png" alt="PetShift live pet-care schedule" width="1206" height="2622" loading="lazy" decoding="async" /></div>
+              <div class="gv-product-visual"><img src="/assets/previews/petshift-owner-live-schedule-3269b92-640.webp" srcset="/assets/previews/petshift-owner-live-schedule-3269b92-360.webp 360w, /assets/previews/petshift-owner-live-schedule-3269b92-640.webp 640w, /assets/previews/petshift-owner-live-schedule-3269b92-960.webp 960w, /assets/previews/petshift-owner-live-schedule-3269b92.webp 1206w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/petshift-owner-live-schedule-3269b92.webp" alt="PetShift live pet-care schedule" width="1206" height="2622" loading="lazy" decoding="async" /></div>
             </article>
             <article class="gv-product gv-upcoming-product gv-feature-storage" aria-labelledby="storage-title">
               <div class="gv-product-copy">
@@ -179,7 +189,7 @@
                   <a class="gv-text-link" href="/storagepilot/privacy/">Privacy</a>
                 </div>
               </div>
-              <div class="gv-product-visual"><img src="/storagepilot/assets/storagepilot-dashboard.png" alt="StoragePilot dashboard showing storage use" width="1080" height="2400" loading="lazy" decoding="async" /></div>
+              <div class="gv-product-visual"><img src="/assets/previews/storagepilot-dashboard-8470ab5-640.webp" srcset="/assets/previews/storagepilot-dashboard-8470ab5-360.webp 360w, /assets/previews/storagepilot-dashboard-8470ab5-640.webp 640w, /assets/previews/storagepilot-dashboard-8470ab5-960.webp 960w, /assets/previews/storagepilot-dashboard-8470ab5.webp 1080w" sizes="(max-width:720px) 70vw, 380px" data-full-src="/assets/previews/storagepilot-dashboard-8470ab5.webp" alt="StoragePilot dashboard showing storage use" width="1080" height="2400" loading="lazy" decoding="async" /></div>
             </article>
           </div>
         </div>
