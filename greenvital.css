@@ -437,3 +437,8 @@ strong { font-weight: 650; }
 
 .gv-home #apps { padding-block:44px; }
 @media(max-width:720px) { .gv-home #apps { padding-block:32px; } }
+
+.gv-home-about { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; padding-block:48px; border-top:1px solid var(--gv-line); }
+.gv-home-about h2 { font-size:clamp(28px,3vw,36px); margin:0; }
+.gv-home-about p { max-width:48ch; color:var(--gv-muted); margin:0; }
+@media(max-width:720px) { .gv-home-about { grid-template-columns:1fr; gap:16px; padding-block:32px; } }
