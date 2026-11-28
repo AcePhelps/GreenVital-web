@@ -27,3 +27,21 @@ axe WCAG 2 A/AA and 2.1 AA violations.
 
 These checks cover rendering and navigation. They do not establish how visitors
 understand the app choices or how well the pages convert.
+
+## Compact homepage and Cloud Drop placement
+
+Cloud Drop is reached from the Offline Vault product page through its local
+navigation and Use Cloud Drop action. The shared studio header contains Apps,
+Support and About. The homepage and Apps directory direct visitors to the app
+before exposing its optional web companion.
+
+Visible homepage main text fell from 392 to 180 words in the default desktop
+state. Height at 1440px fell from 3422px to 2477px. All six app summaries and their
+availability labels remain accessible. The previous root #cloud-drop bookmark
+lands at the Offline Vault card.
+
+All 33 pages passed 320px, 375px and 1440px Chrome layout checks. Seven key mobile
+pages had zero axe WCAG violations. Chrome and WebKit passed the route Home to
+Apps to Offline Vault to Cloud Drop. Existing preview, menu, dialog, keyboard,
+reduced-motion and no-JavaScript checks passed. Service file preparation and
+account transactions were outside this navigation check.
